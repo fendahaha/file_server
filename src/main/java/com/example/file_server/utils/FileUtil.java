@@ -3,13 +3,9 @@ package com.example.file_server.utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class FileUtil {
