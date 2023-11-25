@@ -575,6 +575,76 @@ public class UploadFileExample {
             return (Criteria) this;
         }
 
+        public Criteria andFileCategoryIsNull() {
+            addCriterion("file_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryIsNotNull() {
+            addCriterion("file_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryEqualTo(String value) {
+            addCriterion("file_category =", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryNotEqualTo(String value) {
+            addCriterion("file_category <>", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryGreaterThan(String value) {
+            addCriterion("file_category >", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("file_category >=", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryLessThan(String value) {
+            addCriterion("file_category <", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryLessThanOrEqualTo(String value) {
+            addCriterion("file_category <=", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryLike(String value) {
+            addCriterion("file_category like", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryNotLike(String value) {
+            addCriterion("file_category not like", value, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryIn(List<String> values) {
+            addCriterion("file_category in", values, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryNotIn(List<String> values) {
+            addCriterion("file_category not in", values, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryBetween(String value1, String value2) {
+            addCriterion("file_category between", value1, value2, "fileCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileCategoryNotBetween(String value1, String value2) {
+            addCriterion("file_category not between", value1, value2, "fileCategory");
+            return (Criteria) this;
+        }
+
         public Criteria andFileUploadDateIsNull() {
             addCriterion("file_upload_date is null");
             return (Criteria) this;

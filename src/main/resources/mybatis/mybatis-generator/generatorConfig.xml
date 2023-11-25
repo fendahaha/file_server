@@ -26,6 +26,7 @@
                              targetProject="src/main/java"/>
 
         <!-- 指定数据库表 -->
+<!--        <table tableName="upload_file" domainObjectName="UploadFile"/>-->
         <table tableName="upload_file" domainObjectName="UploadFile"/>
     </context>
 </generatorConfiguration>

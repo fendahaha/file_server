@@ -1,14 +1,13 @@
 package com.example.file_server.controller;
 
 import com.example.file_server.entity.UploadFile;
-import com.example.file_server.mapper.UploadFileMapper;
+import com.example.file_server.form.UploadFileForm;
 import com.example.file_server.service.impl.UploadFileServiceImpl;
 import com.example.file_server.utils.ApiResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -19,8 +18,6 @@ import java.util.List;
 @RequestMapping("/file")
 @RestController
 public class FileUploadController {
-    @Autowired
-    private UploadFileMapper uploadFileMapper;
 
     @Autowired
     private UploadFileServiceImpl uploadFileService;
@@ -39,9 +36,9 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public Object upload(@RequestParam("file") MultipartFile[] files) {
+    public Object upload(@ModelAttribute UploadFileForm uploadFileForm) {
         try {
-            HashMap<String, Object> resultMap = uploadFileService.upload(files);
+            HashMap<String, Object> resultMap = uploadFileService.upload(uploadFileForm);
             return ApiResponseUtil.ok(resultMap);
         } catch (IOException e) {
             e.printStackTrace();

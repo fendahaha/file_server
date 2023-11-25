@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 22/11/2023 21:37:15
+ Date: 25/11/2023 21:48:51
 */
 
 SET NAMES utf8mb4;
@@ -29,8 +29,9 @@ CREATE TABLE `upload_file`  (
   `file_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `file_tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `file_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_upload_date` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

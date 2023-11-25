@@ -13,7 +13,7 @@ public class IndexController {
         return "hello";
     }
 
-    @GetMapping("/upload_page")
+    @GetMapping("/file/upload")
     public String upload_page() {
         return "upload_page";
     }

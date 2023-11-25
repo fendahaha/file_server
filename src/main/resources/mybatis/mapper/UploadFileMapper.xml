@@ -9,6 +9,7 @@
     <result column="file_type" jdbcType="VARCHAR" property="fileType" />
     <result column="file_path" jdbcType="VARCHAR" property="filePath" />
     <result column="file_tags" jdbcType="VARCHAR" property="fileTags" />
+    <result column="file_category" jdbcType="VARCHAR" property="fileCategory" />
     <result column="file_upload_date" jdbcType="TIMESTAMP" property="fileUploadDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, file_unique_name, file_original_name, file_size, file_type, file_path, file_tags, 
-    file_upload_date
+    file_category, file_upload_date
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.UploadFileExample" resultMap="BaseResultMap">
     select
@@ -106,10 +107,12 @@
   <insert id="insert" parameterType="com.example.file_server.entity.UploadFile">
     insert into upload_file (id, file_unique_name, file_original_name, 
       file_size, file_type, file_path, 
-      file_tags, file_upload_date)
+      file_tags, file_category, file_upload_date
+      )
     values (#{id,jdbcType=INTEGER}, #{fileUniqueName,jdbcType=VARCHAR}, #{fileOriginalName,jdbcType=VARCHAR}, 
       #{fileSize,jdbcType=BIGINT}, #{fileType,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
-      #{fileTags,jdbcType=VARCHAR}, #{fileUploadDate,jdbcType=TIMESTAMP})
+      #{fileTags,jdbcType=VARCHAR}, #{fileCategory,jdbcType=VARCHAR}, #{fileUploadDate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.UploadFile">
     insert into upload_file
@@ -134,6 +137,9 @@
       </if>
       <if test="fileTags != null">
         file_tags,
+      </if>
+      <if test="fileCategory != null">
+        file_category,
       </if>
       <if test="fileUploadDate != null">
         file_upload_date,
@@ -160,6 +166,9 @@
       </if>
       <if test="fileTags != null">
         #{fileTags,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCategory != null">
+        #{fileCategory,jdbcType=VARCHAR},
       </if>
       <if test="fileUploadDate != null">
         #{fileUploadDate,jdbcType=TIMESTAMP},
@@ -196,6 +205,9 @@
       <if test="record.fileTags != null">
         file_tags = #{record.fileTags,jdbcType=VARCHAR},
       </if>
+      <if test="record.fileCategory != null">
+        file_category = #{record.fileCategory,jdbcType=VARCHAR},
+      </if>
       <if test="record.fileUploadDate != null">
         file_upload_date = #{record.fileUploadDate,jdbcType=TIMESTAMP},
       </if>
@@ -213,6 +225,7 @@
       file_type = #{record.fileType,jdbcType=VARCHAR},
       file_path = #{record.filePath,jdbcType=VARCHAR},
       file_tags = #{record.fileTags,jdbcType=VARCHAR},
+      file_category = #{record.fileCategory,jdbcType=VARCHAR},
       file_upload_date = #{record.fileUploadDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -239,6 +252,9 @@
       <if test="fileTags != null">
         file_tags = #{fileTags,jdbcType=VARCHAR},
       </if>
+      <if test="fileCategory != null">
+        file_category = #{fileCategory,jdbcType=VARCHAR},
+      </if>
       <if test="fileUploadDate != null">
         file_upload_date = #{fileUploadDate,jdbcType=TIMESTAMP},
       </if>
@@ -253,6 +269,7 @@
       file_type = #{fileType,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
       file_tags = #{fileTags,jdbcType=VARCHAR},
+      file_category = #{fileCategory,jdbcType=VARCHAR},
       file_upload_date = #{fileUploadDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

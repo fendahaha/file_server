@@ -1,7 +1,9 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.FendaConfiguration;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
+import com.example.file_server.form.UploadFileForm;
 import com.example.file_server.mapper.UploadFileMapper;
 import com.example.file_server.service.UploadFileService;
 import com.example.file_server.utils.FileUploadUtil;
@@ -24,7 +26,7 @@ public class UploadFileServiceImpl implements UploadFileService {
     private UploadFileMapper uploadFileMapper;
 
     @Autowired
-    private FileUploadUtil fileUploadUtil;
+    private FendaConfiguration fendaConfiguration;
 
     public List<UploadFile> list() {
         UploadFileExample example = new UploadFileExample();
@@ -34,16 +36,19 @@ public class UploadFileServiceImpl implements UploadFileService {
         return uploadFiles;
     }
 
-    public HashMap<String, Object> upload(MultipartFile[] files) throws IOException {
+    public HashMap<String, Object> upload(UploadFileForm uploadFileForm) throws IOException {
         Date date = new Date();
-        Path path = fileUploadUtil.createPathIfNotExist(fileUploadUtil.getUploadpath());
+        Path path = FileUploadUtil.createPathIfNotExist(fendaConfiguration.getFile_upload_location());
 
+        String tags = uploadFileForm.getTags();
+        String category = uploadFileForm.getCategory();
+        MultipartFile[] files = uploadFileForm.getFile();
         HashMap<String, Object> resultMap = new HashMap<>();
         for (MultipartFile file : files) {
             resultMap.put(file.getOriginalFilename(), false);
             try {
                 String originalFilename = file.getOriginalFilename();
-                String unique_name = fileUploadUtil.generate_unique_name(originalFilename, date);
+                String unique_name = FileUploadUtil.generate_unique_name(originalFilename, date);
                 long fileSize = file.getSize();
                 String contentType = file.getContentType();
                 Path filepath = Paths.get(unique_name);

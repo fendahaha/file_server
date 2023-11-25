@@ -17,6 +17,8 @@ public class UploadFile {
 
     private String fileTags;
 
+    private String fileCategory;
+
     private Date fileUploadDate;
 
     public Integer getId() {
@@ -73,6 +75,14 @@ public class UploadFile {
 
     public void setFileTags(String fileTags) {
         this.fileTags = fileTags;
+    }
+
+    public String getFileCategory() {
+        return fileCategory;
+    }
+
+    public void setFileCategory(String fileCategory) {
+        this.fileCategory = fileCategory;
     }
 
     public Date getFileUploadDate() {
