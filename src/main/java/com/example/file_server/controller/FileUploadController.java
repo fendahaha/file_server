@@ -1,26 +1,27 @@
 package com.example.file_server.controller;
 
-import com.example.file_server.entity.UploadFile;
 import com.example.file_server.form.UploadFileForm;
-import com.example.file_server.service.impl.UploadFileServiceImpl;
-import com.example.file_server.utils.ApiResponseUtil;
+import com.example.file_server.service.UploadFileService;
+import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
+/**
+ * 上传文件处理操作
+ *
+ */
 @RequestMapping("/file")
 @RestController
 public class FileUploadController {
 
     @Autowired
-    private UploadFileServiceImpl uploadFileService;
+    private UploadFileService uploadFileService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -29,27 +30,39 @@ public class FileUploadController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
+    /**
+     * 查询文件列表
+     *
+     * @param date 文件上传时间
+     */
     @GetMapping("/list")
     public Object list(Date date) {
-        List<UploadFile> list = uploadFileService.list();
-        return ApiResponseUtil.ok(list);
+        return ResponseUtil.ok(uploadFileService.list());
     }
 
+    /**
+     * 上传文件
+     *
+     * @param category 文件名称
+     * @param tags 标签
+     * @param file 目录
+     */
     @PostMapping("/upload")
-    public Object upload(@ModelAttribute UploadFileForm uploadFileForm) {
-        try {
-            HashMap<String, Object> resultMap = uploadFileService.upload(uploadFileForm);
-            return ApiResponseUtil.ok(resultMap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ApiResponseUtil.internal_server_error(null);
+    public Object upload(UploadFileForm uploadFileForm) {
+        return ResponseUtil.ok(uploadFileService.upload(uploadFileForm));
     }
 
-    @GetMapping("/delete")
-    public Object delete(String[] file_unique_names) {
-        int i = uploadFileService.deleteByUniqueNames(file_unique_names);
-        return ApiResponseUtil.no_content(i);
+    /**
+     * 删除上传的文件
+     *
+     * @param fileUniqueNames 文件名称
+     * @param fileTags 标签
+     * @param fileCategorys 目录
+     */
+    @PostMapping("/deleteByUniqueNames")
+    public Object deleteByUniqueNames(@RequestBody HashMap<String, Object> map) {
+        int i = uploadFileService.delete_auto(map);
+        return ResponseUtil.ok(i);
     }
 
 }

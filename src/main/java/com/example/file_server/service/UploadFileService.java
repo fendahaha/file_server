@@ -1,6 +1,7 @@
 package com.example.file_server.service;
 
 import com.example.file_server.entity.UploadFile;
+import com.example.file_server.entity.UploadFileExample;
 import com.example.file_server.form.UploadFileForm;
 
 import java.io.IOException;
@@ -11,8 +12,8 @@ public interface UploadFileService {
 
     public List<UploadFile> list();
 
-    HashMap<String, Object> upload(UploadFileForm uploadFileForm) throws IOException;
+    public HashMap<String, Object> upload(UploadFileForm uploadFileForm);
 
-    int deleteByUniqueNames(String[] file_unique_names);
-
+    public int delete_auto(HashMap<String, Object> map);
 }
+

@@ -11,11 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
-    private FendaConfiguration fendaConfiguration;
+    private FileUploadConfiguration fileUploadConfiguration;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(fendaConfiguration.getFile_upload_path())
-                .addResourceLocations("file:" + fendaConfiguration.getFile_upload_location());
+        registry.addResourceHandler(fileUploadConfiguration.getFile_upload_path())
+                .addResourceLocations("file:" + fileUploadConfiguration.getFile_upload_location());
     }
 }
