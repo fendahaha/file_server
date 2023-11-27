@@ -16,3 +16,6 @@ mybatis:
   type-aliases-package: com.example.file_server.entity
   mapper-locations: classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
+pagehelper:
+  helper-dialect: mysql
+  async-count: true

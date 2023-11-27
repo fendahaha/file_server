@@ -3,7 +3,8 @@ package com.example.file_server.service.impl;
 import com.example.file_server.config.FileUploadConfiguration;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
-import com.example.file_server.form.UploadFileForm;
+import com.example.file_server.form.FileDeleteForm;
+import com.example.file_server.form.FileUploadForm;
 import com.example.file_server.mapper.UploadFileMapper;
 import com.example.file_server.service.UploadFileService;
 import com.example.file_server.utils.FileUploadUtil;
@@ -39,13 +40,13 @@ public class UploadFileServiceImpl implements UploadFileService {
         return Paths.get(category, filename);
     }
 
-    public HashMap<String, Object> upload(UploadFileForm uploadFileForm) {
+    public HashMap<String, Object> upload(FileUploadForm fileUploadForm) {
         Path file_root_path = fileUploadConfiguration.getFileRootPath();
 
         Date date = new Date();
-        String tags = uploadFileForm.getTags();
-        String category = uploadFileForm.getCategory();
-        MultipartFile[] files = uploadFileForm.getFile();
+        String tags = fileUploadForm.getTags();
+        String category = fileUploadForm.getCategory();
+        MultipartFile[] files = fileUploadForm.getFile();
 
         HashMap<String, Object> resultMap = new HashMap<>();
         for (MultipartFile file : files) {
@@ -110,7 +111,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 
         Path fileRootPath = fileUploadConfiguration.getFileRootPath();
         uploadFiles.forEach(f -> {
-            System.out.println("filePath: "+f.getFilePath());
+            System.out.println("filePath: " + f.getFilePath());
             Path resolve = fileRootPath.resolve(f.getFilePath());
             System.out.println(resolve.toString());
             FileUploadUtil.deleteFile(resolve.toString());
@@ -133,30 +134,20 @@ public class UploadFileServiceImpl implements UploadFileService {
         return delete(example);
     }
 
-    public int delete_auto(HashMap<String, Object> map) {
-        Object fileUniqueNames = map.get("fileUniqueNames");
+    public int delete_auto(FileDeleteForm fileDeleteForm) {
+        List<String> fileUniqueNames = fileDeleteForm.getFileUniqueNames();
         if (!Objects.isNull(fileUniqueNames)) {
-            if (fileUniqueNames.getClass().equals(String.class)) {
-                return deleteByUniqueNames(Arrays.asList((String) fileUniqueNames));
-            } else if (fileUniqueNames.getClass().equals(ArrayList.class)) {
-                return deleteByUniqueNames((ArrayList) fileUniqueNames);
-            }
+            return deleteByUniqueNames(fileUniqueNames);
         }
-        Object fileTags = map.get("fileTags");
-        if (!Objects.isNull(fileTags)) {
-            if (fileTags.getClass().equals(String.class)) {
-                return deleteByTags(Arrays.asList((String) fileTags));
-            } else if (fileTags.getClass().equals(ArrayList.class)) {
-                return deleteByTags((ArrayList) fileTags);
-            }
-        }
-        Object fileCategorys = map.get("fileCategorys");
+
+        List<String> fileCategorys = fileDeleteForm.getFileCategorys();
         if (!Objects.isNull(fileCategorys)) {
-            if (fileCategorys.getClass().equals(String.class)) {
-                return deleteByCategorys(Arrays.asList((String) fileCategorys));
-            } else if (fileCategorys.getClass().equals(ArrayList.class)) {
-                return deleteByCategorys((ArrayList) fileCategorys);
-            }
+            return deleteByCategorys(fileCategorys);
+        }
+
+        List<String> fileTags = fileDeleteForm.getFileTags();
+        if (!Objects.isNull(fileTags)) {
+            return deleteByTags(fileTags);
         }
         return 0;
     }

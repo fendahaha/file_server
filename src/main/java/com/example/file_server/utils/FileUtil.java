@@ -79,12 +79,4 @@ public class FileUtil {
         }
         return Arrays.asList(prefix, suffix);
     }
-
-
-    /**
-     * 将文件名中的特殊字符转换为下划线"_"
-     */
-    public static String escapeSpecialChar() {
-        return "";
-    }
 }

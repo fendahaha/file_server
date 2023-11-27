@@ -2,12 +2,12 @@ package com.example.file_server.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UploadFileForm {
+public class FileUploadForm {
     private String category;
     private String tags;
     private MultipartFile[] file;
 
-    public UploadFileForm() {
+    public FileUploadForm() {
     }
 
     public String getCategory() {
