@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +50,7 @@ public class FileUploadController {
         if (bindingResult.hasFieldErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             HashMap<String, Object> hashMap = new HashMap<>();
-            fieldErrors.stream().forEach(e -> {
+            fieldErrors.forEach(e -> {
                 hashMap.put(e.getField(), e.getDefaultMessage());
             });
             return ResponseUtil.badRequest(hashMap);
@@ -74,7 +73,7 @@ public class FileUploadController {
         if (bindingResult.hasFieldErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             HashMap<String, Object> hashMap = new HashMap<>();
-            fieldErrors.stream().forEach(e -> {
+            fieldErrors.forEach(e -> {
                 hashMap.put(e.getField(), e.getDefaultMessage());
             });
             return ResponseUtil.badRequest(hashMap);
