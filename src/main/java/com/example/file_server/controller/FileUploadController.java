@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RequestMapping("/file")
 @RestController
-public class FileUploadController {
+public class FileUploadController extends BaseController{
 
     @Autowired
     private UploadFileService uploadFileService;
@@ -48,12 +48,7 @@ public class FileUploadController {
     @GetMapping("/list")
     public Object list(@Validated FileQueryForm fileQueryForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            HashMap<String, Object> hashMap = new HashMap<>();
-            fieldErrors.forEach(e -> {
-                hashMap.put(e.getField(), e.getDefaultMessage());
-            });
-            return ResponseUtil.badRequest(hashMap);
+            return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
         PageHelper.startPage(fileQueryForm.getPageNum(), fileQueryForm.getPageSize());
         List<UploadFile> list = uploadFileService.list();
@@ -71,12 +66,7 @@ public class FileUploadController {
     @PostMapping("/upload")
     public Object upload(@Validated FileUploadForm fileUploadForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            HashMap<String, Object> hashMap = new HashMap<>();
-            fieldErrors.forEach(e -> {
-                hashMap.put(e.getField(), e.getDefaultMessage());
-            });
-            return ResponseUtil.badRequest(hashMap);
+            return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
         return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
     }
