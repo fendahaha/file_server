@@ -11,7 +11,13 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       pool-name: MyHikariCP
-
+  task:
+    execution:
+      pool:
+        max-size: 16
+        queue-capacity: 100
+        keep-alive: 60s
+        core-size: 8
 mybatis:
   type-aliases-package: com.example.file_server.entity
   mapper-locations: classpath:mybatis/mapper/*.xml

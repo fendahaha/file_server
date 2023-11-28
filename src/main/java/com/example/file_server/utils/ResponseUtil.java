@@ -37,4 +37,8 @@ public class ResponseUtil {
     public static <T> ResponseEntity<HashMap<String, Object>> internalServerError(T data) {
         return ResponseUtil.response(data, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    public static <T> ResponseEntity<HashMap<String, Object>> unauthorized(T data) {
+        return ResponseUtil.response(data, HttpStatus.UNAUTHORIZED);
+    }
 }
