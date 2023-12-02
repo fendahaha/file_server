@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.file_server.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.example.file_server.entity.Room">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_uuid" jdbcType="VARCHAR" property="roomUuid" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="room_stream_name" jdbcType="VARCHAR" property="roomStreamName" />
+    <result column="room_stream_app" jdbcType="VARCHAR" property="roomStreamApp" />
+    <result column="room_stream_enable" jdbcType="INTEGER" property="roomStreamEnable" />
+    <result column="room_type" jdbcType="INTEGER" property="roomType" />
+    <result column="room_category" jdbcType="VARCHAR" property="roomCategory" />
+    <result column="room_cover" jdbcType="VARCHAR" property="roomCover" />
+    <result column="room_create_at" jdbcType="TIMESTAMP" property="roomCreateAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, room_uuid, room_name, room_stream_name, room_stream_app, room_stream_enable, 
+    room_type, room_category, room_cover, room_create_at
+  </sql>
+  <select id="selectByExample" parameterType="com.example.file_server.entity.RoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from room
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.file_server.entity.RoomExample">
+    delete from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.file_server.entity.Room">
+    insert into room (id, room_uuid, room_name, 
+      room_stream_name, room_stream_app, room_stream_enable, 
+      room_type, room_category, room_cover, 
+      room_create_at)
+    values (#{id,jdbcType=INTEGER}, #{roomUuid,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{roomStreamName,jdbcType=VARCHAR}, #{roomStreamApp,jdbcType=VARCHAR}, #{roomStreamEnable,jdbcType=INTEGER}, 
+      #{roomType,jdbcType=INTEGER}, #{roomCategory,jdbcType=VARCHAR}, #{roomCover,jdbcType=VARCHAR}, 
+      #{roomCreateAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.file_server.entity.Room">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roomUuid != null">
+        room_uuid,
+      </if>
+      <if test="roomName != null">
+        room_name,
+      </if>
+      <if test="roomStreamName != null">
+        room_stream_name,
+      </if>
+      <if test="roomStreamApp != null">
+        room_stream_app,
+      </if>
+      <if test="roomStreamEnable != null">
+        room_stream_enable,
+      </if>
+      <if test="roomType != null">
+        room_type,
+      </if>
+      <if test="roomCategory != null">
+        room_category,
+      </if>
+      <if test="roomCover != null">
+        room_cover,
+      </if>
+      <if test="roomCreateAt != null">
+        room_create_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomUuid != null">
+        #{roomUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamName != null">
+        #{roomStreamName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamApp != null">
+        #{roomStreamApp,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamEnable != null">
+        #{roomStreamEnable,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="roomCategory != null">
+        #{roomCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCover != null">
+        #{roomCover,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCreateAt != null">
+        #{roomCreateAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.file_server.entity.RoomExample" resultType="java.lang.Long">
+    select count(*) from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update room
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomUuid != null">
+        room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomName != null">
+        room_name = #{record.roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomStreamName != null">
+        room_stream_name = #{record.roomStreamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomStreamApp != null">
+        room_stream_app = #{record.roomStreamApp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomStreamEnable != null">
+        room_stream_enable = #{record.roomStreamEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomType != null">
+        room_type = #{record.roomType,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomCategory != null">
+        room_category = #{record.roomCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomCover != null">
+        room_cover = #{record.roomCover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomCreateAt != null">
+        room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update room
+    set id = #{record.id,jdbcType=INTEGER},
+      room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
+      room_name = #{record.roomName,jdbcType=VARCHAR},
+      room_stream_name = #{record.roomStreamName,jdbcType=VARCHAR},
+      room_stream_app = #{record.roomStreamApp,jdbcType=VARCHAR},
+      room_stream_enable = #{record.roomStreamEnable,jdbcType=INTEGER},
+      room_type = #{record.roomType,jdbcType=INTEGER},
+      room_category = #{record.roomCategory,jdbcType=VARCHAR},
+      room_cover = #{record.roomCover,jdbcType=VARCHAR},
+      room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.file_server.entity.Room">
+    update room
+    <set>
+      <if test="roomUuid != null">
+        room_uuid = #{roomUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamName != null">
+        room_stream_name = #{roomStreamName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamApp != null">
+        room_stream_app = #{roomStreamApp,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStreamEnable != null">
+        room_stream_enable = #{roomStreamEnable,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        room_type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="roomCategory != null">
+        room_category = #{roomCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCover != null">
+        room_cover = #{roomCover,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCreateAt != null">
+        room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.file_server.entity.Room">
+    update room
+    set room_uuid = #{roomUuid,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_stream_name = #{roomStreamName,jdbcType=VARCHAR},
+      room_stream_app = #{roomStreamApp,jdbcType=VARCHAR},
+      room_stream_enable = #{roomStreamEnable,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=INTEGER},
+      room_category = #{roomCategory,jdbcType=VARCHAR},
+      room_cover = #{roomCover,jdbcType=VARCHAR},
+      room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
