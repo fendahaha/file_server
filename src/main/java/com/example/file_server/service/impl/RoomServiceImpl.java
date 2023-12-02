@@ -1,6 +1,6 @@
 package com.example.file_server.service.impl;
 
-import com.example.file_server.dictionary.RoomOnline;
+import com.example.file_server.dictionary.StreamApp;
 import com.example.file_server.entity.Room;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.mapper.RoomMapper;
@@ -24,15 +24,13 @@ public class RoomServiceImpl {
         room.setRoomType(roomCreateFrom.getRoomType());
         room.setRoomCategory(roomCreateFrom.getRoomCategory());
         room.setRoomCover(roomCreateFrom.getRoomCover());
-        room.setRoomUuid(UUIDUtil.generateStreamUUID());
-        room.setRoomStreamApp("live");
+        room.setRoomUuid(UUIDUtil.generateStreamUniqueName());
+        room.setRoomStreamApp(StreamApp.Common.getValue());
         room.setRoomCreateAt(new Date());
-        room.setRoomIsOnline(RoomOnline.Offline.getValue());
-        room.setRoomOnlineUsers(0);
         return roomMapper.insertSelective(room);
     }
 
-    public List<Room> list(){
+    public List<Room> list() {
         return roomMapper.selectByExample(null);
     }
 }

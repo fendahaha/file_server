@@ -28,17 +28,18 @@
         <!-- 指定数据库表 -->
         <!--        <table tableName="upload_file" domainObjectName="UploadFile"/>-->
         <!--        <table tableName="user" domainObjectName="User"/>-->
-        <!--        <table tableName="room" domainObjectName="Room"/>-->
+                <table tableName="room" domainObjectName="Room"/>
+                <table tableName="room_status" domainObjectName="RoomStatus"/>
         <!--        <table tableName="config" domainObjectName="Config"/>-->
-        <table tableName="srs_streams" domainObjectName="SrsStreams">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table tableName="srs_sessions" domainObjectName="SrsSessions">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table tableName="srs_hls" domainObjectName="SrsHls">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+<!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="srs_sessions" domainObjectName="SrsSessions">-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="srs_hls" domainObjectName="SrsHls">-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
+<!--        </table>-->
     </context>
 
 </generatorConfiguration>

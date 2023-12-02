@@ -2,14 +2,17 @@ package com.example.file_server.form;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 public class RoomCreateFrom {
     private String roomName;
 
+    @NotBlank
     @Min(1)
     @Max(2)
     private Integer roomStreamEnable;
 
+    @NotBlank
     @Min(1)
     @Max(4)
     private Integer roomType;

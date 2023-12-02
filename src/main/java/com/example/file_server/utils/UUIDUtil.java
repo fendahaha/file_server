@@ -8,8 +8,8 @@ public class UUIDUtil {
         return uuid.toString();
     }
 
-    public static String generateStreamUUID() {
+    public static String generateStreamUniqueName() {
         UUID uuid = UUID.randomUUID();
-        return uuid.toString();
+        return uuid.toString().replaceAll("-", "");
     }
 }
