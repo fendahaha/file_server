@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 02/12/2023 13:13:47
+ Date: 04/12/2023 21:53:17
 */
 
 SET NAMES utf8mb4;
@@ -34,18 +34,27 @@ CREATE TABLE `config`  (
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room`  (
   `id` int(11) NOT NULL,
+  `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `room_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `room_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `room_stream_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `room_stream_app` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `room_stream_enable` int(4) NOT NULL COMMENT '1：可以直播\r\n2：不能直播',
   `room_type` int(11) NOT NULL COMMENT '1：主播\r\n2：赛事\r\n3：电视\r\n4：其他',
   `room_category` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `room_cover` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '封面',
   `room_create_at` datetime(0) NOT NULL,
-  `room_is_online` int(4) NOT NULL COMMENT '1：在线\r\n2：不在线',
-  `room_online_users` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for room_status
+-- ----------------------------
+DROP TABLE IF EXISTS `room_status`;
+CREATE TABLE `room_status`  (
+  `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `room_is_online` int(11) NOT NULL,
+  `room_stream_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for srs_hls

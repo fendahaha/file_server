@@ -28,9 +28,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:" + fileUploadConfiguration.getFile_upload_location());
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticateInterceptor).addPathPatterns("/file/**")
-                .excludePathPatterns(fileUploadConfiguration.getFile_upload_path());
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(authenticateInterceptor).addPathPatterns("/file/**")
+//                .excludePathPatterns(fileUploadConfiguration.getFile_upload_path());
+//    }
 }
