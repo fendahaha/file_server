@@ -3,6 +3,7 @@ package com.example.file_server.config;
 import com.example.file_server.interceptor.AuthenticateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -33,4 +34,14 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(authenticateInterceptor).addPathPatterns("/file/**")
 //                .excludePathPatterns(fileUploadConfiguration.getFile_upload_path());
 //    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("http://*:[*]")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .exposedHeaders("*")
+                .allowCredentials(true).maxAge(3600);
+    }
 }
