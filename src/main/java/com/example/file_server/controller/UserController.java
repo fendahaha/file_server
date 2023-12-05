@@ -24,11 +24,12 @@ public class UserController extends BaseController {
     private UserServiceImpl userService;
 
     @PostMapping("/login")
-    public Object login(@RequestBody @Validated UserLoginForm userLoginForm, BindingResult bindingResult) {
+    public Object login(HttpSession httpSession, @RequestBody @Validated UserLoginForm userLoginForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
-        return "";
+        httpSession.isNew();
+        return ResponseUtil.ok("success");
     }
 
     @PostMapping("/logout")
