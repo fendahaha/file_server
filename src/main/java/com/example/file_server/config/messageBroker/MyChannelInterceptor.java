@@ -25,8 +25,7 @@ public class MyChannelInterceptor implements ChannelInterceptor {
         }
 
         if (headerAccessor != null && SimpMessageType.SUBSCRIBE.equals(headerAccessor.getMessageType())) {
-            Principal user = headerAccessor.getUser();
-            System.out.println(user.getName());
+            System.out.println("SUBSCRIBE");
         }
 
         if (headerAccessor != null && SimpMessageType.MESSAGE.equals(headerAccessor.getMessageType())) {
