@@ -19,13 +19,9 @@ public class RoomServiceImpl {
 
     public int create(RoomCreateFrom roomCreateFrom) {
         Room room = new Room();
-        room.setRoomName(roomCreateFrom.getRoomName());
-        room.setRoomStreamEnable(roomCreateFrom.getRoomStreamEnable());
-        room.setRoomType(roomCreateFrom.getRoomType());
-        room.setRoomCategory(roomCreateFrom.getRoomCategory());
-        room.setRoomCover(roomCreateFrom.getRoomCover());
+
         room.setRoomUuid(UUIDUtil.generateStreamUniqueName());
-        room.setRoomStreamApp(StreamApp.Common.getValue());
+
         room.setRoomCreateAt(new Date());
         return roomMapper.insertSelective(room);
     }

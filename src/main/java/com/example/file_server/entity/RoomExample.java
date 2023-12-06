@@ -235,473 +235,213 @@ public class RoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameIsNull() {
-            addCriterion("room_name is null");
+        public Criteria andStreamAddressIsNull() {
+            addCriterion("stream_address is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameIsNotNull() {
-            addCriterion("room_name is not null");
+        public Criteria andStreamAddressIsNotNull() {
+            addCriterion("stream_address is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameEqualTo(String value) {
-            addCriterion("room_name =", value, "roomName");
+        public Criteria andStreamAddressEqualTo(String value) {
+            addCriterion("stream_address =", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameNotEqualTo(String value) {
-            addCriterion("room_name <>", value, "roomName");
+        public Criteria andStreamAddressNotEqualTo(String value) {
+            addCriterion("stream_address <>", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameGreaterThan(String value) {
-            addCriterion("room_name >", value, "roomName");
+        public Criteria andStreamAddressGreaterThan(String value) {
+            addCriterion("stream_address >", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameGreaterThanOrEqualTo(String value) {
-            addCriterion("room_name >=", value, "roomName");
+        public Criteria andStreamAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_address >=", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameLessThan(String value) {
-            addCriterion("room_name <", value, "roomName");
+        public Criteria andStreamAddressLessThan(String value) {
+            addCriterion("stream_address <", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameLessThanOrEqualTo(String value) {
-            addCriterion("room_name <=", value, "roomName");
+        public Criteria andStreamAddressLessThanOrEqualTo(String value) {
+            addCriterion("stream_address <=", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameLike(String value) {
-            addCriterion("room_name like", value, "roomName");
+        public Criteria andStreamAddressLike(String value) {
+            addCriterion("stream_address like", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameNotLike(String value) {
-            addCriterion("room_name not like", value, "roomName");
+        public Criteria andStreamAddressNotLike(String value) {
+            addCriterion("stream_address not like", value, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameIn(List<String> values) {
-            addCriterion("room_name in", values, "roomName");
+        public Criteria andStreamAddressIn(List<String> values) {
+            addCriterion("stream_address in", values, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameNotIn(List<String> values) {
-            addCriterion("room_name not in", values, "roomName");
+        public Criteria andStreamAddressNotIn(List<String> values) {
+            addCriterion("stream_address not in", values, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameBetween(String value1, String value2) {
-            addCriterion("room_name between", value1, value2, "roomName");
+        public Criteria andStreamAddressBetween(String value1, String value2) {
+            addCriterion("stream_address between", value1, value2, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomNameNotBetween(String value1, String value2) {
-            addCriterion("room_name not between", value1, value2, "roomName");
+        public Criteria andStreamAddressNotBetween(String value1, String value2) {
+            addCriterion("stream_address not between", value1, value2, "streamAddress");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameIsNull() {
-            addCriterion("room_stream_name is null");
+        public Criteria andStreamAppIsNull() {
+            addCriterion("stream_app is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameIsNotNull() {
-            addCriterion("room_stream_name is not null");
+        public Criteria andStreamAppIsNotNull() {
+            addCriterion("stream_app is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameEqualTo(String value) {
-            addCriterion("room_stream_name =", value, "roomStreamName");
+        public Criteria andStreamAppEqualTo(String value) {
+            addCriterion("stream_app =", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameNotEqualTo(String value) {
-            addCriterion("room_stream_name <>", value, "roomStreamName");
+        public Criteria andStreamAppNotEqualTo(String value) {
+            addCriterion("stream_app <>", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameGreaterThan(String value) {
-            addCriterion("room_stream_name >", value, "roomStreamName");
+        public Criteria andStreamAppGreaterThan(String value) {
+            addCriterion("stream_app >", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameGreaterThanOrEqualTo(String value) {
-            addCriterion("room_stream_name >=", value, "roomStreamName");
+        public Criteria andStreamAppGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_app >=", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameLessThan(String value) {
-            addCriterion("room_stream_name <", value, "roomStreamName");
+        public Criteria andStreamAppLessThan(String value) {
+            addCriterion("stream_app <", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameLessThanOrEqualTo(String value) {
-            addCriterion("room_stream_name <=", value, "roomStreamName");
+        public Criteria andStreamAppLessThanOrEqualTo(String value) {
+            addCriterion("stream_app <=", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameLike(String value) {
-            addCriterion("room_stream_name like", value, "roomStreamName");
+        public Criteria andStreamAppLike(String value) {
+            addCriterion("stream_app like", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameNotLike(String value) {
-            addCriterion("room_stream_name not like", value, "roomStreamName");
+        public Criteria andStreamAppNotLike(String value) {
+            addCriterion("stream_app not like", value, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameIn(List<String> values) {
-            addCriterion("room_stream_name in", values, "roomStreamName");
+        public Criteria andStreamAppIn(List<String> values) {
+            addCriterion("stream_app in", values, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameNotIn(List<String> values) {
-            addCriterion("room_stream_name not in", values, "roomStreamName");
+        public Criteria andStreamAppNotIn(List<String> values) {
+            addCriterion("stream_app not in", values, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameBetween(String value1, String value2) {
-            addCriterion("room_stream_name between", value1, value2, "roomStreamName");
+        public Criteria andStreamAppBetween(String value1, String value2) {
+            addCriterion("stream_app between", value1, value2, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamNameNotBetween(String value1, String value2) {
-            addCriterion("room_stream_name not between", value1, value2, "roomStreamName");
+        public Criteria andStreamAppNotBetween(String value1, String value2) {
+            addCriterion("stream_app not between", value1, value2, "streamApp");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppIsNull() {
-            addCriterion("room_stream_app is null");
+        public Criteria andStreamNameIsNull() {
+            addCriterion("stream_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppIsNotNull() {
-            addCriterion("room_stream_app is not null");
+        public Criteria andStreamNameIsNotNull() {
+            addCriterion("stream_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppEqualTo(String value) {
-            addCriterion("room_stream_app =", value, "roomStreamApp");
+        public Criteria andStreamNameEqualTo(String value) {
+            addCriterion("stream_name =", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppNotEqualTo(String value) {
-            addCriterion("room_stream_app <>", value, "roomStreamApp");
+        public Criteria andStreamNameNotEqualTo(String value) {
+            addCriterion("stream_name <>", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppGreaterThan(String value) {
-            addCriterion("room_stream_app >", value, "roomStreamApp");
+        public Criteria andStreamNameGreaterThan(String value) {
+            addCriterion("stream_name >", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppGreaterThanOrEqualTo(String value) {
-            addCriterion("room_stream_app >=", value, "roomStreamApp");
+        public Criteria andStreamNameGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_name >=", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppLessThan(String value) {
-            addCriterion("room_stream_app <", value, "roomStreamApp");
+        public Criteria andStreamNameLessThan(String value) {
+            addCriterion("stream_name <", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppLessThanOrEqualTo(String value) {
-            addCriterion("room_stream_app <=", value, "roomStreamApp");
+        public Criteria andStreamNameLessThanOrEqualTo(String value) {
+            addCriterion("stream_name <=", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppLike(String value) {
-            addCriterion("room_stream_app like", value, "roomStreamApp");
+        public Criteria andStreamNameLike(String value) {
+            addCriterion("stream_name like", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppNotLike(String value) {
-            addCriterion("room_stream_app not like", value, "roomStreamApp");
+        public Criteria andStreamNameNotLike(String value) {
+            addCriterion("stream_name not like", value, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppIn(List<String> values) {
-            addCriterion("room_stream_app in", values, "roomStreamApp");
+        public Criteria andStreamNameIn(List<String> values) {
+            addCriterion("stream_name in", values, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppNotIn(List<String> values) {
-            addCriterion("room_stream_app not in", values, "roomStreamApp");
+        public Criteria andStreamNameNotIn(List<String> values) {
+            addCriterion("stream_name not in", values, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppBetween(String value1, String value2) {
-            addCriterion("room_stream_app between", value1, value2, "roomStreamApp");
+        public Criteria andStreamNameBetween(String value1, String value2) {
+            addCriterion("stream_name between", value1, value2, "streamName");
             return (Criteria) this;
         }
 
-        public Criteria andRoomStreamAppNotBetween(String value1, String value2) {
-            addCriterion("room_stream_app not between", value1, value2, "roomStreamApp");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableIsNull() {
-            addCriterion("room_stream_enable is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableIsNotNull() {
-            addCriterion("room_stream_enable is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableEqualTo(Integer value) {
-            addCriterion("room_stream_enable =", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableNotEqualTo(Integer value) {
-            addCriterion("room_stream_enable <>", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableGreaterThan(Integer value) {
-            addCriterion("room_stream_enable >", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableGreaterThanOrEqualTo(Integer value) {
-            addCriterion("room_stream_enable >=", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableLessThan(Integer value) {
-            addCriterion("room_stream_enable <", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableLessThanOrEqualTo(Integer value) {
-            addCriterion("room_stream_enable <=", value, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableIn(List<Integer> values) {
-            addCriterion("room_stream_enable in", values, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableNotIn(List<Integer> values) {
-            addCriterion("room_stream_enable not in", values, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableBetween(Integer value1, Integer value2) {
-            addCriterion("room_stream_enable between", value1, value2, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomStreamEnableNotBetween(Integer value1, Integer value2) {
-            addCriterion("room_stream_enable not between", value1, value2, "roomStreamEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeIsNull() {
-            addCriterion("room_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeIsNotNull() {
-            addCriterion("room_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeEqualTo(Integer value) {
-            addCriterion("room_type =", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeNotEqualTo(Integer value) {
-            addCriterion("room_type <>", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeGreaterThan(Integer value) {
-            addCriterion("room_type >", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("room_type >=", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeLessThan(Integer value) {
-            addCriterion("room_type <", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("room_type <=", value, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeIn(List<Integer> values) {
-            addCriterion("room_type in", values, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeNotIn(List<Integer> values) {
-            addCriterion("room_type not in", values, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeBetween(Integer value1, Integer value2) {
-            addCriterion("room_type between", value1, value2, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("room_type not between", value1, value2, "roomType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryIsNull() {
-            addCriterion("room_category is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryIsNotNull() {
-            addCriterion("room_category is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryEqualTo(String value) {
-            addCriterion("room_category =", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryNotEqualTo(String value) {
-            addCriterion("room_category <>", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryGreaterThan(String value) {
-            addCriterion("room_category >", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryGreaterThanOrEqualTo(String value) {
-            addCriterion("room_category >=", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryLessThan(String value) {
-            addCriterion("room_category <", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryLessThanOrEqualTo(String value) {
-            addCriterion("room_category <=", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryLike(String value) {
-            addCriterion("room_category like", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryNotLike(String value) {
-            addCriterion("room_category not like", value, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryIn(List<String> values) {
-            addCriterion("room_category in", values, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryNotIn(List<String> values) {
-            addCriterion("room_category not in", values, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryBetween(String value1, String value2) {
-            addCriterion("room_category between", value1, value2, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCategoryNotBetween(String value1, String value2) {
-            addCriterion("room_category not between", value1, value2, "roomCategory");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverIsNull() {
-            addCriterion("room_cover is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverIsNotNull() {
-            addCriterion("room_cover is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverEqualTo(String value) {
-            addCriterion("room_cover =", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverNotEqualTo(String value) {
-            addCriterion("room_cover <>", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverGreaterThan(String value) {
-            addCriterion("room_cover >", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverGreaterThanOrEqualTo(String value) {
-            addCriterion("room_cover >=", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverLessThan(String value) {
-            addCriterion("room_cover <", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverLessThanOrEqualTo(String value) {
-            addCriterion("room_cover <=", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverLike(String value) {
-            addCriterion("room_cover like", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverNotLike(String value) {
-            addCriterion("room_cover not like", value, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverIn(List<String> values) {
-            addCriterion("room_cover in", values, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverNotIn(List<String> values) {
-            addCriterion("room_cover not in", values, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverBetween(String value1, String value2) {
-            addCriterion("room_cover between", value1, value2, "roomCover");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCoverNotBetween(String value1, String value2) {
-            addCriterion("room_cover not between", value1, value2, "roomCover");
+        public Criteria andStreamNameNotBetween(String value1, String value2) {
+            addCriterion("stream_name not between", value1, value2, "streamName");
             return (Criteria) this;
         }
 
@@ -762,6 +502,146 @@ public class RoomExample {
 
         public Criteria andRoomCreateAtNotBetween(Date value1, Date value2) {
             addCriterion("room_create_at not between", value1, value2, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineIsNull() {
+            addCriterion("stream_online is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineIsNotNull() {
+            addCriterion("stream_online is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineEqualTo(String value) {
+            addCriterion("stream_online =", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineNotEqualTo(String value) {
+            addCriterion("stream_online <>", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineGreaterThan(String value) {
+            addCriterion("stream_online >", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_online >=", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineLessThan(String value) {
+            addCriterion("stream_online <", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineLessThanOrEqualTo(String value) {
+            addCriterion("stream_online <=", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineLike(String value) {
+            addCriterion("stream_online like", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineNotLike(String value) {
+            addCriterion("stream_online not like", value, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineIn(List<String> values) {
+            addCriterion("stream_online in", values, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineNotIn(List<String> values) {
+            addCriterion("stream_online not in", values, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineBetween(String value1, String value2) {
+            addCriterion("stream_online between", value1, value2, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamOnlineNotBetween(String value1, String value2) {
+            addCriterion("stream_online not between", value1, value2, "streamOnline");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdIsNull() {
+            addCriterion("stream_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdIsNotNull() {
+            addCriterion("stream_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdEqualTo(String value) {
+            addCriterion("stream_id =", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdNotEqualTo(String value) {
+            addCriterion("stream_id <>", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdGreaterThan(String value) {
+            addCriterion("stream_id >", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_id >=", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdLessThan(String value) {
+            addCriterion("stream_id <", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdLessThanOrEqualTo(String value) {
+            addCriterion("stream_id <=", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdLike(String value) {
+            addCriterion("stream_id like", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdNotLike(String value) {
+            addCriterion("stream_id not like", value, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdIn(List<String> values) {
+            addCriterion("stream_id in", values, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdNotIn(List<String> values) {
+            addCriterion("stream_id not in", values, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdBetween(String value1, String value2) {
+            addCriterion("stream_id between", value1, value2, "streamId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamIdNotBetween(String value1, String value2) {
+            addCriterion("stream_id not between", value1, value2, "streamId");
             return (Criteria) this;
         }
     }

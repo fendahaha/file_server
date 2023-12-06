@@ -29,7 +29,6 @@
         <!--        <table tableName="upload_file" domainObjectName="UploadFile"/>-->
         <!--        <table tableName="user" domainObjectName="User"/>-->
                 <table tableName="room" domainObjectName="Room"/>
-                <table tableName="room_status" domainObjectName="RoomStatus"/>
         <!--        <table tableName="config" domainObjectName="Config"/>-->
 <!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
 <!--            <property name="useActualColumnNames" value="true"/>-->

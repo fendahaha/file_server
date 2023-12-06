@@ -7,21 +7,17 @@ public class Room {
 
     private String roomUuid;
 
-    private String roomName;
+    private String streamAddress;
 
-    private String roomStreamName;
+    private String streamApp;
 
-    private String roomStreamApp;
-
-    private Integer roomStreamEnable;
-
-    private Integer roomType;
-
-    private String roomCategory;
-
-    private String roomCover;
+    private String streamName;
 
     private Date roomCreateAt;
+
+    private String streamOnline;
+
+    private String streamId;
 
     public Integer getId() {
         return id;
@@ -39,60 +35,28 @@ public class Room {
         this.roomUuid = roomUuid;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getStreamAddress() {
+        return streamAddress;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setStreamAddress(String streamAddress) {
+        this.streamAddress = streamAddress;
     }
 
-    public String getRoomStreamName() {
-        return roomStreamName;
+    public String getStreamApp() {
+        return streamApp;
     }
 
-    public void setRoomStreamName(String roomStreamName) {
-        this.roomStreamName = roomStreamName;
+    public void setStreamApp(String streamApp) {
+        this.streamApp = streamApp;
     }
 
-    public String getRoomStreamApp() {
-        return roomStreamApp;
+    public String getStreamName() {
+        return streamName;
     }
 
-    public void setRoomStreamApp(String roomStreamApp) {
-        this.roomStreamApp = roomStreamApp;
-    }
-
-    public Integer getRoomStreamEnable() {
-        return roomStreamEnable;
-    }
-
-    public void setRoomStreamEnable(Integer roomStreamEnable) {
-        this.roomStreamEnable = roomStreamEnable;
-    }
-
-    public Integer getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(Integer roomType) {
-        this.roomType = roomType;
-    }
-
-    public String getRoomCategory() {
-        return roomCategory;
-    }
-
-    public void setRoomCategory(String roomCategory) {
-        this.roomCategory = roomCategory;
-    }
-
-    public String getRoomCover() {
-        return roomCover;
-    }
-
-    public void setRoomCover(String roomCover) {
-        this.roomCover = roomCover;
+    public void setStreamName(String streamName) {
+        this.streamName = streamName;
     }
 
     public Date getRoomCreateAt() {
@@ -101,5 +65,21 @@ public class Room {
 
     public void setRoomCreateAt(Date roomCreateAt) {
         this.roomCreateAt = roomCreateAt;
+    }
+
+    public String getStreamOnline() {
+        return streamOnline;
+    }
+
+    public void setStreamOnline(String streamOnline) {
+        this.streamOnline = streamOnline;
+    }
+
+    public String getStreamId() {
+        return streamId;
+    }
+
+    public void setStreamId(String streamId) {
+        this.streamId = streamId;
     }
 }
