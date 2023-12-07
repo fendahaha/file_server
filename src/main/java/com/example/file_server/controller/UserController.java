@@ -3,17 +3,14 @@ package com.example.file_server.controller;
 import com.example.file_server.entity.User;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
+import com.example.file_server.form.UserUpdateForm;
 import com.example.file_server.service.impl.UserServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -40,6 +37,14 @@ public class UserController extends BaseController {
         return ResponseUtil.ok(user != null);
     }
 
+    @PostMapping("/getLoginUser")
+    public Object getUser(@SessionAttribute(name = "user", required = false) User user) {
+        if (user != null) {
+            return ResponseUtil.ok(user);
+        }
+        return ResponseUtil.badRequest("未登录");
+    }
+
     @PostMapping("/logout")
     public Object logout(HttpSession session) {
         session.invalidate();
@@ -51,11 +56,15 @@ public class UserController extends BaseController {
         if (bindingResult.hasFieldErrors()) {
             return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
-        int register = userService.register(userRegisterForm);
-        if (register > 0) {
-            return ResponseUtil.ok(register);
+        try {
+            if (userService.userExist(userRegisterForm.getUserName())) {
+                return ResponseUtil.badRequest("用户名已存在");
+            }
+            User user = userService.registerUser(userRegisterForm);
+            return ResponseUtil.ok(user);
+        } catch (Exception e) {
+            return ResponseUtil.internalServerError(null);
         }
-        return ResponseUtil.internalServerError(null);
     }
 
     @PostMapping("/list")
@@ -69,8 +78,22 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/update")
-    public Object update() {
-        return "";
+    public Object update(HttpSession session,
+                         @RequestBody @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return ResponseUtil.badRequest(getBindingError(bindingResult));
+        }
+        try {
+            boolean b = userService.updateUser(userUpdateForm);
+            if (b) {
+                User user = userService.getUserByUUID(userUpdateForm.getUserUuid());
+                session.setAttribute("user", user);
+            }
+            return ResponseUtil.ok(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.internalServerError(null);
+        }
     }
 
     @PostMapping("/create")
