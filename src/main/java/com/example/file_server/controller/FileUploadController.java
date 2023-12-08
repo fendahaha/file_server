@@ -2,7 +2,8 @@ package com.example.file_server.controller;
 
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.form.FileDeleteForm;
-import com.example.file_server.form.FileQueryForm;
+import com.example.file_server.form.FileListForm;
+import com.example.file_server.form.FileSearchForm;
 import com.example.file_server.form.FileUploadForm;
 import com.example.file_server.service.UploadFileService;
 import com.example.file_server.utils.ResponseUtil;
@@ -11,14 +12,12 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ import java.util.List;
  */
 @RequestMapping("/file")
 @RestController
-public class FileUploadController extends BaseController{
+public class FileUploadController extends BaseController {
 
     @Autowired
     private UploadFileService uploadFileService;
@@ -46,11 +45,11 @@ public class FileUploadController extends BaseController{
      * @param pageSize
      */
     @GetMapping("/list")
-    public Object list(@Validated FileQueryForm fileQueryForm, BindingResult bindingResult) {
+    public Object list(@Validated FileListForm fileListForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
-        PageHelper.startPage(fileQueryForm.getPageNum(), fileQueryForm.getPageSize());
+        PageHelper.startPage(fileListForm.getPageNum(), fileListForm.getPageSize());
         List<UploadFile> list = uploadFileService.list();
         PageInfo<UploadFile> pageInfo = new PageInfo<>(list);
         return ResponseUtil.ok(pageInfo);
@@ -82,5 +81,14 @@ public class FileUploadController extends BaseController{
     public Object deleteByUniqueNames(@RequestBody @Validated FileDeleteForm fileDeleteForm) {
         int i = uploadFileService.delete_auto(fileDeleteForm);
         return ResponseUtil.ok(i);
+    }
+
+    @PostMapping("/query")
+    public Object query(@RequestBody @Validated FileSearchForm form, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return ResponseUtil.badRequest(getBindingError(bindingResult));
+        }
+        List<UploadFile> files = uploadFileService.query(form);
+        return ResponseUtil.ok(files);
     }
 }

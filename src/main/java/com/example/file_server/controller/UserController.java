@@ -27,7 +27,7 @@ public class UserController extends BaseController {
         if (user != null) {
             httpSession.setAttribute("user", user);
             httpSession.setMaxInactiveInterval(3600 * 2);
-            return ResponseUtil.ok("success");
+            return ResponseUtil.ok(user);
         }
         return ResponseUtil.badRequest("用户名或密码错误");
     }

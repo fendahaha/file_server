@@ -4,6 +4,7 @@ import com.example.file_server.config.FileUploadConfiguration;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
 import com.example.file_server.form.FileDeleteForm;
+import com.example.file_server.form.FileSearchForm;
 import com.example.file_server.form.FileUploadForm;
 import com.example.file_server.mapper.UploadFileMapper;
 import com.example.file_server.service.UploadFileService;
@@ -150,5 +151,17 @@ public class UploadFileServiceImpl implements UploadFileService {
             return deleteByTags(fileTags);
         }
         return 0;
+    }
+
+    public List<UploadFile> query(FileSearchForm form) {
+        UploadFileExample example = new UploadFileExample();
+        example.createCriteria()
+                .andFileUniqueNameEqualTo(form.getFileUniqueName())
+                .andFileTypeEqualTo(form.getFileType())
+                .andFilePathEqualTo(form.getFilePath())
+                .andFileTagsEqualTo(form.getFileTags())
+                .andFileCategoryEqualTo(form.getFileCategory());
+        List<UploadFile> uploadFiles = uploadFileMapper.selectByExample(example);
+        return uploadFiles;
     }
 }

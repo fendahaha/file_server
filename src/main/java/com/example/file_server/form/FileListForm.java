@@ -2,12 +2,12 @@ package com.example.file_server.form;
 
 import java.util.Date;
 
-public class FileQueryForm {
+public class FileListForm {
     private int pageNum = 1;
     private int pageSize = 10;
     private Date date;
 
-    public FileQueryForm() {
+    public FileListForm() {
     }
 
     public int getPageNum() {
