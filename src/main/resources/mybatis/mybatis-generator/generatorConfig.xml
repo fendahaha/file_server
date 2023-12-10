@@ -28,8 +28,11 @@
         <!-- 指定数据库表 -->
         <!--        <table tableName="upload_file" domainObjectName="UploadFile"/>-->
         <!--        <table tableName="user" domainObjectName="User"/>-->
-                <table tableName="room" domainObjectName="Room"/>
+<!--                <table tableName="room" domainObjectName="Room"/>-->
         <!--        <table tableName="config" domainObjectName="Config"/>-->
+        <table tableName="anchor" domainObjectName="Anchor"/>
+        <table tableName="gift" domainObjectName="Gift"/>
+        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>
 <!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
 <!--            <property name="useActualColumnNames" value="true"/>-->
 <!--        </table>-->
