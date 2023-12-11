@@ -2,7 +2,7 @@ package com.example.file_server.controller;
 
 import com.example.file_server.entity.Gift;
 import com.example.file_server.form.GiftForm;
-import com.example.file_server.form.ListForm;
+import com.example.file_server.form.GiftSearchForm;
 import com.example.file_server.service.impl.GiftServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RequestMapping("/gift")
@@ -32,14 +33,12 @@ public class GiftController extends BaseController {
     }
 
     @PostMapping("/list")
-    public Object list(@RequestBody @Validated ListForm listForm, BindingResult bindingResult) {
+    public Object list(@RequestBody @Validated GiftSearchForm searchForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
-        PageHelper.startPage(listForm.getPageNum(), listForm.getPageSize());
-        List<Gift> list = giftService.list();
-        PageInfo<Gift> pageInfo = new PageInfo<>(list);
-        return ResponseUtil.ok(pageInfo);
+        HashMap<String, Object> map = giftService.list(searchForm);
+        return ResponseUtil.ok(map);
     }
 
     @PostMapping("/create")

@@ -2,13 +2,17 @@ package com.example.file_server.form;
 
 import jakarta.validation.constraints.Min;
 
-public class ListForm {
+public class GiftSearchForm {
     @Min(1)
     private int pageNum = 1;
     @Min(1)
     private int pageSize = 10;
+    private String giftName;
 
-    public ListForm() {
+    @Min(0)
+    private Integer giftValue;
+
+    public GiftSearchForm() {
     }
 
     public int getPageNum() {
@@ -25,5 +29,21 @@ public class ListForm {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getGiftName() {
+        return giftName;
+    }
+
+    public void setGiftName(String giftName) {
+        this.giftName = giftName;
+    }
+
+    public Integer getGiftValue() {
+        return giftValue;
+    }
+
+    public void setGiftValue(Integer giftValue) {
+        this.giftValue = giftValue;
     }
 }

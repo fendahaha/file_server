@@ -2,7 +2,10 @@ package com.example.file_server.mapper;
 
 import com.example.file_server.entity.Gift;
 import com.example.file_server.entity.GiftExample;
+
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface GiftMapper {
@@ -17,6 +20,10 @@ public interface GiftMapper {
     int insertSelective(Gift record);
 
     List<Gift> selectByExample(GiftExample example);
+
+    List<Gift> selectByExample2(HashMap<String, Object> map);
+
+    Integer selectCount(GiftExample example);
 
     Gift selectByPrimaryKey(Integer id);
 

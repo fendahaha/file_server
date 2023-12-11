@@ -1,7 +1,5 @@
 package com.example.file_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class Gift {
@@ -17,7 +15,6 @@ public class Gift {
 
     private Integer giftOrder;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date giftCreateAt;
 
     public Integer getId() {
