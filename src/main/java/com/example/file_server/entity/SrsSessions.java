@@ -1,5 +1,7 @@
 package com.example.file_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SrsSessions {
@@ -31,6 +33,7 @@ public class SrsSessions {
 
     private String stream_id;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date create_at;
 
     public Integer getId() {

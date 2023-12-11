@@ -3,6 +3,8 @@ package com.example.file_server.form;
 import jakarta.validation.constraints.Min;
 
 public class GiftForm {
+    @Min(0)
+    private Integer id;
     private String giftUuid;
     private String giftName;
 
@@ -15,6 +17,14 @@ public class GiftForm {
     private Integer giftOrder;
 
     public GiftForm() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getGiftUuid() {

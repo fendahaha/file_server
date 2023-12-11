@@ -35,23 +35,18 @@ public class GiftServiceImpl {
     }
 
     public boolean update(GiftForm giftForm) {
-        GiftExample example = new GiftExample();
-        GiftExample.Criteria criteria = example.createCriteria();
-        criteria.andGiftUuidEqualTo(giftForm.getGiftUuid());
         Gift gift = new Gift();
+        gift.setId(giftForm.getId());
         gift.setGiftName(giftForm.getGiftName());
         gift.setGiftValue(giftForm.getGiftValue());
         gift.setGiftImage(giftForm.getGiftImage());
         gift.setGiftOrder(giftForm.getGiftOrder());
-        int i = giftMapper.updateByExampleSelective(gift, example);
+        int i = giftMapper.updateByPrimaryKeySelective(gift);
         return i > 0;
     }
 
     public boolean delete(GiftForm giftForm) {
-        GiftExample example = new GiftExample();
-        GiftExample.Criteria criteria = example.createCriteria();
-        criteria.andGiftUuidEqualTo(giftForm.getGiftUuid());
-        int i = giftMapper.deleteByExample(example);
+        int i = giftMapper.deleteByPrimaryKey(giftForm.getId());
         return i > 0;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.file_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Anchor {
@@ -19,6 +21,7 @@ public class Anchor {
 
     private String anchorRemark;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date anchorCreateAt;
 
     private String anchorConfig;

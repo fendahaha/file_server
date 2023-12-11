@@ -61,7 +61,7 @@ public class GiftController extends BaseController {
         }
         boolean update = giftService.update(giftForm);
         if (update) {
-            return ResponseUtil.ok(update);
+            return ResponseUtil.ok(true);
         }
         return ResponseUtil.internalServerError(null);
     }
@@ -73,7 +73,7 @@ public class GiftController extends BaseController {
         }
         boolean delete = giftService.delete(giftForm);
         if (delete) {
-            return ResponseUtil.ok(delete);
+            return ResponseUtil.ok(true);
         }
         return ResponseUtil.internalServerError(null);
     }
