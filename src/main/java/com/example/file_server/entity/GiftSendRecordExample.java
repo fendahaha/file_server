@@ -295,73 +295,73 @@ public class GiftSendRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidIsNull() {
-            addCriterion("user_uuid is null");
+        public Criteria andClientUuidIsNull() {
+            addCriterion("client_uuid is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidIsNotNull() {
-            addCriterion("user_uuid is not null");
+        public Criteria andClientUuidIsNotNull() {
+            addCriterion("client_uuid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidEqualTo(String value) {
-            addCriterion("user_uuid =", value, "userUuid");
+        public Criteria andClientUuidEqualTo(String value) {
+            addCriterion("client_uuid =", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidNotEqualTo(String value) {
-            addCriterion("user_uuid <>", value, "userUuid");
+        public Criteria andClientUuidNotEqualTo(String value) {
+            addCriterion("client_uuid <>", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidGreaterThan(String value) {
-            addCriterion("user_uuid >", value, "userUuid");
+        public Criteria andClientUuidGreaterThan(String value) {
+            addCriterion("client_uuid >", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidGreaterThanOrEqualTo(String value) {
-            addCriterion("user_uuid >=", value, "userUuid");
+        public Criteria andClientUuidGreaterThanOrEqualTo(String value) {
+            addCriterion("client_uuid >=", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidLessThan(String value) {
-            addCriterion("user_uuid <", value, "userUuid");
+        public Criteria andClientUuidLessThan(String value) {
+            addCriterion("client_uuid <", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidLessThanOrEqualTo(String value) {
-            addCriterion("user_uuid <=", value, "userUuid");
+        public Criteria andClientUuidLessThanOrEqualTo(String value) {
+            addCriterion("client_uuid <=", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidLike(String value) {
-            addCriterion("user_uuid like", value, "userUuid");
+        public Criteria andClientUuidLike(String value) {
+            addCriterion("client_uuid like", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidNotLike(String value) {
-            addCriterion("user_uuid not like", value, "userUuid");
+        public Criteria andClientUuidNotLike(String value) {
+            addCriterion("client_uuid not like", value, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidIn(List<String> values) {
-            addCriterion("user_uuid in", values, "userUuid");
+        public Criteria andClientUuidIn(List<String> values) {
+            addCriterion("client_uuid in", values, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidNotIn(List<String> values) {
-            addCriterion("user_uuid not in", values, "userUuid");
+        public Criteria andClientUuidNotIn(List<String> values) {
+            addCriterion("client_uuid not in", values, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidBetween(String value1, String value2) {
-            addCriterion("user_uuid between", value1, value2, "userUuid");
+        public Criteria andClientUuidBetween(String value1, String value2) {
+            addCriterion("client_uuid between", value1, value2, "clientUuid");
             return (Criteria) this;
         }
 
-        public Criteria andUserUuidNotBetween(String value1, String value2) {
-            addCriterion("user_uuid not between", value1, value2, "userUuid");
+        public Criteria andClientUuidNotBetween(String value1, String value2) {
+            addCriterion("client_uuid not between", value1, value2, "clientUuid");
             return (Criteria) this;
         }
 
@@ -435,6 +435,146 @@ public class GiftSendRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andClientNameIsNull() {
+            addCriterion("client_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameIsNotNull() {
+            addCriterion("client_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameEqualTo(String value) {
+            addCriterion("client_name =", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameNotEqualTo(String value) {
+            addCriterion("client_name <>", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameGreaterThan(String value) {
+            addCriterion("client_name >", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameGreaterThanOrEqualTo(String value) {
+            addCriterion("client_name >=", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameLessThan(String value) {
+            addCriterion("client_name <", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameLessThanOrEqualTo(String value) {
+            addCriterion("client_name <=", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameLike(String value) {
+            addCriterion("client_name like", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameNotLike(String value) {
+            addCriterion("client_name not like", value, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameIn(List<String> values) {
+            addCriterion("client_name in", values, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameNotIn(List<String> values) {
+            addCriterion("client_name not in", values, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameBetween(String value1, String value2) {
+            addCriterion("client_name between", value1, value2, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientNameNotBetween(String value1, String value2) {
+            addCriterion("client_name not between", value1, value2, "clientName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameIsNull() {
+            addCriterion("anchor_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameIsNotNull() {
+            addCriterion("anchor_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameEqualTo(String value) {
+            addCriterion("anchor_name =", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameNotEqualTo(String value) {
+            addCriterion("anchor_name <>", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameGreaterThan(String value) {
+            addCriterion("anchor_name >", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameGreaterThanOrEqualTo(String value) {
+            addCriterion("anchor_name >=", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameLessThan(String value) {
+            addCriterion("anchor_name <", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameLessThanOrEqualTo(String value) {
+            addCriterion("anchor_name <=", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameLike(String value) {
+            addCriterion("anchor_name like", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameNotLike(String value) {
+            addCriterion("anchor_name not like", value, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameIn(List<String> values) {
+            addCriterion("anchor_name in", values, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameNotIn(List<String> values) {
+            addCriterion("anchor_name not in", values, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameBetween(String value1, String value2) {
+            addCriterion("anchor_name between", value1, value2, "anchorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorNameNotBetween(String value1, String value2) {
+            addCriterion("anchor_name not between", value1, value2, "anchorName");
+            return (Criteria) this;
+        }
+
         public Criteria andGiftUuidIsNull() {
             addCriterion("gift_uuid is null");
             return (Criteria) this;
@@ -502,6 +642,76 @@ public class GiftSendRecordExample {
 
         public Criteria andGiftUuidNotBetween(String value1, String value2) {
             addCriterion("gift_uuid not between", value1, value2, "giftUuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameIsNull() {
+            addCriterion("gift_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameIsNotNull() {
+            addCriterion("gift_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameEqualTo(String value) {
+            addCriterion("gift_name =", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameNotEqualTo(String value) {
+            addCriterion("gift_name <>", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameGreaterThan(String value) {
+            addCriterion("gift_name >", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameGreaterThanOrEqualTo(String value) {
+            addCriterion("gift_name >=", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameLessThan(String value) {
+            addCriterion("gift_name <", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameLessThanOrEqualTo(String value) {
+            addCriterion("gift_name <=", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameLike(String value) {
+            addCriterion("gift_name like", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameNotLike(String value) {
+            addCriterion("gift_name not like", value, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameIn(List<String> values) {
+            addCriterion("gift_name in", values, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameNotIn(List<String> values) {
+            addCriterion("gift_name not in", values, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameBetween(String value1, String value2) {
+            addCriterion("gift_name between", value1, value2, "giftName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGiftNameNotBetween(String value1, String value2) {
+            addCriterion("gift_name not between", value1, value2, "giftName");
             return (Criteria) this;
         }
 

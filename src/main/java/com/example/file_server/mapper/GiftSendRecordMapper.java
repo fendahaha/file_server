@@ -2,6 +2,8 @@ package com.example.file_server.mapper;
 
 import com.example.file_server.entity.GiftSendRecord;
 import com.example.file_server.entity.GiftSendRecordExample;
+
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +19,8 @@ public interface GiftSendRecordMapper {
     int insertSelective(GiftSendRecord record);
 
     List<GiftSendRecord> selectByExample(GiftSendRecordExample example);
+    List<GiftSendRecord> selectByExample2(HashMap<String,Object> map);
+    int selectCount(GiftSendRecordExample example);
 
     GiftSendRecord selectByPrimaryKey(Integer id);
 

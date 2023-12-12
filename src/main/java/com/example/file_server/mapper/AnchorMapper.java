@@ -2,7 +2,10 @@ package com.example.file_server.mapper;
 
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.AnchorExample;
+
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AnchorMapper {
@@ -19,6 +22,10 @@ public interface AnchorMapper {
     List<Anchor> selectByExampleWithBLOBs(AnchorExample example);
 
     List<Anchor> selectByExample(AnchorExample example);
+
+    List<Anchor> selectByExample2(HashMap<String, Object> map);
+
+    int selectCount(AnchorExample example);
 
     Anchor selectByPrimaryKey(Integer id);
 

@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 11/12/2023 20:51:01
+ Date: 12/12/2023 16:15:23
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,6 @@ CREATE TABLE `anchor`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `anchor_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_sanwei` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_height` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_wieght` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -33,7 +32,30 @@ CREATE TABLE `anchor`  (
   `anchor_config` json NULL,
   `anchor_create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of anchor
+-- ----------------------------
+INSERT INTO `anchor` VALUES (1, '4dc374b7-c365-4801-88df-e8cc113932ce', '073a2839-46e4-4720-9d7a-1abba41617fe', '122', '122', '122', NULL, NULL, '2023-12-12 15:34:18');
+
+-- ----------------------------
+-- Table structure for client
+-- ----------------------------
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE `client`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `client_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `client_money` double NOT NULL,
+  `create_at` datetime(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of client
+-- ----------------------------
+INSERT INTO `client` VALUES (1, '0618c51a-3fed-41e9-81be-eb61b3c17a08', '31867a89-12d7-4298-9459-d2786dee5acc', 1000, '2023-12-12 14:18:58');
 
 -- ----------------------------
 -- Table structure for config
@@ -59,12 +81,11 @@ CREATE TABLE `gift`  (
   `gift_order` int(11) NOT NULL,
   `gift_create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gift
 -- ----------------------------
-INSERT INTO `gift` VALUES (47, '5ea3b22b-9822-11ee-8365-6045cba3b98c', 'Gift Name 18', 1800, 'image18.jpg', 18, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (30, '5ea3a961-9822-11ee-8365-6045cba3b98c', 'Gift Name 1', 100, 'image1.jpg', 1, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (31, '5ea3ab1d-9822-11ee-8365-6045cba3b98c', 'Gift Name 2', 200, 'image2.jpg', 2, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (32, '5ea3aba2-9822-11ee-8365-6045cba3b98c', 'Gift Name 3', 300, 'image3.jpg', 3, '2023-12-11 20:39:44');
@@ -82,6 +103,7 @@ INSERT INTO `gift` VALUES (43, '5ea3b06d-9822-11ee-8365-6045cba3b98c', 'Gift Nam
 INSERT INTO `gift` VALUES (44, '5ea3b0db-9822-11ee-8365-6045cba3b98c', 'Gift Name 15', 1500, 'image15.jpg', 15, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (45, '5ea3b149-9822-11ee-8365-6045cba3b98c', 'Gift Name 16', 1600, 'image16.jpg', 16, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (46, '5ea3b1b8-9822-11ee-8365-6045cba3b98c', 'Gift Name 17', 1700, 'image17.jpg', 17, '2023-12-11 20:39:44');
+INSERT INTO `gift` VALUES (47, '5ea3b22b-9822-11ee-8365-6045cba3b98c', 'Gift Name 18', 1800, 'image18.jpg', 18, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (48, '5ea3b29c-9822-11ee-8365-6045cba3b98c', 'Gift Name 19', 1900, 'image19.jpg', 19, '2023-12-11 20:39:44');
 INSERT INTO `gift` VALUES (49, '5ea3b2b1-9822-11ee-8365-6045cba3b98c', 'Gift Name 20', 2000, 'image20.jpg', 20, '2023-12-11 20:39:44');
 
@@ -93,12 +115,15 @@ CREATE TABLE `gift_send_record`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gift_send_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_send_date` datetime(0) NOT NULL,
-  `user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `client_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `client_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `anchor_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gift_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_value` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for room
@@ -223,7 +248,7 @@ CREATE TABLE `upload_file`  (
   `file_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_upload_date` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 194 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of upload_file
@@ -270,6 +295,7 @@ INSERT INTO `upload_file` VALUES (190, 'fd8541b31880bbc9bb23f1a5243e9085f10e5f2c
 INSERT INTO `upload_file` VALUES (191, 'e982dfc982486d0d2d55842d568915723df9ea0b027cd7d72b45fc1404d06f2b.png', '13.png', 51862, 'image/png', 'avatar\\e982dfc982486d0d2d55842d568915723df9ea0b027cd7d72b45fc1404d06f2b.png', NULL, 'avatar', '2023-12-10 13:59:27');
 INSERT INTO `upload_file` VALUES (192, '8b2f2bf44fef7a5a3c2af1189ff25f900fd2907eb1e035f5aac96d820c097fb4.png', '10.png', 58523, 'image/png', 'avatar\\8b2f2bf44fef7a5a3c2af1189ff25f900fd2907eb1e035f5aac96d820c097fb4.png', NULL, 'avatar', '2023-12-10 13:59:40');
 INSERT INTO `upload_file` VALUES (193, '64c1c8ce32f2b4dfc8baf72cf0d95be14ea450b774915666a609ed83b3cf5de7.png', '1.png', 57837, 'image/png', 'avatar\\64c1c8ce32f2b4dfc8baf72cf0d95be14ea450b774915666a609ed83b3cf5de7.png', NULL, 'avatar', '2023-12-10 14:10:52');
+INSERT INTO `upload_file` VALUES (194, 'dc56bf0f017351891b5ddba9fb1d2b898ee5b89f3597338193efa38d73c6ff17.png', '3.png', 54988, 'image/png', 'avatar\\dc56bf0f017351891b5ddba9fb1d2b898ee5b89f3597338193efa38d73c6ff17.png', NULL, 'avatar', '2023-12-12 14:19:21');
 
 -- ----------------------------
 -- Table structure for user
@@ -288,12 +314,13 @@ CREATE TABLE `user`  (
   `user_type` int(11) NOT NULL COMMENT '1:管理员\r\n2.主播\r\n3.用户',
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'sadas', 'admin', '123456', 'admin', NULL, NULL, 'sdf', NULL, 1, '2023-12-06 17:56:29');
-INSERT INTO `user` VALUES (3, 'a648c2f3-40af-43f5-9979-ccc1f48c891e', 'fenda', '123456', 'SeriousLion35', 'a@gmail.com', '2156413631', 'china', 'avatar\\64c1c8ce32f2b4dfc8baf72cf0d95be14ea450b774915666a609ed83b3cf5de7.png', 3, '2023-12-07 16:01:15');
+INSERT INTO `user` VALUES (5, '0618c51a-3fed-41e9-81be-eb61b3c17a08', 'fenda', '123456', 'LazySnake3', 'a@gmail.com', '12344241231', 'china', 'avatar\\dc56bf0f017351891b5ddba9fb1d2b898ee5b89f3597338193efa38d73c6ff17.png', 3, '2023-12-12 14:18:58');
+INSERT INTO `user` VALUES (6, '4dc374b7-c365-4801-88df-e8cc113932ce', 'jake', '123456', 'FunnyBear65', NULL, NULL, NULL, NULL, 2, '2023-12-12 15:34:18');
 
 SET FOREIGN_KEY_CHECKS = 1;

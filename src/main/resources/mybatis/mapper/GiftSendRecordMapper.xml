@@ -5,9 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="gift_send_uuid" jdbcType="VARCHAR" property="giftSendUuid" />
     <result column="gift_send_date" jdbcType="TIMESTAMP" property="giftSendDate" />
-    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="client_uuid" jdbcType="VARCHAR" property="clientUuid" />
     <result column="anchor_uuid" jdbcType="VARCHAR" property="anchorUuid" />
+    <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+    <result column="anchor_name" jdbcType="VARCHAR" property="anchorName" />
     <result column="gift_uuid" jdbcType="VARCHAR" property="giftUuid" />
+    <result column="gift_name" jdbcType="VARCHAR" property="giftName" />
     <result column="gift_value" jdbcType="INTEGER" property="giftValue" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gift_send_uuid, gift_send_date, user_uuid, anchor_uuid, gift_uuid, gift_value
+    id, gift_send_uuid, gift_send_date, client_uuid, anchor_uuid, client_name, anchor_name, 
+    gift_uuid, gift_name, gift_value
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.GiftSendRecordExample" resultMap="BaseResultMap">
     select
@@ -85,6 +89,65 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+  <select id="selectByExample2" parameterType="map" resultMap="BaseResultMap">
+      select
+      <if test="distinct">
+          distinct
+      </if>
+      <include refid="Base_Column_List"/>
+      from gift_send_record
+      <if test="_parameter != null and example != null">
+          <where>
+              <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                  <if test="criteria.valid">
+                      <trim prefix="(" prefixOverrides="and" suffix=")">
+                          <foreach collection="criteria.criteria" item="criterion">
+                              <choose>
+                                  <when test="criterion.noValue">
+                                      and ${criterion.condition}
+                                  </when>
+                                  <when test="criterion.singleValue">
+                                      and ${criterion.condition} #{criterion.value}
+                                  </when>
+                                  <when test="criterion.betweenValue">
+                                      and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                  </when>
+                                  <when test="criterion.listValue">
+                                      and ${criterion.condition}
+                                      <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                               separator=",">
+                                          #{listItem}
+                                      </foreach>
+                                  </when>
+                              </choose>
+                          </foreach>
+                      </trim>
+                  </if>
+              </foreach>
+          </where>
+      </if>
+      <if test="example.orderByClause != null">
+          order by ${example.orderByClause}
+      </if>
+      <if test="pageStart != null and pageLimit != null">
+          limit #{pageStart},#{pageLimit}
+      </if>
+  </select>
+  <select id="selectCount" parameterType="com.example.file_server.entity.GiftSendRecordExample" resultType="int">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    count(*)
+    from gift_send_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -103,10 +166,12 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.GiftSendRecord">
     insert into gift_send_record (id, gift_send_uuid, gift_send_date, 
-      user_uuid, anchor_uuid, gift_uuid, 
+      client_uuid, anchor_uuid, client_name, 
+      anchor_name, gift_uuid, gift_name, 
       gift_value)
     values (#{id,jdbcType=INTEGER}, #{giftSendUuid,jdbcType=VARCHAR}, #{giftSendDate,jdbcType=TIMESTAMP}, 
-      #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, #{giftUuid,jdbcType=VARCHAR}, 
+      #{clientUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, 
+      #{anchorName,jdbcType=VARCHAR}, #{giftUuid,jdbcType=VARCHAR}, #{giftName,jdbcType=VARCHAR}, 
       #{giftValue,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.GiftSendRecord">
@@ -121,14 +186,23 @@
       <if test="giftSendDate != null">
         gift_send_date,
       </if>
-      <if test="userUuid != null">
-        user_uuid,
+      <if test="clientUuid != null">
+        client_uuid,
       </if>
       <if test="anchorUuid != null">
         anchor_uuid,
       </if>
+      <if test="clientName != null">
+        client_name,
+      </if>
+      <if test="anchorName != null">
+        anchor_name,
+      </if>
       <if test="giftUuid != null">
         gift_uuid,
+      </if>
+      <if test="giftName != null">
+        gift_name,
       </if>
       <if test="giftValue != null">
         gift_value,
@@ -144,14 +218,23 @@
       <if test="giftSendDate != null">
         #{giftSendDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="userUuid != null">
-        #{userUuid,jdbcType=VARCHAR},
+      <if test="clientUuid != null">
+        #{clientUuid,jdbcType=VARCHAR},
       </if>
       <if test="anchorUuid != null">
         #{anchorUuid,jdbcType=VARCHAR},
       </if>
+      <if test="clientName != null">
+        #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="anchorName != null">
+        #{anchorName,jdbcType=VARCHAR},
+      </if>
       <if test="giftUuid != null">
         #{giftUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="giftName != null">
+        #{giftName,jdbcType=VARCHAR},
       </if>
       <if test="giftValue != null">
         #{giftValue,jdbcType=INTEGER},
@@ -176,14 +259,23 @@
       <if test="record.giftSendDate != null">
         gift_send_date = #{record.giftSendDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.userUuid != null">
-        user_uuid = #{record.userUuid,jdbcType=VARCHAR},
+      <if test="record.clientUuid != null">
+        client_uuid = #{record.clientUuid,jdbcType=VARCHAR},
       </if>
       <if test="record.anchorUuid != null">
         anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
       </if>
+      <if test="record.clientName != null">
+        client_name = #{record.clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anchorName != null">
+        anchor_name = #{record.anchorName,jdbcType=VARCHAR},
+      </if>
       <if test="record.giftUuid != null">
         gift_uuid = #{record.giftUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftName != null">
+        gift_name = #{record.giftName,jdbcType=VARCHAR},
       </if>
       <if test="record.giftValue != null">
         gift_value = #{record.giftValue,jdbcType=INTEGER},
@@ -198,9 +290,12 @@
     set id = #{record.id,jdbcType=INTEGER},
       gift_send_uuid = #{record.giftSendUuid,jdbcType=VARCHAR},
       gift_send_date = #{record.giftSendDate,jdbcType=TIMESTAMP},
-      user_uuid = #{record.userUuid,jdbcType=VARCHAR},
+      client_uuid = #{record.clientUuid,jdbcType=VARCHAR},
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
+      client_name = #{record.clientName,jdbcType=VARCHAR},
+      anchor_name = #{record.anchorName,jdbcType=VARCHAR},
       gift_uuid = #{record.giftUuid,jdbcType=VARCHAR},
+      gift_name = #{record.giftName,jdbcType=VARCHAR},
       gift_value = #{record.giftValue,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -215,14 +310,23 @@
       <if test="giftSendDate != null">
         gift_send_date = #{giftSendDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="userUuid != null">
-        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      <if test="clientUuid != null">
+        client_uuid = #{clientUuid,jdbcType=VARCHAR},
       </if>
       <if test="anchorUuid != null">
         anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
       </if>
+      <if test="clientName != null">
+        client_name = #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="anchorName != null">
+        anchor_name = #{anchorName,jdbcType=VARCHAR},
+      </if>
       <if test="giftUuid != null">
         gift_uuid = #{giftUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="giftName != null">
+        gift_name = #{giftName,jdbcType=VARCHAR},
       </if>
       <if test="giftValue != null">
         gift_value = #{giftValue,jdbcType=INTEGER},
@@ -234,9 +338,12 @@
     update gift_send_record
     set gift_send_uuid = #{giftSendUuid,jdbcType=VARCHAR},
       gift_send_date = #{giftSendDate,jdbcType=TIMESTAMP},
-      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      client_uuid = #{clientUuid,jdbcType=VARCHAR},
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
+      client_name = #{clientName,jdbcType=VARCHAR},
+      anchor_name = #{anchorName,jdbcType=VARCHAR},
       gift_uuid = #{giftUuid,jdbcType=VARCHAR},
+      gift_name = #{giftName,jdbcType=VARCHAR},
       gift_value = #{giftValue,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
