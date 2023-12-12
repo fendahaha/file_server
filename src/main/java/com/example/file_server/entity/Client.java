@@ -11,7 +11,13 @@ public class Client {
 
     private String clientUuid;
 
+    private Integer clientLeavel;
+
     private Double clientMoney;
+
+    private Double clientMoneySended;
+
+    private Double clientMoneyRecharged;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createAt;
 
@@ -39,12 +45,36 @@ public class Client {
         this.clientUuid = clientUuid;
     }
 
+    public Integer getClientLeavel() {
+        return clientLeavel;
+    }
+
+    public void setClientLeavel(Integer clientLeavel) {
+        this.clientLeavel = clientLeavel;
+    }
+
     public Double getClientMoney() {
         return clientMoney;
     }
 
     public void setClientMoney(Double clientMoney) {
         this.clientMoney = clientMoney;
+    }
+
+    public Double getClientMoneySended() {
+        return clientMoneySended;
+    }
+
+    public void setClientMoneySended(Double clientMoneySended) {
+        this.clientMoneySended = clientMoneySended;
+    }
+
+    public Double getClientMoneyRecharged() {
+        return clientMoneyRecharged;
+    }
+
+    public void setClientMoneyRecharged(Double clientMoneyRecharged) {
+        this.clientMoneyRecharged = clientMoneyRecharged;
     }
 
     public Date getCreateAt() {

@@ -49,8 +49,11 @@ public class UserServiceImpl {
         Client client = new Client();
         client.setUserUuid(uuid);
         client.setClientUuid(UUIDUtil.generateUUID());
+        client.setClientLeavel(1);
         client.setCreateAt(date);
         client.setClientMoney(1000.0);
+        client.setClientMoneySended(0.0);
+        client.setClientMoneyRecharged(1000.0);
         int i1 = clientMapper.insertSelective(client);
         return (i > 0) && (i1 > 0) ? user : null;
     }

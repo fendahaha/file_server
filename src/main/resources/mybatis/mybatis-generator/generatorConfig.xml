@@ -32,8 +32,8 @@
         <!--        <table tableName="config" domainObjectName="Config"/>-->
 <!--        <table tableName="anchor" domainObjectName="Anchor"/>-->
 <!--        <table tableName="gift" domainObjectName="Gift"/>-->
-<!--        <table tableName="client" domainObjectName="Client"/>-->
-        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>
+        <table tableName="client" domainObjectName="Client"/>
+<!--        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>-->
 <!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
 <!--            <property name="useActualColumnNames" value="true"/>-->
 <!--        </table>-->

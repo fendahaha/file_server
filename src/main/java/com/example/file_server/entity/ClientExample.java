@@ -305,6 +305,66 @@ public class ClientExample {
             return (Criteria) this;
         }
 
+        public Criteria andClientLeavelIsNull() {
+            addCriterion("client_leavel is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelIsNotNull() {
+            addCriterion("client_leavel is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelEqualTo(Integer value) {
+            addCriterion("client_leavel =", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelNotEqualTo(Integer value) {
+            addCriterion("client_leavel <>", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelGreaterThan(Integer value) {
+            addCriterion("client_leavel >", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("client_leavel >=", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelLessThan(Integer value) {
+            addCriterion("client_leavel <", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelLessThanOrEqualTo(Integer value) {
+            addCriterion("client_leavel <=", value, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelIn(List<Integer> values) {
+            addCriterion("client_leavel in", values, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelNotIn(List<Integer> values) {
+            addCriterion("client_leavel not in", values, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelBetween(Integer value1, Integer value2) {
+            addCriterion("client_leavel between", value1, value2, "clientLeavel");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLeavelNotBetween(Integer value1, Integer value2) {
+            addCriterion("client_leavel not between", value1, value2, "clientLeavel");
+            return (Criteria) this;
+        }
+
         public Criteria andClientMoneyIsNull() {
             addCriterion("client_money is null");
             return (Criteria) this;
@@ -362,6 +422,126 @@ public class ClientExample {
 
         public Criteria andClientMoneyNotBetween(Double value1, Double value2) {
             addCriterion("client_money not between", value1, value2, "clientMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedIsNull() {
+            addCriterion("client_money_sended is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedIsNotNull() {
+            addCriterion("client_money_sended is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedEqualTo(Double value) {
+            addCriterion("client_money_sended =", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedNotEqualTo(Double value) {
+            addCriterion("client_money_sended <>", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedGreaterThan(Double value) {
+            addCriterion("client_money_sended >", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedGreaterThanOrEqualTo(Double value) {
+            addCriterion("client_money_sended >=", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedLessThan(Double value) {
+            addCriterion("client_money_sended <", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedLessThanOrEqualTo(Double value) {
+            addCriterion("client_money_sended <=", value, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedIn(List<Double> values) {
+            addCriterion("client_money_sended in", values, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedNotIn(List<Double> values) {
+            addCriterion("client_money_sended not in", values, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedBetween(Double value1, Double value2) {
+            addCriterion("client_money_sended between", value1, value2, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneySendedNotBetween(Double value1, Double value2) {
+            addCriterion("client_money_sended not between", value1, value2, "clientMoneySended");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedIsNull() {
+            addCriterion("client_money_recharged is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedIsNotNull() {
+            addCriterion("client_money_recharged is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedEqualTo(Double value) {
+            addCriterion("client_money_recharged =", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedNotEqualTo(Double value) {
+            addCriterion("client_money_recharged <>", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedGreaterThan(Double value) {
+            addCriterion("client_money_recharged >", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedGreaterThanOrEqualTo(Double value) {
+            addCriterion("client_money_recharged >=", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedLessThan(Double value) {
+            addCriterion("client_money_recharged <", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedLessThanOrEqualTo(Double value) {
+            addCriterion("client_money_recharged <=", value, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedIn(List<Double> values) {
+            addCriterion("client_money_recharged in", values, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedNotIn(List<Double> values) {
+            addCriterion("client_money_recharged not in", values, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedBetween(Double value1, Double value2) {
+            addCriterion("client_money_recharged between", value1, value2, "clientMoneyRecharged");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientMoneyRechargedNotBetween(Double value1, Double value2) {
+            addCriterion("client_money_recharged not between", value1, value2, "clientMoneyRecharged");
             return (Criteria) this;
         }
 

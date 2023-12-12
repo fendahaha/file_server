@@ -5,7 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
     <result column="client_uuid" jdbcType="VARCHAR" property="clientUuid" />
+    <result column="client_leavel" jdbcType="INTEGER" property="clientLeavel" />
     <result column="client_money" jdbcType="DOUBLE" property="clientMoney" />
+    <result column="client_money_sended" jdbcType="DOUBLE" property="clientMoneySended" />
+    <result column="client_money_recharged" jdbcType="DOUBLE" property="clientMoneyRecharged" />
     <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_uuid, client_uuid, client_money, create_at
+    id, user_uuid, client_uuid, client_leavel, client_money, client_money_sended, client_money_recharged, 
+    create_at
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.ClientExample" resultMap="BaseResultMap">
     select
@@ -101,9 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Client">
     insert into client (id, user_uuid, client_uuid, 
-      client_money, create_at)
+      client_leavel, client_money, client_money_sended, 
+      client_money_recharged, create_at)
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{clientUuid,jdbcType=VARCHAR}, 
-      #{clientMoney,jdbcType=DOUBLE}, #{createAt,jdbcType=TIMESTAMP})
+      #{clientLeavel,jdbcType=INTEGER}, #{clientMoney,jdbcType=DOUBLE}, #{clientMoneySended,jdbcType=DOUBLE}, 
+      #{clientMoneyRecharged,jdbcType=DOUBLE}, #{createAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Client">
     insert into client
@@ -117,8 +123,17 @@
       <if test="clientUuid != null">
         client_uuid,
       </if>
+      <if test="clientLeavel != null">
+        client_leavel,
+      </if>
       <if test="clientMoney != null">
         client_money,
+      </if>
+      <if test="clientMoneySended != null">
+        client_money_sended,
+      </if>
+      <if test="clientMoneyRecharged != null">
+        client_money_recharged,
       </if>
       <if test="createAt != null">
         create_at,
@@ -134,8 +149,17 @@
       <if test="clientUuid != null">
         #{clientUuid,jdbcType=VARCHAR},
       </if>
+      <if test="clientLeavel != null">
+        #{clientLeavel,jdbcType=INTEGER},
+      </if>
       <if test="clientMoney != null">
         #{clientMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="clientMoneySended != null">
+        #{clientMoneySended,jdbcType=DOUBLE},
+      </if>
+      <if test="clientMoneyRecharged != null">
+        #{clientMoneyRecharged,jdbcType=DOUBLE},
       </if>
       <if test="createAt != null">
         #{createAt,jdbcType=TIMESTAMP},
@@ -160,8 +184,17 @@
       <if test="record.clientUuid != null">
         client_uuid = #{record.clientUuid,jdbcType=VARCHAR},
       </if>
+      <if test="record.clientLeavel != null">
+        client_leavel = #{record.clientLeavel,jdbcType=INTEGER},
+      </if>
       <if test="record.clientMoney != null">
         client_money = #{record.clientMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clientMoneySended != null">
+        client_money_sended = #{record.clientMoneySended,jdbcType=DOUBLE},
+      </if>
+      <if test="record.clientMoneyRecharged != null">
+        client_money_recharged = #{record.clientMoneyRecharged,jdbcType=DOUBLE},
       </if>
       <if test="record.createAt != null">
         create_at = #{record.createAt,jdbcType=TIMESTAMP},
@@ -176,7 +209,10 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_uuid = #{record.userUuid,jdbcType=VARCHAR},
       client_uuid = #{record.clientUuid,jdbcType=VARCHAR},
+      client_leavel = #{record.clientLeavel,jdbcType=INTEGER},
       client_money = #{record.clientMoney,jdbcType=DOUBLE},
+      client_money_sended = #{record.clientMoneySended,jdbcType=DOUBLE},
+      client_money_recharged = #{record.clientMoneyRecharged,jdbcType=DOUBLE},
       create_at = #{record.createAt,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,8 +227,17 @@
       <if test="clientUuid != null">
         client_uuid = #{clientUuid,jdbcType=VARCHAR},
       </if>
+      <if test="clientLeavel != null">
+        client_leavel = #{clientLeavel,jdbcType=INTEGER},
+      </if>
       <if test="clientMoney != null">
         client_money = #{clientMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="clientMoneySended != null">
+        client_money_sended = #{clientMoneySended,jdbcType=DOUBLE},
+      </if>
+      <if test="clientMoneyRecharged != null">
+        client_money_recharged = #{clientMoneyRecharged,jdbcType=DOUBLE},
       </if>
       <if test="createAt != null">
         create_at = #{createAt,jdbcType=TIMESTAMP},
@@ -204,7 +249,10 @@
     update client
     set user_uuid = #{userUuid,jdbcType=VARCHAR},
       client_uuid = #{clientUuid,jdbcType=VARCHAR},
+      client_leavel = #{clientLeavel,jdbcType=INTEGER},
       client_money = #{clientMoney,jdbcType=DOUBLE},
+      client_money_sended = #{clientMoneySended,jdbcType=DOUBLE},
+      client_money_recharged = #{clientMoneyRecharged,jdbcType=DOUBLE},
       create_at = #{createAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

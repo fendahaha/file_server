@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 12/12/2023 16:15:23
+ Date: 12/12/2023 16:45:00
 */
 
 SET NAMES utf8mb4;
@@ -47,15 +47,18 @@ CREATE TABLE `client`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `client_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `client_leavel` int(11) NOT NULL,
   `client_money` double NOT NULL,
+  `client_money_sended` double NOT NULL,
+  `client_money_recharged` double NOT NULL,
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of client
 -- ----------------------------
-INSERT INTO `client` VALUES (1, '0618c51a-3fed-41e9-81be-eb61b3c17a08', '31867a89-12d7-4298-9459-d2786dee5acc', 1000, '2023-12-12 14:18:58');
+INSERT INTO `client` VALUES (2, '9971c9bf-8bad-49da-86d3-cbd21a8ee4a1', '6f2fcff4-5b00-4e88-811b-01ef7619bde4', 1, 1000, 0, 1000, '2023-12-12 16:44:17');
 
 -- ----------------------------
 -- Table structure for config
@@ -314,13 +317,13 @@ CREATE TABLE `user`  (
   `user_type` int(11) NOT NULL COMMENT '1:管理员\r\n2.主播\r\n3.用户',
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'sadas', 'admin', '123456', 'admin', NULL, NULL, 'sdf', NULL, 1, '2023-12-06 17:56:29');
-INSERT INTO `user` VALUES (5, '0618c51a-3fed-41e9-81be-eb61b3c17a08', 'fenda', '123456', 'LazySnake3', 'a@gmail.com', '12344241231', 'china', 'avatar\\dc56bf0f017351891b5ddba9fb1d2b898ee5b89f3597338193efa38d73c6ff17.png', 3, '2023-12-12 14:18:58');
 INSERT INTO `user` VALUES (6, '4dc374b7-c365-4801-88df-e8cc113932ce', 'jake', '123456', 'FunnyBear65', NULL, NULL, NULL, NULL, 2, '2023-12-12 15:34:18');
+INSERT INTO `user` VALUES (8, '9971c9bf-8bad-49da-86d3-cbd21a8ee4a1', 'fenda', '123456', 'CleverLion22', 'a@gmail.com', '2342424', NULL, NULL, 3, '2023-12-12 16:44:17');
 
 SET FOREIGN_KEY_CHECKS = 1;
