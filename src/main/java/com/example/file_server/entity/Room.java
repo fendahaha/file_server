@@ -14,11 +14,10 @@ public class Room {
     private String streamApp;
 
     private String streamName;
-
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date roomCreateAt;
 
-    private String streamOnline;
+    private Integer streamOnline;
 
     private String streamId;
 
@@ -70,11 +69,11 @@ public class Room {
         this.roomCreateAt = roomCreateAt;
     }
 
-    public String getStreamOnline() {
+    public Integer getStreamOnline() {
         return streamOnline;
     }
 
-    public void setStreamOnline(String streamOnline) {
+    public void setStreamOnline(Integer streamOnline) {
         this.streamOnline = streamOnline;
     }
 

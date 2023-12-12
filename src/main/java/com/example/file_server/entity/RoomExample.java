@@ -515,62 +515,52 @@ public class RoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineEqualTo(String value) {
+        public Criteria andStreamOnlineEqualTo(Integer value) {
             addCriterion("stream_online =", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineNotEqualTo(String value) {
+        public Criteria andStreamOnlineNotEqualTo(Integer value) {
             addCriterion("stream_online <>", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineGreaterThan(String value) {
+        public Criteria andStreamOnlineGreaterThan(Integer value) {
             addCriterion("stream_online >", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineGreaterThanOrEqualTo(String value) {
+        public Criteria andStreamOnlineGreaterThanOrEqualTo(Integer value) {
             addCriterion("stream_online >=", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineLessThan(String value) {
+        public Criteria andStreamOnlineLessThan(Integer value) {
             addCriterion("stream_online <", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineLessThanOrEqualTo(String value) {
+        public Criteria andStreamOnlineLessThanOrEqualTo(Integer value) {
             addCriterion("stream_online <=", value, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineLike(String value) {
-            addCriterion("stream_online like", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineNotLike(String value) {
-            addCriterion("stream_online not like", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineIn(List<String> values) {
+        public Criteria andStreamOnlineIn(List<Integer> values) {
             addCriterion("stream_online in", values, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineNotIn(List<String> values) {
+        public Criteria andStreamOnlineNotIn(List<Integer> values) {
             addCriterion("stream_online not in", values, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineBetween(String value1, String value2) {
+        public Criteria andStreamOnlineBetween(Integer value1, Integer value2) {
             addCriterion("stream_online between", value1, value2, "streamOnline");
             return (Criteria) this;
         }
 
-        public Criteria andStreamOnlineNotBetween(String value1, String value2) {
+        public Criteria andStreamOnlineNotBetween(Integer value1, Integer value2) {
             addCriterion("stream_online not between", value1, value2, "streamOnline");
             return (Criteria) this;
         }

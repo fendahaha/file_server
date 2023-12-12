@@ -3,12 +3,14 @@ package com.example.file_server.service.impl;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.AnchorExample;
+import com.example.file_server.entity.Room;
 import com.example.file_server.entity.User;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
 import com.example.file_server.utils.UserUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class AnchorServiceImpl {
     private AnchorMapper mapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoomServiceImpl roomService;
 
     public HashMap<String, Object> list(AnchorForm form) {
         AnchorExample example = new AnchorExample();
@@ -44,6 +48,7 @@ public class AnchorServiceImpl {
     }
 
     public Anchor create(AnchorForm form) {
+        Room room = roomService.create();
         Date date = new Date();
         String uuid = UUIDUtil.generateUUID();
 
@@ -51,7 +56,11 @@ public class AnchorServiceImpl {
         user.setUserUuid(uuid);
         user.setUserName(form.getUserName());
         user.setUserPassword(form.getUserPassword());
-        user.setUserDisplayName(UserUtil.generateUsername());
+        if (StringUtils.isNotBlank(form.getUserDisplayName())) {
+            user.setUserDisplayName(form.getUserDisplayName());
+        } else {
+            user.setUserDisplayName(UserUtil.generateUsername());
+        }
         user.setUserType(UserType.Anchor.getValue());
         user.setUserCountry(form.getUserCountry());
         user.setUserPhone(form.getUserPhone());
@@ -68,6 +77,7 @@ public class AnchorServiceImpl {
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorCreateAt(date);
+        record.setRoomUuid(room.getRoomUuid());
 
         int i1 = userMapper.insertSelective(user);
         int i = mapper.insertSelective(record);

@@ -18,8 +18,10 @@ public class Anchor {
     private String anchorWieght;
 
     private String anchorRemark;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date anchorCreateAt;
+
+    private String roomUuid;
 
     private String anchorConfig;
 
@@ -85,6 +87,14 @@ public class Anchor {
 
     public void setAnchorCreateAt(Date anchorCreateAt) {
         this.anchorCreateAt = anchorCreateAt;
+    }
+
+    public String getRoomUuid() {
+        return roomUuid;
+    }
+
+    public void setRoomUuid(String roomUuid) {
+        this.roomUuid = roomUuid;
     }
 
     public String getAnchorConfig() {

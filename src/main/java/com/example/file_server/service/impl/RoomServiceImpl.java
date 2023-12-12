@@ -1,6 +1,5 @@
 package com.example.file_server.service.impl;
 
-import com.example.file_server.dictionary.StreamApp;
 import com.example.file_server.entity.Room;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.mapper.RoomMapper;
@@ -17,7 +16,7 @@ public class RoomServiceImpl {
     @Autowired
     private RoomMapper roomMapper;
 
-    public int create(RoomCreateFrom roomCreateFrom) {
+    public int _create(RoomCreateFrom roomCreateFrom) {
         Room room = new Room();
 
         room.setRoomUuid(UUIDUtil.generateStreamUniqueName());
@@ -29,4 +28,17 @@ public class RoomServiceImpl {
     public List<Room> list() {
         return roomMapper.selectByExample(null);
     }
+
+    public Room create() {
+        Room room = new Room();
+        room.setRoomUuid(UUIDUtil.generateUUID());
+        room.setStreamAddress("rtmp://localhost/live/livestream");
+        room.setStreamApp("live");
+        room.setStreamName("livestream");
+        room.setRoomCreateAt(new Date());
+        room.setStreamOnline(0);
+        roomMapper.insertSelective(room);
+        return room;
+    }
+
 }

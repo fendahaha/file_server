@@ -38,7 +38,7 @@ public class RoomController extends BaseController {
         if (bindingResult.hasFieldErrors()) {
             return ResponseUtil.badRequest(getBindingError(bindingResult));
         }
-        int i = roomService.create(roomCreateFrom);
+        int i = roomService._create(roomCreateFrom);
         if (i > 0) {
             return ResponseUtil.ok(i);
         }

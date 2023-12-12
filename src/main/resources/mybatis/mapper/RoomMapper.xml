@@ -8,7 +8,7 @@
     <result column="stream_app" jdbcType="VARCHAR" property="streamApp" />
     <result column="stream_name" jdbcType="VARCHAR" property="streamName" />
     <result column="room_create_at" jdbcType="TIMESTAMP" property="roomCreateAt" />
-    <result column="stream_online" jdbcType="VARCHAR" property="streamOnline" />
+    <result column="stream_online" jdbcType="INTEGER" property="streamOnline" />
     <result column="stream_id" jdbcType="VARCHAR" property="streamId" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -109,7 +109,7 @@
       stream_online, stream_id)
     values (#{id,jdbcType=INTEGER}, #{roomUuid,jdbcType=VARCHAR}, #{streamAddress,jdbcType=VARCHAR}, 
       #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{roomCreateAt,jdbcType=TIMESTAMP}, 
-      #{streamOnline,jdbcType=VARCHAR}, #{streamId,jdbcType=VARCHAR})
+      #{streamOnline,jdbcType=INTEGER}, #{streamId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Room">
     insert into room
@@ -159,7 +159,7 @@
         #{roomCreateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="streamOnline != null">
-        #{streamOnline,jdbcType=VARCHAR},
+        #{streamOnline,jdbcType=INTEGER},
       </if>
       <if test="streamId != null">
         #{streamId,jdbcType=VARCHAR},
@@ -194,7 +194,7 @@
         room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="record.streamOnline != null">
-        stream_online = #{record.streamOnline,jdbcType=VARCHAR},
+        stream_online = #{record.streamOnline,jdbcType=INTEGER},
       </if>
       <if test="record.streamId != null">
         stream_id = #{record.streamId,jdbcType=VARCHAR},
@@ -212,7 +212,7 @@
       stream_app = #{record.streamApp,jdbcType=VARCHAR},
       stream_name = #{record.streamName,jdbcType=VARCHAR},
       room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
-      stream_online = #{record.streamOnline,jdbcType=VARCHAR},
+      stream_online = #{record.streamOnline,jdbcType=INTEGER},
       stream_id = #{record.streamId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +237,7 @@
         room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="streamOnline != null">
-        stream_online = #{streamOnline,jdbcType=VARCHAR},
+        stream_online = #{streamOnline,jdbcType=INTEGER},
       </if>
       <if test="streamId != null">
         stream_id = #{streamId,jdbcType=VARCHAR},
@@ -252,7 +252,7 @@
       stream_app = #{streamApp,jdbcType=VARCHAR},
       stream_name = #{streamName,jdbcType=VARCHAR},
       room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
-      stream_online = #{streamOnline,jdbcType=VARCHAR},
+      stream_online = #{streamOnline,jdbcType=INTEGER},
       stream_id = #{streamId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
