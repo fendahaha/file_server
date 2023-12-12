@@ -1,11 +1,13 @@
 package com.example.file_server.service.impl;
 
 import com.example.file_server.dictionary.UserType;
+import com.example.file_server.entity.Client;
 import com.example.file_server.entity.User;
 import com.example.file_server.entity.UserExample;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
+import com.example.file_server.mapper.ClientMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
 import com.example.file_server.utils.UserUtil;
@@ -19,6 +21,8 @@ import java.util.List;
 public class UserServiceImpl {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private ClientMapper clientMapper;
 
     public boolean userExist(String userName) {
         UserExample example = new UserExample();
@@ -30,17 +34,25 @@ public class UserServiceImpl {
 
 
     public User registerUser(UserRegisterForm userRegisterForm) {
+        Date date = new Date();
+        String uuid = UUIDUtil.generateUUID();
         User user = new User();
         user.setUserName(userRegisterForm.getUserName());
         user.setUserPassword(userRegisterForm.getUserPassword());
         user.setUserEmail(userRegisterForm.getUserEmail());
-        user.setUserPhone(user.getUserPhone());
-        user.setUserUuid(UUIDUtil.generateUUID());
+        user.setUserPhone(userRegisterForm.getUserPhone());
+        user.setUserUuid(uuid);
         user.setUserDisplayName(UserUtil.generateUsername());
         user.setUserType(UserType.Client.getValue());
-        user.setCreateAt(new Date());
-        userMapper.insertSelective(user);
-        return user;
+        user.setCreateAt(date);
+        int i = userMapper.insertSelective(user);
+        Client client = new Client();
+        client.setUserUuid(uuid);
+        client.setClientUuid(UUIDUtil.generateUUID());
+        client.setCreateAt(date);
+        client.setClientMoney(1000.0);
+        int i1 = clientMapper.insertSelective(client);
+        return (i > 0) && (i1 > 0) ? user : null;
     }
 
     public User getUser(UserLoginForm userLoginForm) {

@@ -3,7 +3,6 @@ package com.example.file_server.form;
 public class AnchorForm {
     private String userUuid;
     private String anchorUuid;
-    private String anchorName;
 
     private String anchorSanwei;
 
@@ -26,9 +25,6 @@ public class AnchorForm {
         this.anchorUuid = anchorUuid;
     }
 
-    public String getAnchorName() {
-        return anchorName;
-    }
 
     public String getUserUuid() {
         return userUuid;
@@ -38,9 +34,6 @@ public class AnchorForm {
         this.userUuid = userUuid;
     }
 
-    public void setAnchorName(String anchorName) {
-        this.anchorName = anchorName;
-    }
 
     public String getAnchorSanwei() {
         return anchorSanwei;

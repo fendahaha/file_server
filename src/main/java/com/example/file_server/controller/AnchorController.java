@@ -61,7 +61,7 @@ public class AnchorController extends BaseController{
         }
         boolean r = service.update(form);
         if (r) {
-            return ResponseUtil.ok(r);
+            return ResponseUtil.ok(true);
         }
         return ResponseUtil.internalServerError(null);
     }
@@ -73,7 +73,7 @@ public class AnchorController extends BaseController{
         }
         boolean r = service.delete(form);
         if (r) {
-            return ResponseUtil.ok(r);
+            return ResponseUtil.ok(true);
         }
         return ResponseUtil.internalServerError(null);
     }

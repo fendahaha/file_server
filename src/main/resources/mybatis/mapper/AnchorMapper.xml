@@ -5,7 +5,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
     <result column="anchor_uuid" jdbcType="VARCHAR" property="anchorUuid" />
-    <result column="anchor_name" jdbcType="VARCHAR" property="anchorName" />
     <result column="anchor_sanwei" jdbcType="VARCHAR" property="anchorSanwei" />
     <result column="anchor_height" jdbcType="VARCHAR" property="anchorHeight" />
     <result column="anchor_wieght" jdbcType="VARCHAR" property="anchorWieght" />
@@ -74,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_uuid, anchor_uuid, anchor_name, anchor_sanwei, anchor_height, anchor_wieght, 
-    anchor_remark, anchor_create_at
+    id, user_uuid, anchor_uuid, anchor_sanwei, anchor_height, anchor_wieght, anchor_remark, 
+    anchor_create_at
   </sql>
   <sql id="Blob_Column_List">
     anchor_config
@@ -130,13 +129,13 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Anchor">
     insert into anchor (id, user_uuid, anchor_uuid, 
-      anchor_name, anchor_sanwei, anchor_height, 
-      anchor_wieght, anchor_remark, anchor_create_at, 
-      anchor_config)
+      anchor_sanwei, anchor_height, anchor_wieght, 
+      anchor_remark, anchor_create_at, anchor_config
+      )
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, 
-      #{anchorName,jdbcType=VARCHAR}, #{anchorSanwei,jdbcType=VARCHAR}, #{anchorHeight,jdbcType=VARCHAR}, 
-      #{anchorWieght,jdbcType=VARCHAR}, #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, 
-      #{anchorConfig,jdbcType=LONGVARCHAR})
+      #{anchorSanwei,jdbcType=VARCHAR}, #{anchorHeight,jdbcType=VARCHAR}, #{anchorWieght,jdbcType=VARCHAR}, 
+      #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, #{anchorConfig,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Anchor">
     insert into anchor
@@ -149,9 +148,6 @@
       </if>
       <if test="anchorUuid != null">
         anchor_uuid,
-      </if>
-      <if test="anchorName != null">
-        anchor_name,
       </if>
       <if test="anchorSanwei != null">
         anchor_sanwei,
@@ -181,9 +177,6 @@
       </if>
       <if test="anchorUuid != null">
         #{anchorUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorName != null">
-        #{anchorName,jdbcType=VARCHAR},
       </if>
       <if test="anchorSanwei != null">
         #{anchorSanwei,jdbcType=VARCHAR},
@@ -223,9 +216,6 @@
       <if test="record.anchorUuid != null">
         anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
       </if>
-      <if test="record.anchorName != null">
-        anchor_name = #{record.anchorName,jdbcType=VARCHAR},
-      </if>
       <if test="record.anchorSanwei != null">
         anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
       </if>
@@ -254,7 +244,6 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_uuid = #{record.userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
-      anchor_name = #{record.anchorName,jdbcType=VARCHAR},
       anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
       anchor_height = #{record.anchorHeight,jdbcType=VARCHAR},
       anchor_wieght = #{record.anchorWieght,jdbcType=VARCHAR},
@@ -270,7 +259,6 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_uuid = #{record.userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
-      anchor_name = #{record.anchorName,jdbcType=VARCHAR},
       anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
       anchor_height = #{record.anchorHeight,jdbcType=VARCHAR},
       anchor_wieght = #{record.anchorWieght,jdbcType=VARCHAR},
@@ -288,9 +276,6 @@
       </if>
       <if test="anchorUuid != null">
         anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorName != null">
-        anchor_name = #{anchorName,jdbcType=VARCHAR},
       </if>
       <if test="anchorSanwei != null">
         anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
@@ -317,7 +302,6 @@
     update anchor
     set user_uuid = #{userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      anchor_name = #{anchorName,jdbcType=VARCHAR},
       anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
       anchor_height = #{anchorHeight,jdbcType=VARCHAR},
       anchor_wieght = #{anchorWieght,jdbcType=VARCHAR},
@@ -330,7 +314,6 @@
     update anchor
     set user_uuid = #{userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      anchor_name = #{anchorName,jdbcType=VARCHAR},
       anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
       anchor_height = #{anchorHeight,jdbcType=VARCHAR},
       anchor_wieght = #{anchorWieght,jdbcType=VARCHAR},

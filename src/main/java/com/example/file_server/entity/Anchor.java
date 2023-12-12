@@ -1,7 +1,5 @@
 package com.example.file_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class Anchor {
@@ -11,8 +9,6 @@ public class Anchor {
 
     private String anchorUuid;
 
-    private String anchorName;
-
     private String anchorSanwei;
 
     private String anchorHeight;
@@ -21,7 +17,6 @@ public class Anchor {
 
     private String anchorRemark;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date anchorCreateAt;
 
     private String anchorConfig;
@@ -48,14 +43,6 @@ public class Anchor {
 
     public void setAnchorUuid(String anchorUuid) {
         this.anchorUuid = anchorUuid;
-    }
-
-    public String getAnchorName() {
-        return anchorName;
-    }
-
-    public void setAnchorName(String anchorName) {
-        this.anchorName = anchorName;
     }
 
     public String getAnchorSanwei() {

@@ -26,7 +26,6 @@ public class AnchorServiceImpl {
         Anchor record = new Anchor();
         record.setUserUuid(form.getUserUuid());
         record.setAnchorUuid(UUIDUtil.generateUUID());
-        record.setAnchorName(form.getAnchorName());
         record.setAnchorSanwei(form.getAnchorSanwei());
         record.setAnchorHeight(form.getAnchorHeight());
         record.setAnchorWieght(form.getAnchorWieght());
@@ -45,7 +44,6 @@ public class AnchorServiceImpl {
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorWieght(form.getAnchorWieght());
         record.setAnchorHeight(form.getAnchorHeight());
-        record.setAnchorName(form.getAnchorName());
         record.setAnchorSanwei(form.getAnchorSanwei());
         int i = mapper.updateByExampleSelective(record, example);
         return i > 0;

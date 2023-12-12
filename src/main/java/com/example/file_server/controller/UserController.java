@@ -58,13 +58,16 @@ public class UserController extends BaseController {
         }
         try {
             if (userService.userExist(userRegisterForm.getUserName())) {
-                return ResponseUtil.badRequest("用户名已存在");
+                return ResponseUtil.badRequest("账号已存在");
             }
             User user = userService.registerUser(userRegisterForm);
-            return ResponseUtil.ok(user);
+            if (user != null) {
+                return ResponseUtil.ok(user);
+            }
         } catch (Exception e) {
             return ResponseUtil.internalServerError(null);
         }
+        return ResponseUtil.internalServerError(null);
     }
 
     @PostMapping("/list")
