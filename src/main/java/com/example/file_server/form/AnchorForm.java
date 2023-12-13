@@ -1,6 +1,7 @@
 package com.example.file_server.form;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -31,6 +32,7 @@ public class AnchorForm {
     private String anchorConfig;
 
     /*user*/
+    @Size(min = 10,max = 100)
     private String userName;
 
     private String userPassword;

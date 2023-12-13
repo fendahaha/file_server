@@ -8,7 +8,6 @@ import com.example.file_server.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,10 +33,7 @@ public class RoomController extends BaseController {
     }
 
     @PostMapping("/create")
-    public Object create(@RequestBody RoomCreateFrom roomCreateFrom, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object create(@RequestBody RoomCreateFrom roomCreateFrom) {
         int i = roomService._create(roomCreateFrom);
         if (i > 0) {
             return ResponseUtil.ok(i);

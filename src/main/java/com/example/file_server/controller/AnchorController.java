@@ -1,15 +1,11 @@
 package com.example.file_server.controller;
 
-import com.example.file_server.entity.Anchor;
 import com.example.file_server.form.AnchorForm;
-import com.example.file_server.form.ListForm;
 import com.example.file_server.service.impl.AnchorServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
+@Validated
 @RequestMapping("/anchor")
 @RestController
 public class AnchorController extends BaseController {
@@ -33,31 +29,18 @@ public class AnchorController extends BaseController {
     }
 
     @PostMapping("/list")
-    public Object list(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object list(@RequestBody @Validated AnchorForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
 
     @PostMapping("/create")
-    public Object create(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
-        Anchor r = service.create(form);
-        if (r != null) {
-            return ResponseUtil.ok(r);
-        }
-        return ResponseUtil.internalServerError(null);
+    public Object create(@RequestBody @Validated AnchorForm form) throws Exception {
+        return ResponseUtil.ok(service.create(form));
     }
 
     @PostMapping("/update")
-    public Object update(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object update(@RequestBody @Validated AnchorForm form) {
         boolean r = service.update(form);
         if (r) {
             return ResponseUtil.ok(true);
@@ -66,14 +49,8 @@ public class AnchorController extends BaseController {
     }
 
     @PostMapping("/delete")
-    public Object delete(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
-        boolean r = service.delete(form);
-        if (r) {
-            return ResponseUtil.ok(true);
-        }
-        return ResponseUtil.internalServerError(null);
+    public Object delete(@Min(0) Integer id) throws Exception {
+        service.deleteById(id);
+        return ResponseUtil.ok(true);
     }
 }

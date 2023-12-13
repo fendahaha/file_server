@@ -7,7 +7,6 @@ import com.example.file_server.service.impl.GiftServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -30,19 +29,13 @@ public class GiftController extends BaseController {
     }
 
     @PostMapping("/list")
-    public Object list(@RequestBody @Validated GiftSearchForm searchForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object list(@RequestBody @Validated GiftSearchForm searchForm) {
         HashMap<String, Object> map = giftService.list(searchForm);
         return ResponseUtil.ok(map);
     }
 
     @PostMapping("/create")
-    public Object create(@RequestBody @Validated GiftForm giftForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object create(@RequestBody @Validated GiftForm giftForm) {
         Gift gift = giftService.create(giftForm);
         if (gift != null) {
             return ResponseUtil.ok(gift);
@@ -51,10 +44,7 @@ public class GiftController extends BaseController {
     }
 
     @PostMapping("/update")
-    public Object update(@RequestBody @Validated GiftForm giftForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object update(@RequestBody @Validated GiftForm giftForm) {
         boolean update = giftService.update(giftForm);
         if (update) {
             return ResponseUtil.ok(true);
@@ -63,10 +53,7 @@ public class GiftController extends BaseController {
     }
 
     @PostMapping("/delete")
-    public Object delete(@RequestBody @Validated GiftForm giftForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object delete(@RequestBody @Validated GiftForm giftForm) {
         boolean delete = giftService.delete(giftForm);
         if (delete) {
             return ResponseUtil.ok(true);

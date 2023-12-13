@@ -1,6 +1,7 @@
 package com.example.file_server.service.impl;
 
 import com.example.file_server.entity.Room;
+import com.example.file_server.entity.RoomExample;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.mapper.RoomMapper;
 import com.example.file_server.utils.UUIDUtil;
@@ -29,16 +30,28 @@ public class RoomServiceImpl {
         return roomMapper.selectByExample(null);
     }
 
-    public Room create() {
+    public Room create() throws Exception {
         Room room = new Room();
         room.setRoomUuid(UUIDUtil.generateUUID());
         room.setStreamAddress("rtmp://localhost/live/livestream");
         room.setStreamApp("live");
         room.setStreamName("livestream");
         room.setRoomCreateAt(new Date());
-        room.setStreamOnline(0);
-        roomMapper.insertSelective(room);
-        return room;
+        room.setRoomEnable(1);
+        int i = roomMapper.insertSelective(room);
+        if (i > 0) {
+            return room;
+        }
+        throw new Exception("fail");
+    }
+
+    public void deleteByUUID(String uuid) throws Exception {
+        RoomExample example = new RoomExample();
+        example.createCriteria().andRoomUuidEqualTo(uuid);
+        int i = roomMapper.deleteByExample(example);
+        if (i <= 0) {
+            throw new Exception("fail");
+        }
     }
 
 }

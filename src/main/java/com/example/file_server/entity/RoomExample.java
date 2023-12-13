@@ -445,6 +445,66 @@ public class RoomExample {
             return (Criteria) this;
         }
 
+        public Criteria andRoomEnableIsNull() {
+            addCriterion("room_enable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableIsNotNull() {
+            addCriterion("room_enable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableEqualTo(Integer value) {
+            addCriterion("room_enable =", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotEqualTo(Integer value) {
+            addCriterion("room_enable <>", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableGreaterThan(Integer value) {
+            addCriterion("room_enable >", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("room_enable >=", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableLessThan(Integer value) {
+            addCriterion("room_enable <", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableLessThanOrEqualTo(Integer value) {
+            addCriterion("room_enable <=", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableIn(List<Integer> values) {
+            addCriterion("room_enable in", values, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotIn(List<Integer> values) {
+            addCriterion("room_enable not in", values, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableBetween(Integer value1, Integer value2) {
+            addCriterion("room_enable between", value1, value2, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotBetween(Integer value1, Integer value2) {
+            addCriterion("room_enable not between", value1, value2, "roomEnable");
+            return (Criteria) this;
+        }
+
         public Criteria andRoomCreateAtIsNull() {
             addCriterion("room_create_at is null");
             return (Criteria) this;
@@ -502,136 +562,6 @@ public class RoomExample {
 
         public Criteria andRoomCreateAtNotBetween(Date value1, Date value2) {
             addCriterion("room_create_at not between", value1, value2, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineIsNull() {
-            addCriterion("stream_online is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineIsNotNull() {
-            addCriterion("stream_online is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineEqualTo(Integer value) {
-            addCriterion("stream_online =", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineNotEqualTo(Integer value) {
-            addCriterion("stream_online <>", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineGreaterThan(Integer value) {
-            addCriterion("stream_online >", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineGreaterThanOrEqualTo(Integer value) {
-            addCriterion("stream_online >=", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineLessThan(Integer value) {
-            addCriterion("stream_online <", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineLessThanOrEqualTo(Integer value) {
-            addCriterion("stream_online <=", value, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineIn(List<Integer> values) {
-            addCriterion("stream_online in", values, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineNotIn(List<Integer> values) {
-            addCriterion("stream_online not in", values, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineBetween(Integer value1, Integer value2) {
-            addCriterion("stream_online between", value1, value2, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamOnlineNotBetween(Integer value1, Integer value2) {
-            addCriterion("stream_online not between", value1, value2, "streamOnline");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdIsNull() {
-            addCriterion("stream_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdIsNotNull() {
-            addCriterion("stream_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdEqualTo(String value) {
-            addCriterion("stream_id =", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdNotEqualTo(String value) {
-            addCriterion("stream_id <>", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdGreaterThan(String value) {
-            addCriterion("stream_id >", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdGreaterThanOrEqualTo(String value) {
-            addCriterion("stream_id >=", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdLessThan(String value) {
-            addCriterion("stream_id <", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdLessThanOrEqualTo(String value) {
-            addCriterion("stream_id <=", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdLike(String value) {
-            addCriterion("stream_id like", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdNotLike(String value) {
-            addCriterion("stream_id not like", value, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdIn(List<String> values) {
-            addCriterion("stream_id in", values, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdNotIn(List<String> values) {
-            addCriterion("stream_id not in", values, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdBetween(String value1, String value2) {
-            addCriterion("stream_id between", value1, value2, "streamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStreamIdNotBetween(String value1, String value2) {
-            addCriterion("stream_id not between", value1, value2, "streamId");
             return (Criteria) this;
         }
     }

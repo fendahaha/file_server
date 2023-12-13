@@ -5,7 +5,6 @@ import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -29,19 +28,13 @@ public class GiftSendRecordController extends BaseController {
     }
 
     @PostMapping("/list")
-    public Object list(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object list(@RequestBody @Validated AnchorForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
 
     @PostMapping("/delete")
-    public Object delete(@RequestBody @Validated AnchorForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object delete(@RequestBody @Validated AnchorForm form) {
         boolean delete = service.delete(form);
         if (delete) {
             return ResponseUtil.ok(true);

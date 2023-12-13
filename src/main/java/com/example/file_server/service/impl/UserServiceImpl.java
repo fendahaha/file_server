@@ -4,6 +4,7 @@ import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.Client;
 import com.example.file_server.entity.User;
 import com.example.file_server.entity.UserExample;
+import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
@@ -11,6 +12,7 @@ import com.example.file_server.mapper.ClientMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
 import com.example.file_server.utils.UserUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +90,37 @@ public class UserServiceImpl {
         List<User> users = userMapper.selectByExample(example);
         return users.get(0);
     }
+
+    public User createAnchorUser(AnchorForm form) throws Exception {
+        User user = new User();
+        user.setUserUuid(UUIDUtil.generateUUID());
+        if (StringUtils.isNotBlank(form.getUserDisplayName())) {
+            user.setUserDisplayName(form.getUserDisplayName());
+        } else {
+            user.setUserDisplayName(UserUtil.generateUsername());
+        }
+        user.setUserType(UserType.Anchor.getValue());
+        user.setCreateAt(new Date());
+        user.setUserName(form.getUserName());
+        user.setUserPassword(form.getUserPassword());
+        user.setUserCountry(form.getUserCountry());
+        user.setUserPhone(form.getUserPhone());
+        user.setUserEmail(form.getUserEmail());
+        user.setUserAvatar(form.getUserAvatar());
+        int i = userMapper.insertSelective(user);
+        if (i > 0) {
+            return user;
+        }
+        throw new Exception("fail");
+    }
+
+    public void deleteByUUID(String uuid) throws Exception {
+        UserExample example = new UserExample();
+        example.createCriteria().andUserUuidEqualTo(uuid);
+        int i = userMapper.deleteByExample(example);
+        if (i <= 0) {
+            throw new Exception("fail");
+        }
+    }
+
 }

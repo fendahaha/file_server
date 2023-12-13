@@ -11,7 +11,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -45,10 +44,7 @@ public class FileUploadController extends BaseController {
      * @param pageSize
      */
     @GetMapping("/list")
-    public Object list(@Validated FileListForm fileListForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object list(@Validated FileListForm fileListForm) {
         PageHelper.startPage(fileListForm.getPageNum(), fileListForm.getPageSize());
         List<UploadFile> list = uploadFileService.list();
         PageInfo<UploadFile> pageInfo = new PageInfo<>(list);
@@ -63,10 +59,7 @@ public class FileUploadController extends BaseController {
      * @param file     文件名称
      */
     @PostMapping("/upload")
-    public Object upload(@Validated FileUploadForm fileUploadForm, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object upload(@Validated FileUploadForm fileUploadForm) {
         return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
     }
 
@@ -84,10 +77,7 @@ public class FileUploadController extends BaseController {
     }
 
     @PostMapping("/query")
-    public Object query(@RequestBody @Validated FileSearchForm form, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) {
-            return ResponseUtil.badRequest(getBindingError(bindingResult));
-        }
+    public Object query(@RequestBody @Validated FileSearchForm form) {
         List<UploadFile> files = uploadFileService.query(form);
         return ResponseUtil.ok(files);
     }

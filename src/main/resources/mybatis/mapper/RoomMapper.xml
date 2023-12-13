@@ -7,9 +7,8 @@
     <result column="stream_address" jdbcType="VARCHAR" property="streamAddress" />
     <result column="stream_app" jdbcType="VARCHAR" property="streamApp" />
     <result column="stream_name" jdbcType="VARCHAR" property="streamName" />
+    <result column="room_enable" jdbcType="INTEGER" property="roomEnable" />
     <result column="room_create_at" jdbcType="TIMESTAMP" property="roomCreateAt" />
-    <result column="stream_online" jdbcType="INTEGER" property="streamOnline" />
-    <result column="stream_id" jdbcType="VARCHAR" property="streamId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,8 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, room_uuid, stream_address, stream_app, stream_name, room_create_at, stream_online, 
-    stream_id
+    id, room_uuid, stream_address, stream_app, stream_name, room_enable, room_create_at
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.RoomExample" resultMap="BaseResultMap">
     select
@@ -105,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Room">
     insert into room (id, room_uuid, stream_address, 
-      stream_app, stream_name, room_create_at, 
-      stream_online, stream_id)
+      stream_app, stream_name, room_enable, 
+      room_create_at)
     values (#{id,jdbcType=INTEGER}, #{roomUuid,jdbcType=VARCHAR}, #{streamAddress,jdbcType=VARCHAR}, 
-      #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{roomCreateAt,jdbcType=TIMESTAMP}, 
-      #{streamOnline,jdbcType=INTEGER}, #{streamId,jdbcType=VARCHAR})
+      #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{roomEnable,jdbcType=INTEGER}, 
+      #{roomCreateAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Room">
     insert into room
@@ -129,14 +127,11 @@
       <if test="streamName != null">
         stream_name,
       </if>
+      <if test="roomEnable != null">
+        room_enable,
+      </if>
       <if test="roomCreateAt != null">
         room_create_at,
-      </if>
-      <if test="streamOnline != null">
-        stream_online,
-      </if>
-      <if test="streamId != null">
-        stream_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -155,14 +150,11 @@
       <if test="streamName != null">
         #{streamName,jdbcType=VARCHAR},
       </if>
+      <if test="roomEnable != null">
+        #{roomEnable,jdbcType=INTEGER},
+      </if>
       <if test="roomCreateAt != null">
         #{roomCreateAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="streamOnline != null">
-        #{streamOnline,jdbcType=INTEGER},
-      </if>
-      <if test="streamId != null">
-        #{streamId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -190,14 +182,11 @@
       <if test="record.streamName != null">
         stream_name = #{record.streamName,jdbcType=VARCHAR},
       </if>
+      <if test="record.roomEnable != null">
+        room_enable = #{record.roomEnable,jdbcType=INTEGER},
+      </if>
       <if test="record.roomCreateAt != null">
         room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.streamOnline != null">
-        stream_online = #{record.streamOnline,jdbcType=INTEGER},
-      </if>
-      <if test="record.streamId != null">
-        stream_id = #{record.streamId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -211,9 +200,8 @@
       stream_address = #{record.streamAddress,jdbcType=VARCHAR},
       stream_app = #{record.streamApp,jdbcType=VARCHAR},
       stream_name = #{record.streamName,jdbcType=VARCHAR},
-      room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
-      stream_online = #{record.streamOnline,jdbcType=INTEGER},
-      stream_id = #{record.streamId,jdbcType=VARCHAR}
+      room_enable = #{record.roomEnable,jdbcType=INTEGER},
+      room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,14 +221,11 @@
       <if test="streamName != null">
         stream_name = #{streamName,jdbcType=VARCHAR},
       </if>
+      <if test="roomEnable != null">
+        room_enable = #{roomEnable,jdbcType=INTEGER},
+      </if>
       <if test="roomCreateAt != null">
         room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="streamOnline != null">
-        stream_online = #{streamOnline,jdbcType=INTEGER},
-      </if>
-      <if test="streamId != null">
-        stream_id = #{streamId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -251,9 +236,8 @@
       stream_address = #{streamAddress,jdbcType=VARCHAR},
       stream_app = #{streamApp,jdbcType=VARCHAR},
       stream_name = #{streamName,jdbcType=VARCHAR},
-      room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
-      stream_online = #{streamOnline,jdbcType=INTEGER},
-      stream_id = #{streamId,jdbcType=VARCHAR}
+      room_enable = #{roomEnable,jdbcType=INTEGER},
+      room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

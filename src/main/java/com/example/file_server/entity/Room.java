@@ -14,12 +14,10 @@ public class Room {
     private String streamApp;
 
     private String streamName;
+
+    private Integer roomEnable;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date roomCreateAt;
-
-    private Integer streamOnline;
-
-    private String streamId;
 
     public Integer getId() {
         return id;
@@ -61,27 +59,19 @@ public class Room {
         this.streamName = streamName;
     }
 
+    public Integer getRoomEnable() {
+        return roomEnable;
+    }
+
+    public void setRoomEnable(Integer roomEnable) {
+        this.roomEnable = roomEnable;
+    }
+
     public Date getRoomCreateAt() {
         return roomCreateAt;
     }
 
     public void setRoomCreateAt(Date roomCreateAt) {
         this.roomCreateAt = roomCreateAt;
-    }
-
-    public Integer getStreamOnline() {
-        return streamOnline;
-    }
-
-    public void setStreamOnline(Integer streamOnline) {
-        this.streamOnline = streamOnline;
-    }
-
-    public String getStreamId() {
-        return streamId;
-    }
-
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
     }
 }
