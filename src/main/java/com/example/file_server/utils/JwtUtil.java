@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class JwtUtil {
-    private static final String SECRET = "your_secret_key";
-    private static final long DEFAULT_EXPIRATION_TIME = 1000 * 3600 * 24;
+    private static final String SECRET = "fenda@secret.com";
+    private static final long DEFAULT_EXPIRATION_TIME = 1000 * 3600 * 24;//1day
 
     public static String generateToken(String username) {
         return JWT.create()
@@ -19,9 +19,9 @@ public class JwtUtil {
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
     }
 
-    public static String generateToken(String username, Date expiresAt) {
+    public static String generateToken(String subject, Date expiresAt) {
         return JWT.create()
-                .withSubject(username)
+                .withSubject(subject)
                 .withExpiresAt(expiresAt)
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
     }
