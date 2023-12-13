@@ -235,6 +235,196 @@ public class RoomExample {
             return (Criteria) this;
         }
 
+        public Criteria andRoomEnableIsNull() {
+            addCriterion("room_enable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableIsNotNull() {
+            addCriterion("room_enable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableEqualTo(Integer value) {
+            addCriterion("room_enable =", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotEqualTo(Integer value) {
+            addCriterion("room_enable <>", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableGreaterThan(Integer value) {
+            addCriterion("room_enable >", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("room_enable >=", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableLessThan(Integer value) {
+            addCriterion("room_enable <", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableLessThanOrEqualTo(Integer value) {
+            addCriterion("room_enable <=", value, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableIn(List<Integer> values) {
+            addCriterion("room_enable in", values, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotIn(List<Integer> values) {
+            addCriterion("room_enable not in", values, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableBetween(Integer value1, Integer value2) {
+            addCriterion("room_enable between", value1, value2, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomEnableNotBetween(Integer value1, Integer value2) {
+            addCriterion("room_enable not between", value1, value2, "roomEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtIsNull() {
+            addCriterion("room_create_at is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtIsNotNull() {
+            addCriterion("room_create_at is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtEqualTo(Date value) {
+            addCriterion("room_create_at =", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtNotEqualTo(Date value) {
+            addCriterion("room_create_at <>", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtGreaterThan(Date value) {
+            addCriterion("room_create_at >", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtGreaterThanOrEqualTo(Date value) {
+            addCriterion("room_create_at >=", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtLessThan(Date value) {
+            addCriterion("room_create_at <", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtLessThanOrEqualTo(Date value) {
+            addCriterion("room_create_at <=", value, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtIn(List<Date> values) {
+            addCriterion("room_create_at in", values, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtNotIn(List<Date> values) {
+            addCriterion("room_create_at not in", values, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtBetween(Date value1, Date value2) {
+            addCriterion("room_create_at between", value1, value2, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreateAtNotBetween(Date value1, Date value2) {
+            addCriterion("room_create_at not between", value1, value2, "roomCreateAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeIsNull() {
+            addCriterion("stream_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeIsNotNull() {
+            addCriterion("stream_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeEqualTo(String value) {
+            addCriterion("stream_type =", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeNotEqualTo(String value) {
+            addCriterion("stream_type <>", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeGreaterThan(String value) {
+            addCriterion("stream_type >", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_type >=", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeLessThan(String value) {
+            addCriterion("stream_type <", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeLessThanOrEqualTo(String value) {
+            addCriterion("stream_type <=", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeLike(String value) {
+            addCriterion("stream_type like", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeNotLike(String value) {
+            addCriterion("stream_type not like", value, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeIn(List<String> values) {
+            addCriterion("stream_type in", values, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeNotIn(List<String> values) {
+            addCriterion("stream_type not in", values, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeBetween(String value1, String value2) {
+            addCriterion("stream_type between", value1, value2, "streamType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamTypeNotBetween(String value1, String value2) {
+            addCriterion("stream_type not between", value1, value2, "streamType");
+            return (Criteria) this;
+        }
+
         public Criteria andStreamAddressIsNull() {
             addCriterion("stream_address is null");
             return (Criteria) this;
@@ -442,126 +632,6 @@ public class RoomExample {
 
         public Criteria andStreamNameNotBetween(String value1, String value2) {
             addCriterion("stream_name not between", value1, value2, "streamName");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableIsNull() {
-            addCriterion("room_enable is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableIsNotNull() {
-            addCriterion("room_enable is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableEqualTo(Integer value) {
-            addCriterion("room_enable =", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableNotEqualTo(Integer value) {
-            addCriterion("room_enable <>", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableGreaterThan(Integer value) {
-            addCriterion("room_enable >", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableGreaterThanOrEqualTo(Integer value) {
-            addCriterion("room_enable >=", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableLessThan(Integer value) {
-            addCriterion("room_enable <", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableLessThanOrEqualTo(Integer value) {
-            addCriterion("room_enable <=", value, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableIn(List<Integer> values) {
-            addCriterion("room_enable in", values, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableNotIn(List<Integer> values) {
-            addCriterion("room_enable not in", values, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableBetween(Integer value1, Integer value2) {
-            addCriterion("room_enable between", value1, value2, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomEnableNotBetween(Integer value1, Integer value2) {
-            addCriterion("room_enable not between", value1, value2, "roomEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtIsNull() {
-            addCriterion("room_create_at is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtIsNotNull() {
-            addCriterion("room_create_at is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtEqualTo(Date value) {
-            addCriterion("room_create_at =", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtNotEqualTo(Date value) {
-            addCriterion("room_create_at <>", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtGreaterThan(Date value) {
-            addCriterion("room_create_at >", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtGreaterThanOrEqualTo(Date value) {
-            addCriterion("room_create_at >=", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtLessThan(Date value) {
-            addCriterion("room_create_at <", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtLessThanOrEqualTo(Date value) {
-            addCriterion("room_create_at <=", value, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtIn(List<Date> values) {
-            addCriterion("room_create_at in", values, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtNotIn(List<Date> values) {
-            addCriterion("room_create_at not in", values, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtBetween(Date value1, Date value2) {
-            addCriterion("room_create_at between", value1, value2, "roomCreateAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomCreateAtNotBetween(Date value1, Date value2) {
-            addCriterion("room_create_at not between", value1, value2, "roomCreateAt");
             return (Criteria) this;
         }
     }

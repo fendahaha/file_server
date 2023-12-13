@@ -9,15 +9,19 @@ public class Room {
 
     private String roomUuid;
 
+    private Integer roomEnable;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private Date roomCreateAt;
+
+    private String streamType;
+
     private String streamAddress;
 
     private String streamApp;
 
     private String streamName;
 
-    private Integer roomEnable;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-    private Date roomCreateAt;
+    private String streamParam;
 
     public Integer getId() {
         return id;
@@ -33,6 +37,30 @@ public class Room {
 
     public void setRoomUuid(String roomUuid) {
         this.roomUuid = roomUuid;
+    }
+
+    public Integer getRoomEnable() {
+        return roomEnable;
+    }
+
+    public void setRoomEnable(Integer roomEnable) {
+        this.roomEnable = roomEnable;
+    }
+
+    public Date getRoomCreateAt() {
+        return roomCreateAt;
+    }
+
+    public void setRoomCreateAt(Date roomCreateAt) {
+        this.roomCreateAt = roomCreateAt;
+    }
+
+    public String getStreamType() {
+        return streamType;
+    }
+
+    public void setStreamType(String streamType) {
+        this.streamType = streamType;
     }
 
     public String getStreamAddress() {
@@ -59,19 +87,11 @@ public class Room {
         this.streamName = streamName;
     }
 
-    public Integer getRoomEnable() {
-        return roomEnable;
+    public String getStreamParam() {
+        return streamParam;
     }
 
-    public void setRoomEnable(Integer roomEnable) {
-        this.roomEnable = roomEnable;
-    }
-
-    public Date getRoomCreateAt() {
-        return roomCreateAt;
-    }
-
-    public void setRoomCreateAt(Date roomCreateAt) {
-        this.roomCreateAt = roomCreateAt;
+    public void setStreamParam(String streamParam) {
+        this.streamParam = streamParam;
     }
 }

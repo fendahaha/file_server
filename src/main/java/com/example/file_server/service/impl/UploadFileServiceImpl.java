@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.config.FileUploadConfiguration;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
@@ -106,6 +107,7 @@ public class UploadFileServiceImpl implements UploadFileService {
         return example;
     }
 
+
     public int delete(UploadFileExample example) {
         List<UploadFile> uploadFiles = uploadFileMapper.selectByExample(example);
         int i = uploadFileMapper.deleteByExample(example);
@@ -134,7 +136,7 @@ public class UploadFileServiceImpl implements UploadFileService {
         UploadFileExample example = categorysQuery(fileCategorys);
         return delete(example);
     }
-
+    @CommonTransactional
     public int delete_auto(FileDeleteForm fileDeleteForm) {
         List<String> fileUniqueNames = fileDeleteForm.getFileUniqueNames();
         if (!Objects.isNull(fileUniqueNames)) {

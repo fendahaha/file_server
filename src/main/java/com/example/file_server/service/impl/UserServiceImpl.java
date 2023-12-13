@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.Client;
 import com.example.file_server.entity.User;
@@ -34,7 +35,7 @@ public class UserServiceImpl {
         return !users.isEmpty();
     }
 
-
+    @CommonTransactional
     public User registerUser(UserRegisterForm userRegisterForm) {
         Date date = new Date();
         String uuid = UUIDUtil.generateUUID();
@@ -68,7 +69,7 @@ public class UserServiceImpl {
         List<User> users = userMapper.selectByExample(example);
         return users.isEmpty() ? null : users.get(0);
     }
-
+    @CommonTransactional
     public boolean updateUser(UserUpdateForm userUpdateForm) {
         User user = new User();
         user.setUserAvatar(userUpdateForm.getUserAvatar());
@@ -90,7 +91,7 @@ public class UserServiceImpl {
         List<User> users = userMapper.selectByExample(example);
         return users.get(0);
     }
-
+    @CommonTransactional
     public User createAnchorUser(AnchorForm form) throws Exception {
         User user = new User();
         user.setUserUuid(UUIDUtil.generateUUID());
@@ -113,7 +114,7 @@ public class UserServiceImpl {
         }
         throw new Exception("fail");
     }
-
+    @CommonTransactional
     public void deleteByUUID(String uuid) throws Exception {
         UserExample example = new UserExample();
         example.createCriteria().andUserUuidEqualTo(uuid);

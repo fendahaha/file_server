@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.AnchorExample;
 import com.example.file_server.entity.Room;
@@ -41,7 +42,7 @@ public class AnchorServiceImpl {
         map.put("total", count);
         return map;
     }
-
+    @CommonTransactional
     public Anchor create(AnchorForm form) throws Exception {
         Room room = roomService.create();
         User user = userService.createAnchorUser(form);
@@ -62,7 +63,7 @@ public class AnchorServiceImpl {
         }
         throw new Exception("fail");
     }
-
+    @CommonTransactional
     public boolean update(AnchorForm form) {
         AnchorExample example = new AnchorExample();
         example.createCriteria().andAnchorUuidEqualTo(form.getAnchorUuid());
@@ -75,7 +76,7 @@ public class AnchorServiceImpl {
         int i = mapper.updateByExampleSelective(record, example);
         return i > 0;
     }
-
+    @CommonTransactional
     public void deleteById(int id) throws Exception {
         Anchor anchor = mapper.selectByPrimaryKey(id);
         if (anchor != null) {

@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.entity.Gift;
 import com.example.file_server.entity.GiftExample;
 import com.example.file_server.form.GiftForm;
@@ -41,7 +42,7 @@ public class GiftServiceImpl {
         hashMap.put("total", total);
         return hashMap;
     }
-
+    @CommonTransactional
     public Gift create(GiftForm giftForm) {
         Gift gift = new Gift();
         gift.setGiftUuid(UUIDUtil.generateUUID());
@@ -53,7 +54,7 @@ public class GiftServiceImpl {
         int i = giftMapper.insertSelective(gift);
         return i > 0 ? gift : null;
     }
-
+    @CommonTransactional
     public boolean update(GiftForm giftForm) {
         Gift gift = new Gift();
         gift.setId(giftForm.getId());
@@ -64,7 +65,7 @@ public class GiftServiceImpl {
         int i = giftMapper.updateByPrimaryKeySelective(gift);
         return i > 0;
     }
-
+    @CommonTransactional
     public boolean delete(GiftForm giftForm) {
         int i = giftMapper.deleteByPrimaryKey(giftForm.getId());
         return i > 0;

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 @EnableAsync
 @MapperScan("com.example.file_server.mapper")
 @SpringBootApplication

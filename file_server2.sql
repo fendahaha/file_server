@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 13/12/2023 00:56:38
+ Date: 13/12/2023 19:58:57
 */
 
 SET NAMES utf8mb4;
@@ -33,13 +33,7 @@ CREATE TABLE `anchor`  (
   `anchor_create_at` datetime(0) NOT NULL,
   `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of anchor
--- ----------------------------
-INSERT INTO `anchor` VALUES (3, '6652cb4f-e6ef-4a78-b303-a85fe025f761', '9a40ed42-1181-4622-976a-d4b77b7fe399', 'anchor1', 'anchor1', 'anchor1', NULL, NULL, '2023-12-13 00:33:24', '93e42e53-14e2-40a9-9c2c-4900fc2e97d0');
-INSERT INTO `anchor` VALUES (4, 'a16ca147-100c-4f1f-a5a0-4a61d42feac8', '1ca0c535-764c-42e4-89e9-cba4fdc90299', 'anchor2', 'anchor2', 'anchor2', NULL, NULL, '2023-12-13 00:34:24', '49ebb24c-5942-4843-9cbb-ea6608a9ed7f');
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for client
@@ -55,7 +49,7 @@ CREATE TABLE `client`  (
   `client_money_recharged` double NOT NULL,
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of client
@@ -71,11 +65,7 @@ CREATE TABLE `config`  (
   `uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `config` json NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of config
--- ----------------------------
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for gift
@@ -90,7 +80,7 @@ CREATE TABLE `gift`  (
   `gift_order` int(11) NOT NULL,
   `gift_create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gift
@@ -132,11 +122,7 @@ CREATE TABLE `gift_send_record`  (
   `gift_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_value` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of gift_send_record
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for room
@@ -145,20 +131,15 @@ DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `room_enable` int(11) NOT NULL,
+  `room_create_at` datetime(0) NOT NULL,
+  `stream_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'live static',
   `stream_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `stream_app` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `stream_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `room_create_at` datetime(0) NOT NULL,
-  `stream_online` int(11) NOT NULL,
-  `stream_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `stream_param` json NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of room
--- ----------------------------
-INSERT INTO `room` VALUES (1, '93e42e53-14e2-40a9-9c2c-4900fc2e97d0', 'rtmp://localhost/live/livestream', 'live', 'livestream', '2023-12-13 00:33:24', 0, NULL);
-INSERT INTO `room` VALUES (2, '49ebb24c-5942-4843-9cbb-ea6608a9ed7f', 'rtmp://localhost/live/livestream', 'live', 'livestream', '2023-12-13 00:34:24', 0, NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for srs_hls
@@ -186,7 +167,7 @@ CREATE TABLE `srs_hls`  (
   `stream_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of srs_hls
@@ -216,7 +197,7 @@ CREATE TABLE `srs_sessions`  (
   `stream_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of srs_sessions
@@ -244,7 +225,7 @@ CREATE TABLE `srs_streams`  (
   `stream_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of srs_streams
@@ -267,7 +248,7 @@ CREATE TABLE `upload_file`  (
   `file_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_upload_date` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of upload_file
@@ -333,14 +314,12 @@ CREATE TABLE `user`  (
   `user_type` int(11) NOT NULL COMMENT '1:管理员\r\n2.主播\r\n3.用户',
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'sadas', 'admin', '123456', 'admin', NULL, NULL, 'sdf', NULL, 1, '2023-12-06 17:56:29');
-INSERT INTO `user` VALUES (8, '9971c9bf-8bad-49da-86d3-cbd21a8ee4a1', 'fenda', '123456', 'CleverLion22', 'a@gmail.com', '2342424', NULL, NULL, 3, '2023-12-12 16:44:17');
-INSERT INTO `user` VALUES (13, '6652cb4f-e6ef-4a78-b303-a85fe025f761', 'anchor1', 'anchor1', 'QuickBear42', '', NULL, NULL, NULL, 2, '2023-12-13 00:33:24');
-INSERT INTO `user` VALUES (14, 'a16ca147-100c-4f1f-a5a0-4a61d42feac8', 'anchor2', 'anchor2', 'RudeTiger77', '', '', '', '', 2, '2023-12-13 00:34:24');
+INSERT INTO `user` VALUES (8, '9971c9bf-8bad-49da-86d3-cbd21a8ee4a1', 'fenda', '123456', 'CleverLion22', 'a@gmail.com', '2342424', 'china', NULL, 3, '2023-12-12 16:44:17');
 
 SET FOREIGN_KEY_CHECKS = 1;

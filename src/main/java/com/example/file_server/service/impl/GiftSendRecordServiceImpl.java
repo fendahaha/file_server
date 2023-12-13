@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.entity.GiftSendRecord;
 import com.example.file_server.entity.GiftSendRecordExample;
 import com.example.file_server.form.AnchorForm;
@@ -34,7 +35,7 @@ public class GiftSendRecordServiceImpl {
         map.put("total", count);
         return map;
     }
-
+    @CommonTransactional
     public boolean delete(AnchorForm form) {
         int i = mapper.deleteByPrimaryKey(form.getId());
         return i > 0;

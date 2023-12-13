@@ -1,14 +1,13 @@
 package com.example.file_server.dictionary;
 
-public enum RoomOnline {
-
-    Online("在线", 1),
-    Offline("不在线", 0);
+public enum StreamType {
+    Live("直播流", "live"),
+    Static("视频", "static");
 
     private String name;
-    private int value;
+    private String value;
 
-    RoomOnline(String name, int value) {
+    StreamType(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -17,7 +16,7 @@ public enum RoomOnline {
         return name;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 }
