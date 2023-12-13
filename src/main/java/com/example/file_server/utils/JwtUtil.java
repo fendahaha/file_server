@@ -12,9 +12,9 @@ public class JwtUtil {
     private static final String SECRET = "fenda@secret.com";
     private static final long DEFAULT_EXPIRATION_TIME = 1000 * 3600 * 24;//1day
 
-    public static String generateToken(String username) {
+    public static String generateToken(String subject) {
         return JWT.create()
-                .withSubject(username)
+                .withSubject(subject)
                 .withExpiresAt(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
     }
