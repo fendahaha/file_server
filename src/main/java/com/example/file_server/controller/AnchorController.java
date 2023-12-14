@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.entity.Anchor;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.service.impl.AnchorServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Validated
 @RequestMapping("/anchor")
@@ -49,5 +51,14 @@ public class AnchorController extends BaseController {
     public Object delete(@Min(0) Integer id) throws Exception {
         service.deleteById(id);
         return ResponseUtil.ok(true);
+    }
+
+    /**
+     * 获取在线主播
+     */
+    @GetMapping("/online")
+    public Object online() {
+        List<Anchor> anchors = service.onlineAnchors();
+        return ResponseUtil.ok(anchors);
     }
 }

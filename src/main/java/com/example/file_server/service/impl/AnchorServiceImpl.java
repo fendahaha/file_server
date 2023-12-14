@@ -8,10 +8,13 @@ import com.example.file_server.entity.User;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.mapper.AnchorMapper;
+import com.example.file_server.utils.OnlineAnchorManager;
 import com.example.file_server.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,21 +28,8 @@ public class AnchorServiceImpl {
     @Autowired
     private UserServiceImpl userService;
 
-    public HashMap<String, Object> list(AnchorForm form) {
-        AnchorExample example = new AnchorExample();
-        AnchorExample.Criteria criteria = example.createCriteria();
-        example.setOrderByClause("anchor_create_at desc");
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("example", example);
-        int start = (form.getPageNum() - 1) * form.getPageSize();
-        hashMap.put("pageStart", start);
-        hashMap.put("pageLimit", form.getPageSize());
-
-        List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
-        int count = anchorMapper.selectCount(example);
-
-        if(!anchors.isEmpty()){
+    public void queryUserRooms(List<Anchor> anchors) {
+        if (!anchors.isEmpty()) {
             List<User> users = userService.getUsersByUUIDs(anchors.stream().map(Anchor::getUserUuid).toList());
             for (Anchor a : anchors) {
                 for (User u : users) {
@@ -59,6 +49,23 @@ public class AnchorServiceImpl {
                 }
             }
         }
+    }
+
+    public HashMap<String, Object> list(AnchorForm form) {
+        AnchorExample example = new AnchorExample();
+        AnchorExample.Criteria criteria = example.createCriteria();
+        example.setOrderByClause("anchor_create_at desc");
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("example", example);
+        int start = (form.getPageNum() - 1) * form.getPageSize();
+        hashMap.put("pageStart", start);
+        hashMap.put("pageLimit", form.getPageSize());
+
+        List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
+        int count = anchorMapper.selectCount(example);
+
+        queryUserRooms(anchors);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", anchors);
@@ -118,4 +125,22 @@ public class AnchorServiceImpl {
         }
     }
 
+    public List<Anchor> getAnchorByRoomUUID(String uuid) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andRoomUuidEqualTo(uuid);
+        return anchorMapper.selectByExample(example);
+    }
+
+    /*获取在线主播*/
+    public List<Anchor> onlineAnchors() {
+        Collection<Anchor> anchors = OnlineAnchorManager.values();
+        if (anchors.size() > 0) {
+            AnchorExample anchorExample = new AnchorExample();
+            anchorExample.createCriteria().andAnchorUuidIn(anchors.stream().map(Anchor::getAnchorUuid).toList());
+            List<Anchor> anchors1 = anchorMapper.selectByExample(anchorExample);
+            queryUserRooms(anchors1);
+            return anchors1;
+        }
+        return new ArrayList<Anchor>();
+    }
 }

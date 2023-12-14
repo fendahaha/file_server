@@ -33,12 +33,15 @@ public class StreamController {
     public Object streams(@RequestBody SrsStreams srsStreams) {
         System.out.println("srsStreams.getParam:" + srsStreams.getParam());
         if (srsStreams.getAction().equals(StreamAction.Publish.getValue())) {
-            boolean b = srsStreamsService.onPublic(srsStreams);
-            if (b) {
+            if (srsStreamsService.onPublic(srsStreams)) {
                 return ResponseEntity.ok(0);
             }
         }
-        return ResponseEntity.ok(0);
+        if (srsStreams.getAction().equals(StreamAction.UnPublish.getValue())) {
+            srsStreamsService.onUnPublic(srsStreams);
+            return ResponseEntity.ok(0);
+        }
+        return ResponseEntity.badRequest();
     }
 
     @PostMapping("/sessions")
