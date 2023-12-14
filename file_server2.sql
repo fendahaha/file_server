@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 13/12/2023 21:59:12
+ Date: 14/12/2023 17:02:14
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,18 @@ CREATE TABLE `anchor`  (
   `anchor_create_at` datetime(0) NOT NULL,
   `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of anchor
+-- ----------------------------
+INSERT INTO `anchor` VALUES (21, 'a1ae5bd7-2b13-4bea-855a-57ae22d2370b', '54e6a6a3-c1aa-4085-a9aa-a0dd758d0ac7', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:27', 'c3e832c1-8992-4eca-aad1-4bf753438141');
+INSERT INTO `anchor` VALUES (22, '04e70eea-9c1a-4363-b102-96114efdab24', '4ebc415b-c95e-4bbc-b670-e5eaeead8d06', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:33', 'af89a29d-48ec-478f-a2f6-22af2c7427e4');
+INSERT INTO `anchor` VALUES (23, 'ff09f3f9-6d7d-4f61-95b4-334effb6555e', 'c834742a-5589-46ba-930f-1ce275c107cf', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:38', 'd5e70aed-aac5-4df1-86dc-7332f8ec578f');
+INSERT INTO `anchor` VALUES (24, 'd494d662-05a7-466a-b6a2-4c11904a2d1e', 'b6544a12-89fd-44eb-b3d2-cf45b22a768d', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:43', 'c47486cb-f466-48e6-8def-370c81857068');
+INSERT INTO `anchor` VALUES (25, '7d8ab8b0-e8ca-4e8b-8e7f-21dab0f9e8ea', 'ce471cb9-5241-4272-ab7f-6f9d8ec8792a', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:48', 'c95f36e7-e4e9-4631-bba9-341ab81f8b17');
+INSERT INTO `anchor` VALUES (26, 'd40dcb7d-e0d6-4761-a4ff-3f8f7b50e981', '6a94b4aa-53b2-48fd-b2df-0d3ed4b2b14c', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:53', '3cff4322-e7b0-4025-bd1e-2f0276b68138');
+INSERT INTO `anchor` VALUES (27, 'd7b7bfb6-3c6f-44be-90d8-92c0e3badb12', '59f92d03-59de-4e9f-bc9f-62062a73a8a9', '12', '123', '123', NULL, NULL, '2023-12-14 14:55:57', '6eeceea9-51be-4bfd-9bb6-e31a91ced589');
 
 -- ----------------------------
 -- Table structure for client
@@ -137,9 +148,20 @@ CREATE TABLE `room`  (
   `stream_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `stream_app` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `stream_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `stream_param` json NULL,
+  `stream_param` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of room
+-- ----------------------------
+INSERT INTO `room` VALUES (20, 'c3e832c1-8992-4eca-aad1-4bf753438141', 1, '2023-12-14 14:55:26', 'live', '/live/11798fe9-7090-442c-9f87-6422b60eb285', 'live', '11798fe9-7090-442c-9f87-6422b60eb285', 'time=1702536926454&token=OvcV7VO0n62175dzTNoyvraPwYNrqY2XejLszCNXN5uTule5tzlZz1DWC6rxxQxCLrSDkKAiguXR3QyXAAj%2FNgkNk74isprAusIFETvdRxn9lHoyUhw4vbx%2Bb7w13RhJ');
+INSERT INTO `room` VALUES (21, 'af89a29d-48ec-478f-a2f6-22af2c7427e4', 1, '2023-12-14 14:55:33', 'live', '/live/b0cbe8df-ada1-4fdc-a730-19c4b4575d65', 'live', 'b0cbe8df-ada1-4fdc-a730-19c4b4575d65', 'time=1702536932942&token=OvcV7VO0n62175dzTNoyvnbrIpGWlaqeE6OmLd%2FWAVF0pkyaa3VWBolkJdpxWw5pWXoGzDsHuCXPXE%2FdML8%2BhbEBM1QbIm7biLfifB3udZefKE%2B89N5nB8HH2%2FkKBne%2F');
+INSERT INTO `room` VALUES (22, 'd5e70aed-aac5-4df1-86dc-7332f8ec578f', 1, '2023-12-14 14:55:38', 'live', '/live/b2f8070e-191a-4a96-8492-8c15d4932a6a', 'live', 'b2f8070e-191a-4a96-8492-8c15d4932a6a', 'time=1702536937786&token=OvcV7VO0n62175dzTNoyvoIVainkMz9hY4pRSAcDebE8rraqI%2BVN6O062BgE0%2BoiYetUfi13Q8Z69W0BuqveccibmlkkzaHNHLMF7ILIN%2BWNry5d2Pg%2FwC6W5AdaFq7Y');
+INSERT INTO `room` VALUES (23, 'c47486cb-f466-48e6-8def-370c81857068', 1, '2023-12-14 14:55:43', 'live', '/live/899a48d3-bf83-4f91-811b-3dd8347400bd', 'live', '899a48d3-bf83-4f91-811b-3dd8347400bd', 'time=1702536943104&token=OvcV7VO0n62175dzTNoyvtoVrhJcfIeT%2F1ZbGz%2FrSyaTule5tzlZz1DWC6rxxQxCjBLqrYMDlqj9f464wxALxycMSKMvAxnuK6zbXHTkLdMp0gvb9Dt39eZMNnRGgGh9');
+INSERT INTO `room` VALUES (24, 'c95f36e7-e4e9-4631-bba9-341ab81f8b17', 1, '2023-12-14 14:55:48', 'live', '/live/aa6de22d-a45a-4ef6-abb1-7a0ddc1bbeaa', 'live', 'aa6de22d-a45a-4ef6-abb1-7a0ddc1bbeaa', 'time=1702536947980&token=OvcV7VO0n62175dzTNoyvlP3xRuvZlpoJxo%2Fe0c1iDqTule5tzlZz1DWC6rxxQxCvgTcw11AoPF45p7fkTBlJV13mBlfQQTG%2BzUhRvFZzwe9qVbcQALdZPRed2qko%2BRv');
+INSERT INTO `room` VALUES (25, '3cff4322-e7b0-4025-bd1e-2f0276b68138', 1, '2023-12-14 14:55:53', 'live', '/live/552ceca6-402d-417d-aa24-acc7f99da62c', 'live', '552ceca6-402d-417d-aa24-acc7f99da62c', 'time=1702536952934&token=OvcV7VO0n62175dzTNoyvupjDrU2S0KjI2ldBfDGL0dxDfhm4PWoYOVO%2FCIkYzM6tjpBOoidDUBhvvPhcLlcmU1I0hIZoeQgmJyC8qYZ%2FEsqDcyOrV5%2BZFOVDeeC9Hw3');
+INSERT INTO `room` VALUES (26, '6eeceea9-51be-4bfd-9bb6-e31a91ced589', 1, '2023-12-14 14:55:57', 'live', '/live/377b6dda-a426-4d28-9226-a1e400ff4d48', 'live', '377b6dda-a426-4d28-9226-a1e400ff4d48', 'time=1702536956788&token=OvcV7VO0n62175dzTNoyvnm6Kq%2F6yltKo8fduT1LA06m%2BrwF9QgkP4D9tzpdP2zAn%2F0pvRbsG58q5%2BwxczA16ZxJD2la0m2%2Ba7UIyZ6B9NcpJeE1zXzUmA300qesHuxe');
 
 -- ----------------------------
 -- Table structure for srs_hls
@@ -314,12 +336,19 @@ CREATE TABLE `user`  (
   `user_type` int(11) NOT NULL COMMENT '1:管理员\r\n2.主播\r\n3.用户',
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'sadas', 'admin', '123456', 'admin', NULL, NULL, 'sdf', NULL, 1, '2023-12-06 17:56:29');
 INSERT INTO `user` VALUES (8, '9971c9bf-8bad-49da-86d3-cbd21a8ee4a1', 'fenda', '123456', 'CleverLion22', 'a@gmail.com', '2342424', 'china', NULL, 3, '2023-12-12 16:44:17');
+INSERT INTO `user` VALUES (31, 'a1ae5bd7-2b13-4bea-855a-57ae22d2370b', 'anchor1', 'anchor1', 'FunnyRabbit95', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:27');
+INSERT INTO `user` VALUES (32, '04e70eea-9c1a-4363-b102-96114efdab24', 'anchor2', 'anchor2', 'RudeTiger18', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:33');
+INSERT INTO `user` VALUES (33, 'ff09f3f9-6d7d-4f61-95b4-334effb6555e', 'anchor3', 'anchor3', 'CleverDragon7', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:38');
+INSERT INTO `user` VALUES (34, 'd494d662-05a7-466a-b6a2-4c11904a2d1e', 'anchor4', 'anchor4', 'FunnyDragon42', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:43');
+INSERT INTO `user` VALUES (35, '7d8ab8b0-e8ca-4e8b-8e7f-21dab0f9e8ea', 'anchor5', 'anchor5', 'SeriousLion20', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:48');
+INSERT INTO `user` VALUES (36, 'd40dcb7d-e0d6-4761-a4ff-3f8f7b50e981', 'anchor6', 'anchor6', 'CleverLion2', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:53');
+INSERT INTO `user` VALUES (37, 'd7b7bfb6-3c6f-44be-90d8-92c0e3badb12', 'anchor7', 'anchor7', 'FunnyWolf58', NULL, NULL, NULL, NULL, 2, '2023-12-14 14:55:57');
 
 SET FOREIGN_KEY_CHECKS = 1;

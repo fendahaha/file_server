@@ -3,10 +3,9 @@ package com.example.file_server.utils;
 
 import org.apache.commons.codec.binary.Base64;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class AesEncryptUtil {
@@ -34,7 +33,8 @@ public class AesEncryptUtil {
         return Base64.encodeBase64String(b);
     }
 
-    public static String decrypt(String encryptStr) throws Exception {
+    public static String decrypt(String encryptStr) throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance(ALGORITHMSTR);
         cipher.init(Cipher.DECRYPT_MODE, KEY);
         // 采用base64算法进行转码,避免出现中文乱码

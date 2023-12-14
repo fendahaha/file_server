@@ -84,17 +84,10 @@ public class UserController extends BaseController {
 
     @PostMapping("/update")
     public Object update(HttpSession session, @RequestBody @Validated UserUpdateForm userUpdateForm) {
-        try {
-            boolean b = userService.updateUser(userUpdateForm);
-            if (b) {
-                User user = userService.getUserByUUID(userUpdateForm.getUserUuid());
-                session.setAttribute("user", user);
-            }
-            return ResponseUtil.ok(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseUtil.internalServerError(null);
-        }
+        userService.updateUser(userUpdateForm);
+        User user = userService.getUserByUUID(userUpdateForm.getUserUuid());
+        session.setAttribute("user", user);
+        return ResponseUtil.ok(true);
     }
 
     @PostMapping("/create")

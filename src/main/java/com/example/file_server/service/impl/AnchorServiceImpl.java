@@ -5,6 +5,7 @@ import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.AnchorExample;
 import com.example.file_server.entity.Room;
 import com.example.file_server.entity.User;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.utils.UUIDUtil;
@@ -13,11 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class AnchorServiceImpl {
     @Autowired
-    private AnchorMapper mapper;
+    private AnchorMapper anchorMapper;
     @Autowired
     private RoomServiceImpl roomService;
     @Autowired
@@ -34,14 +36,35 @@ public class AnchorServiceImpl {
         hashMap.put("pageStart", start);
         hashMap.put("pageLimit", form.getPageSize());
 
-        List<Anchor> anchors = mapper.selectByExample2(hashMap);
-        int count = mapper.selectCount(example);
+        List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
+        int count = anchorMapper.selectCount(example);
+
+        List<User> users = userService.getUsersByUUIDs(anchors.stream().map(Anchor::getUserUuid).toList());
+        for (Anchor a : anchors) {
+            for (User u : users) {
+                if (u.getUserUuid().equals(a.getUserUuid())) {
+                    a.setUser(u);
+                    break;
+                }
+            }
+        }
+
+        List<Room> rooms = roomService.getRoomsByUUIds(anchors.stream().map(Anchor::getRoomUuid).toList());
+        for (Anchor a : anchors) {
+            for (Room r : rooms) {
+                if (r.getRoomUuid().equals(a.getRoomUuid())) {
+                    a.setRoom(r);
+                    break;
+                }
+            }
+        }
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", anchors);
         map.put("total", count);
         return map;
     }
+
     @CommonTransactional
     public Anchor create(AnchorForm form) throws Exception {
         Room room = roomService.create();
@@ -57,14 +80,15 @@ public class AnchorServiceImpl {
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorCreateAt(user.getCreateAt());
-        int i = mapper.insertSelective(record);
-        if (i > 0) {
-            return record;
+        int i = anchorMapper.insertSelective(record);
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
         }
-        throw new Exception("fail");
+        return record;
     }
+
     @CommonTransactional
-    public boolean update(AnchorForm form) {
+    public void update(AnchorForm form) {
         AnchorExample example = new AnchorExample();
         example.createCriteria().andAnchorUuidEqualTo(form.getAnchorUuid());
         Anchor record = new Anchor();
@@ -73,19 +97,23 @@ public class AnchorServiceImpl {
         record.setAnchorWieght(form.getAnchorWieght());
         record.setAnchorHeight(form.getAnchorHeight());
         record.setAnchorSanwei(form.getAnchorSanwei());
-        int i = mapper.updateByExampleSelective(record, example);
-        return i > 0;
+        int i = anchorMapper.updateByExampleSelective(record, example);
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
+
     @CommonTransactional
-    public void deleteById(int id) throws Exception {
-        Anchor anchor = mapper.selectByPrimaryKey(id);
-        if (anchor != null) {
-            userService.deleteByUUID(anchor.getUserUuid());
-            roomService.deleteByUUID(anchor.getRoomUuid());
-            int i = mapper.deleteByPrimaryKey(id);
-            if (i <= 0) {
-                throw new Exception("fail");
-            }
+    public void deleteById(int id) {
+        Anchor anchor = anchorMapper.selectByPrimaryKey(id);
+        if (anchor == null) {
+            throw new DbActionExcetion("fail");
+        }
+        userService.deleteByUUID(anchor.getUserUuid());
+        roomService.deleteByUUID(anchor.getRoomUuid());
+        int i = anchorMapper.deleteByPrimaryKey(id);
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
         }
     }
 

@@ -54,10 +54,7 @@ public class GiftController extends BaseController {
 
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated GiftForm giftForm) {
-        boolean delete = giftService.delete(giftForm);
-        if (delete) {
-            return ResponseUtil.ok(true);
-        }
-        return ResponseUtil.internalServerError(null);
+        giftService.delete(giftForm);
+        return ResponseUtil.ok(true);
     }
 }

@@ -634,6 +634,76 @@ public class RoomExample {
             addCriterion("stream_name not between", value1, value2, "streamName");
             return (Criteria) this;
         }
+
+        public Criteria andStreamParamIsNull() {
+            addCriterion("stream_param is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamIsNotNull() {
+            addCriterion("stream_param is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamEqualTo(String value) {
+            addCriterion("stream_param =", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamNotEqualTo(String value) {
+            addCriterion("stream_param <>", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamGreaterThan(String value) {
+            addCriterion("stream_param >", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamGreaterThanOrEqualTo(String value) {
+            addCriterion("stream_param >=", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamLessThan(String value) {
+            addCriterion("stream_param <", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamLessThanOrEqualTo(String value) {
+            addCriterion("stream_param <=", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamLike(String value) {
+            addCriterion("stream_param like", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamNotLike(String value) {
+            addCriterion("stream_param not like", value, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamIn(List<String> values) {
+            addCriterion("stream_param in", values, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamNotIn(List<String> values) {
+            addCriterion("stream_param not in", values, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamBetween(String value1, String value2) {
+            addCriterion("stream_param between", value1, value2, "streamParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andStreamParamNotBetween(String value1, String value2) {
+            addCriterion("stream_param not between", value1, value2, "streamParam");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

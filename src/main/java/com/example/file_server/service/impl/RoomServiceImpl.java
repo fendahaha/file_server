@@ -5,13 +5,16 @@ import com.example.file_server.dictionary.RoomEnable;
 import com.example.file_server.dictionary.StreamType;
 import com.example.file_server.entity.Room;
 import com.example.file_server.entity.RoomExample;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.mapper.RoomMapper;
+import com.example.file_server.utils.StreamUtil;
 import com.example.file_server.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -35,29 +38,43 @@ public class RoomServiceImpl {
 
     @CommonTransactional
     public Room create() throws Exception {
+        String room_uuid = UUIDUtil.generateUUID();
+        String streamApp = "live";
+        String streamId = UUIDUtil.generateUUID();
+        HashMap<String, Object> streamParam = new HashMap<>();
+        streamParam.put("room_uuid", room_uuid);
+
         Room room = new Room();
-        room.setRoomUuid(UUIDUtil.generateUUID());
+        room.setRoomUuid(room_uuid);
         room.setRoomCreateAt(new Date());
         room.setRoomEnable(RoomEnable.Enable.getValue());
         room.setStreamType(StreamType.Live.getValue());
-        room.setStreamAddress("rtmp://localhost/live/livestream");
-        room.setStreamApp("live");
-        room.setStreamName("livestream");
+        room.setStreamAddress("/" + streamApp + "/" + streamId);
+        room.setStreamApp(streamApp);
+        room.setStreamName(streamId);
+        room.setStreamParam(StreamUtil.generateStreamParams(streamParam));
+
         int i = roomMapper.insertSelective(room);
-        if (i > 0) {
-            return room;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
         }
-        throw new Exception("fail");
+        return room;
     }
 
     @CommonTransactional
-    public void deleteByUUID(String uuid) throws Exception {
+    public void deleteByUUID(String uuid) {
         RoomExample example = new RoomExample();
         example.createCriteria().andRoomUuidEqualTo(uuid);
         int i = roomMapper.deleteByExample(example);
         if (i <= 0) {
-            throw new Exception("fail");
+            throw new DbActionExcetion("fail");
         }
+    }
+
+    public List<Room> getRoomsByUUIds(List<String> uuids) {
+        RoomExample example = new RoomExample();
+        example.createCriteria().andRoomUuidIn(uuids);
+        return roomMapper.selectByExample(example);
     }
 
 }

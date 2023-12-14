@@ -1,77 +1,60 @@
 package com.example.file_server.utils;
 
-import javax.swing.*;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class StreamUtil {
 
-    public static void main(String[] args) throws Exception {
-        generateStreamInfo();
-    }
+//    public static void main(String[] args) throws Exception {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("uuid", UUIDUtil.generateUUID());
+//
+//        String params = generateStreamParams(map);
+//
+//        HashMap<String, Object> verify = verifyStreamParams(params);
+//        if (verify != null) {
+//            System.out.println(verify.get("uuid"));
+//        }
+//    }
 
-    public static String generateStreamInfo() throws Exception {
+    public static String generateStreamParams(HashMap<String, Object> hashmap) throws Exception {
         long time = new Date().getTime();
-        String streamId = UUIDUtil.generateUUID();
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("time", time);
-        map.put("room_uuid", "adada撒大大");
-        String params = JsonUtil.map2Json(map);
-        System.out.println(params);
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("time", time);
+        data.putAll(hashmap);
 
-        String encrypt = AesEncryptUtil.encrypt(params);
-//        System.out.println(encrypt.length());
-//        String decrypt = AesEncryptUtil.decrypt(encrypt);
-//        System.out.println(decrypt);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("time", String.valueOf(time));
+        params.put("token", AesEncryptUtil.encrypt(JsonUtil.map2Json(data)));
 
-        HashMap<String, String> params1 = new HashMap<>();
-        params1.put("time", String.valueOf(time));
-        params1.put("token", encrypt);
-
-        String s = convertToQueryString(params1);
-        System.out.println(s);
-
-        verify(s);
-
-
-        return "";
+        return UrlUtil.convertToQueryString(params);
     }
 
-    public static void verify(String s) throws Exception {
-        HashMap<String, String> map = new HashMap<>();
-        String[] split = s.split("&");
-        Arrays.stream(split).forEach((e) -> {
-            String[] split1 = e.split("=");
-            map.put(split1[0], split1[1]);
-        });
-        System.out.println(map.get("time"));
-        String token = map.get("token");
-        String decode = URLDecoder.decode(token, StandardCharsets.UTF_8);
-        String decrypt = AesEncryptUtil.decrypt(decode);
-        HashMap<String, Object> hashMap = JsonUtil.json2Map(decrypt);
-        System.out.println(hashMap.get("time"));
-        System.out.println(hashMap.get("room_uuid"));
-    }
-
-    public static String convertToQueryString(HashMap<String, String> params) {
-        StringBuilder queryString = new StringBuilder();
+    public static HashMap<String, Object> verifyStreamParams(String s) {
+        HashMap<String, String> params = UrlUtil.extractFromQueryString(s);
+        Long time = Long.valueOf(params.get("time"));
+        HashMap<String, Object> data;
         try {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                if (queryString.length() > 0) {
-                    queryString.append("&");
-                }
-                queryString.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8))
-                        .append("=")
-                        .append(URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String decrypt = AesEncryptUtil.decrypt(params.get("token"));
+            data = JsonUtil.json2Map(decrypt);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("解密程序异常");
+        } catch (IllegalBlockSizeException | BadPaddingException | JsonProcessingException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("stream参数不合法");
         }
-        return queryString.toString();
+        Long time1 = (Long) data.get("time");
+        if (!time.equals(time1)) {
+            throw new RuntimeException("stream参数不合法");
+        }
+        return data;
     }
 }

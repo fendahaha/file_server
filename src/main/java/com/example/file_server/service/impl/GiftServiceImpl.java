@@ -3,6 +3,7 @@ package com.example.file_server.service.impl;
 import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.entity.Gift;
 import com.example.file_server.entity.GiftExample;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.GiftForm;
 import com.example.file_server.form.GiftSearchForm;
 import com.example.file_server.mapper.GiftMapper;
@@ -52,7 +53,10 @@ public class GiftServiceImpl {
         gift.setGiftOrder(giftForm.getGiftOrder());
         gift.setGiftCreateAt(new Date());
         int i = giftMapper.insertSelective(gift);
-        return i > 0 ? gift : null;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
+        return gift;
     }
     @CommonTransactional
     public boolean update(GiftForm giftForm) {
@@ -66,8 +70,10 @@ public class GiftServiceImpl {
         return i > 0;
     }
     @CommonTransactional
-    public boolean delete(GiftForm giftForm) {
+    public void delete(GiftForm giftForm) {
         int i = giftMapper.deleteByPrimaryKey(giftForm.getId());
-        return i > 0;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
 }

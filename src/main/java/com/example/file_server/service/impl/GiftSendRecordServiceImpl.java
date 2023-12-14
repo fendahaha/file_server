@@ -3,6 +3,7 @@ package com.example.file_server.service.impl;
 import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.entity.GiftSendRecord;
 import com.example.file_server.entity.GiftSendRecordExample;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.mapper.GiftSendRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,12 @@ public class GiftSendRecordServiceImpl {
         map.put("total", count);
         return map;
     }
+
     @CommonTransactional
-    public boolean delete(AnchorForm form) {
+    public void delete(AnchorForm form) {
         int i = mapper.deleteByPrimaryKey(form.getId());
-        return i > 0;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
 }

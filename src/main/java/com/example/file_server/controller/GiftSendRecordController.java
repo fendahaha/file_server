@@ -35,11 +35,8 @@ public class GiftSendRecordController extends BaseController {
 
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated AnchorForm form) {
-        boolean delete = service.delete(form);
-        if (delete) {
-            return ResponseUtil.ok(true);
-        }
-        return ResponseUtil.internalServerError(null);
+        service.delete(form);
+        return ResponseUtil.ok(true);
     }
 
 }

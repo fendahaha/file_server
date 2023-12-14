@@ -10,9 +10,7 @@
     <result column="stream_address" jdbcType="VARCHAR" property="streamAddress" />
     <result column="stream_app" jdbcType="VARCHAR" property="streamApp" />
     <result column="stream_name" jdbcType="VARCHAR" property="streamName" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.file_server.entity.Room">
-    <result column="stream_param" jdbcType="LONGVARCHAR" property="streamParam" />
+    <result column="stream_param" jdbcType="VARCHAR" property="streamParam" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,27 +72,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, room_uuid, room_enable, room_create_at, stream_type, stream_address, stream_app, 
-    stream_name
+    stream_name, stream_param
   </sql>
-  <sql id="Blob_Column_List">
-    stream_param
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.file_server.entity.RoomExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from room
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.example.file_server.entity.RoomExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -109,11 +88,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from room
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -134,7 +111,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{roomUuid,jdbcType=VARCHAR}, #{roomEnable,jdbcType=INTEGER}, 
       #{roomCreateAt,jdbcType=TIMESTAMP}, #{streamType,jdbcType=VARCHAR}, #{streamAddress,jdbcType=VARCHAR}, 
-      #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{streamParam,jdbcType=LONGVARCHAR}
+      #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{streamParam,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Room">
@@ -194,7 +171,7 @@
         #{streamName,jdbcType=VARCHAR},
       </if>
       <if test="streamParam != null">
-        #{streamParam,jdbcType=LONGVARCHAR},
+        #{streamParam,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -232,24 +209,9 @@
         stream_name = #{record.streamName,jdbcType=VARCHAR},
       </if>
       <if test="record.streamParam != null">
-        stream_param = #{record.streamParam,jdbcType=LONGVARCHAR},
+        stream_param = #{record.streamParam,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update room
-    set id = #{record.id,jdbcType=INTEGER},
-      room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
-      room_enable = #{record.roomEnable,jdbcType=INTEGER},
-      room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
-      stream_type = #{record.streamType,jdbcType=VARCHAR},
-      stream_address = #{record.streamAddress,jdbcType=VARCHAR},
-      stream_app = #{record.streamApp,jdbcType=VARCHAR},
-      stream_name = #{record.streamName,jdbcType=VARCHAR},
-      stream_param = #{record.streamParam,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -263,7 +225,8 @@
       stream_type = #{record.streamType,jdbcType=VARCHAR},
       stream_address = #{record.streamAddress,jdbcType=VARCHAR},
       stream_app = #{record.streamApp,jdbcType=VARCHAR},
-      stream_name = #{record.streamName,jdbcType=VARCHAR}
+      stream_name = #{record.streamName,jdbcType=VARCHAR},
+      stream_param = #{record.streamParam,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,21 +256,9 @@
         stream_name = #{streamName,jdbcType=VARCHAR},
       </if>
       <if test="streamParam != null">
-        stream_param = #{streamParam,jdbcType=LONGVARCHAR},
+        stream_param = #{streamParam,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.file_server.entity.Room">
-    update room
-    set room_uuid = #{roomUuid,jdbcType=VARCHAR},
-      room_enable = #{roomEnable,jdbcType=INTEGER},
-      room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
-      stream_type = #{streamType,jdbcType=VARCHAR},
-      stream_address = #{streamAddress,jdbcType=VARCHAR},
-      stream_app = #{streamApp,jdbcType=VARCHAR},
-      stream_name = #{streamName,jdbcType=VARCHAR},
-      stream_param = #{streamParam,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.file_server.entity.Room">
@@ -318,7 +269,8 @@
       stream_type = #{streamType,jdbcType=VARCHAR},
       stream_address = #{streamAddress,jdbcType=VARCHAR},
       stream_app = #{streamApp,jdbcType=VARCHAR},
-      stream_name = #{streamName,jdbcType=VARCHAR}
+      stream_name = #{streamName,jdbcType=VARCHAR},
+      stream_param = #{streamParam,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

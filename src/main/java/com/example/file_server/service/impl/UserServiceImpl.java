@@ -5,6 +5,7 @@ import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.Client;
 import com.example.file_server.entity.User;
 import com.example.file_server.entity.UserExample;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
@@ -49,6 +50,9 @@ public class UserServiceImpl {
         user.setUserType(UserType.Client.getValue());
         user.setCreateAt(date);
         int i = userMapper.insertSelective(user);
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
         Client client = new Client();
         client.setUserUuid(uuid);
         client.setClientUuid(UUIDUtil.generateUUID());
@@ -58,7 +62,11 @@ public class UserServiceImpl {
         client.setClientMoneySended(0.0);
         client.setClientMoneyRecharged(1000.0);
         int i1 = clientMapper.insertSelective(client);
-        return (i > 0) && (i1 > 0) ? user : null;
+        if (i1 <= 0) {
+            throw new DbActionExcetion("fail");
+        }
+
+        return user;
     }
 
     public User getUser(UserLoginForm userLoginForm) {
@@ -69,8 +77,9 @@ public class UserServiceImpl {
         List<User> users = userMapper.selectByExample(example);
         return users.isEmpty() ? null : users.get(0);
     }
+
     @CommonTransactional
-    public boolean updateUser(UserUpdateForm userUpdateForm) {
+    public void updateUser(UserUpdateForm userUpdateForm) {
         User user = new User();
         user.setUserAvatar(userUpdateForm.getUserAvatar());
         user.setUserDisplayName(userUpdateForm.getUserDisplayName());
@@ -81,7 +90,9 @@ public class UserServiceImpl {
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserUuidEqualTo(userUpdateForm.getUserUuid());
         int i = userMapper.updateByExampleSelective(user, example);
-        return i > 0;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
 
     public User getUserByUUID(String uuid) {
@@ -91,6 +102,7 @@ public class UserServiceImpl {
         List<User> users = userMapper.selectByExample(example);
         return users.get(0);
     }
+
     @CommonTransactional
     public User createAnchorUser(AnchorForm form) throws Exception {
         User user = new User();
@@ -109,19 +121,27 @@ public class UserServiceImpl {
         user.setUserEmail(form.getUserEmail());
         user.setUserAvatar(form.getUserAvatar());
         int i = userMapper.insertSelective(user);
-        if (i > 0) {
-            return user;
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
         }
-        throw new Exception("fail");
+        return user;
     }
+
     @CommonTransactional
-    public void deleteByUUID(String uuid) throws Exception {
+    public void deleteByUUID(String uuid) {
         UserExample example = new UserExample();
         example.createCriteria().andUserUuidEqualTo(uuid);
         int i = userMapper.deleteByExample(example);
         if (i <= 0) {
-            throw new Exception("fail");
+            throw new DbActionExcetion("fail");
         }
+    }
+
+    public List<User> getUsersByUUIDs(List<String> uuids) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUserUuidIn(uuids);
+        List<User> users = userMapper.selectByExample(example);
+        return users;
     }
 
 }

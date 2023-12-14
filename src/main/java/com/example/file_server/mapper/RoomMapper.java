@@ -16,21 +16,15 @@ public interface RoomMapper {
 
     int insertSelective(Room record);
 
-    List<Room> selectByExampleWithBLOBs(RoomExample example);
-
     List<Room> selectByExample(RoomExample example);
 
     Room selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Room record, @Param("example") RoomExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Room record, @Param("example") RoomExample example);
-
     int updateByExample(@Param("record") Room record, @Param("example") RoomExample example);
 
     int updateByPrimaryKeySelective(Room record);
-
-    int updateByPrimaryKeyWithBLOBs(Room record);
 
     int updateByPrimaryKey(Room record);
 }

@@ -41,11 +41,8 @@ public class AnchorController extends BaseController {
 
     @PostMapping("/update")
     public Object update(@RequestBody @Validated AnchorForm form) {
-        boolean r = service.update(form);
-        if (r) {
-            return ResponseUtil.ok(true);
-        }
-        return ResponseUtil.internalServerError(null);
+        service.update(form);
+        return ResponseUtil.ok(true);
     }
 
     @PostMapping("/delete")

@@ -10,7 +10,7 @@ public class Room {
     private String roomUuid;
 
     private Integer roomEnable;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date roomCreateAt;
 
     private String streamType;
