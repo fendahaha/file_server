@@ -81,7 +81,7 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     public Object exception(Exception e) {
         //LOGGER.info("全局异常捕获器-捕获到Exception：", e);
-        return ResponseUtil.badRequest("");
+        return ResponseUtil.badRequest(e.getMessage());
     }
 
 }

@@ -24,7 +24,7 @@ public class StreamUtil {
 //        }
 //    }
 
-    public static String generateStreamParams(HashMap<String, Object> hashmap) throws Exception {
+    public static String generateStreamParams2(HashMap<String, Object> hashmap) throws Exception {
         long time = new Date().getTime();
         HashMap<String, Object> data = new HashMap<>();
         data.put("time", time);
@@ -37,7 +37,7 @@ public class StreamUtil {
         return UrlUtil.convertToQueryString(params);
     }
 
-    public static HashMap<String, Object> verifyStreamParams(String s) {
+    public static HashMap<String, Object> verifyStreamParams2(String s) {
         HashMap<String, String> params = UrlUtil.extractFromQueryString(s);
         Long time = Long.valueOf(params.get("time"));
         HashMap<String, Object> data;
@@ -53,6 +53,31 @@ public class StreamUtil {
         }
         Long time1 = (Long) data.get("time");
         if (!time.equals(time1)) {
+            throw new RuntimeException("stream参数不合法");
+        }
+        return data;
+    }
+
+    public static String generateStreamParams(HashMap<String, String> d) throws Exception {
+        long time = new Date().getTime();
+        HashMap<String, String> data = new HashMap<>();
+        data.put("time", String.valueOf(time));
+        data.putAll(d);
+
+        return UrlUtil.convertToQueryString(data);
+    }
+
+    public static HashMap<String, Object> verifyStreamParams(String s) {
+        HashMap<String, String> params = UrlUtil.extractFromQueryString(s);
+        String token = params.get("token");
+        if (token == null) {
+            throw new RuntimeException("stream参数不合法");
+        }
+        HashMap<String, Object> data;
+        try {
+            data = JsonUtil.json2Map(token);
+        } catch (JsonProcessingException ex) {
+            ex.printStackTrace();
             throw new RuntimeException("stream参数不合法");
         }
         return data;

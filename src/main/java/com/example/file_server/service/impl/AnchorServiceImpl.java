@@ -39,22 +39,23 @@ public class AnchorServiceImpl {
         List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
         int count = anchorMapper.selectCount(example);
 
-        List<User> users = userService.getUsersByUUIDs(anchors.stream().map(Anchor::getUserUuid).toList());
-        for (Anchor a : anchors) {
-            for (User u : users) {
-                if (u.getUserUuid().equals(a.getUserUuid())) {
-                    a.setUser(u);
-                    break;
+        if(!anchors.isEmpty()){
+            List<User> users = userService.getUsersByUUIDs(anchors.stream().map(Anchor::getUserUuid).toList());
+            for (Anchor a : anchors) {
+                for (User u : users) {
+                    if (u.getUserUuid().equals(a.getUserUuid())) {
+                        a.setUser(u);
+                        break;
+                    }
                 }
             }
-        }
-
-        List<Room> rooms = roomService.getRoomsByUUIds(anchors.stream().map(Anchor::getRoomUuid).toList());
-        for (Anchor a : anchors) {
-            for (Room r : rooms) {
-                if (r.getRoomUuid().equals(a.getRoomUuid())) {
-                    a.setRoom(r);
-                    break;
+            List<Room> rooms = roomService.getRoomsByUUIds(anchors.stream().map(Anchor::getRoomUuid).toList());
+            for (Anchor a : anchors) {
+                for (Room r : rooms) {
+                    if (r.getRoomUuid().equals(a.getRoomUuid())) {
+                        a.setRoom(r);
+                        break;
+                    }
                 }
             }
         }

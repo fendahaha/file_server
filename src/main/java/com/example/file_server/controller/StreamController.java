@@ -33,10 +33,10 @@ public class StreamController {
     public Object streams(@RequestBody SrsStreams srsStreams) {
         System.out.println("srsStreams.getParam:" + srsStreams.getParam());
         if (srsStreams.getAction().equals(StreamAction.Publish.getValue())) {
-//            boolean b = srsStreamsService.onPublic(srsStreams);
-//            if (b) {
-//                return ResponseEntity.ok(0);
-//            }
+            boolean b = srsStreamsService.onPublic(srsStreams);
+            if (b) {
+                return ResponseEntity.ok(0);
+            }
         }
         return ResponseEntity.ok(0);
     }
