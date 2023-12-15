@@ -16,7 +16,11 @@
         </jdbcConnection>
 
         <!-- 默认生成的模型类的位置 -->
-        <javaModelGenerator targetPackage="com.example.file_server.entity" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="com.example.file_server.entity" targetProject="src/main/java">
+            <!--            <property name="enableSubPackages" value="true"/>-->
+            <!--            <property name="constructorBased" value="true"/>-->
+            <!--            <property name="trimStrings" value="true"/>-->
+        </javaModelGenerator>
 
         <!-- 默认生成的映射文件的位置 -->
         <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/main/resources"/>
@@ -27,22 +31,22 @@
 
         <!-- 指定数据库表 -->
         <!--        <table tableName="upload_file" domainObjectName="UploadFile"/>-->
-        <!--        <table tableName="user" domainObjectName="User"/>-->
-                <table tableName="room" domainObjectName="Room"/>
+        <table tableName="user" domainObjectName="User"/>
+        <!--        <table tableName="room" domainObjectName="Room"/>-->
         <!--        <table tableName="config" domainObjectName="Config"/>-->
-<!--        <table tableName="anchor" domainObjectName="Anchor"/>-->
-<!--        <table tableName="gift" domainObjectName="Gift"/>-->
-<!--        <table tableName="client" domainObjectName="Client"/>-->
-<!--        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>-->
-<!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
-<!--            <property name="useActualColumnNames" value="true"/>-->
-<!--        </table>-->
-<!--        <table tableName="srs_sessions" domainObjectName="SrsSessions">-->
-<!--            <property name="useActualColumnNames" value="true"/>-->
-<!--        </table>-->
-<!--        <table tableName="srs_hls" domainObjectName="SrsHls">-->
-<!--            <property name="useActualColumnNames" value="true"/>-->
-<!--        </table>-->
+        <!--        <table tableName="anchor" domainObjectName="Anchor"/>-->
+        <!--        <table tableName="gift" domainObjectName="Gift"/>-->
+        <!--        <table tableName="client" domainObjectName="Client"/>-->
+        <!--        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>-->
+        <!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
+        <!--            <property name="useActualColumnNames" value="true"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="srs_sessions" domainObjectName="SrsSessions">-->
+        <!--            <property name="useActualColumnNames" value="true"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="srs_hls" domainObjectName="SrsHls">-->
+        <!--            <property name="useActualColumnNames" value="true"/>-->
+        <!--        </table>-->
     </context>
 
 </generatorConfiguration>
