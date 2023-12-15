@@ -383,15 +383,4 @@
       limit #{pageStart},#{pageLimit}
     </if>
   </select>
-  <select id="selectCount" parameterType="com.example.file_server.entity.AnchorExample" resultType="int">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    count(*)
-    from anchor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
-  </select>
 </mapper>

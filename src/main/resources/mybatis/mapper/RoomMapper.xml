@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="room_uuid" jdbcType="VARCHAR" property="roomUuid" />
     <result column="room_enable" jdbcType="INTEGER" property="roomEnable" />
+    <result column="room_type" jdbcType="VARCHAR" property="roomType" />
     <result column="room_create_at" jdbcType="TIMESTAMP" property="roomCreateAt" />
     <result column="stream_type" jdbcType="VARCHAR" property="streamType" />
     <result column="stream_address" jdbcType="VARCHAR" property="streamAddress" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, room_uuid, room_enable, room_create_at, stream_type, stream_address, stream_app, 
-    stream_name, stream_param
+    id, room_uuid, room_enable, room_type, room_create_at, stream_type, stream_address, 
+    stream_app, stream_name, stream_param
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.RoomExample" resultMap="BaseResultMap">
     select
@@ -106,13 +107,13 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Room">
     insert into room (id, room_uuid, room_enable, 
-      room_create_at, stream_type, stream_address, 
-      stream_app, stream_name, stream_param
-      )
+      room_type, room_create_at, stream_type, 
+      stream_address, stream_app, stream_name, 
+      stream_param)
     values (#{id,jdbcType=INTEGER}, #{roomUuid,jdbcType=VARCHAR}, #{roomEnable,jdbcType=INTEGER}, 
-      #{roomCreateAt,jdbcType=TIMESTAMP}, #{streamType,jdbcType=VARCHAR}, #{streamAddress,jdbcType=VARCHAR}, 
-      #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, #{streamParam,jdbcType=VARCHAR}
-      )
+      #{roomType,jdbcType=VARCHAR}, #{roomCreateAt,jdbcType=TIMESTAMP}, #{streamType,jdbcType=VARCHAR}, 
+      #{streamAddress,jdbcType=VARCHAR}, #{streamApp,jdbcType=VARCHAR}, #{streamName,jdbcType=VARCHAR}, 
+      #{streamParam,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Room">
     insert into room
@@ -125,6 +126,9 @@
       </if>
       <if test="roomEnable != null">
         room_enable,
+      </if>
+      <if test="roomType != null">
+        room_type,
       </if>
       <if test="roomCreateAt != null">
         room_create_at,
@@ -154,6 +158,9 @@
       </if>
       <if test="roomEnable != null">
         #{roomEnable,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=VARCHAR},
       </if>
       <if test="roomCreateAt != null">
         #{roomCreateAt,jdbcType=TIMESTAMP},
@@ -193,6 +200,9 @@
       <if test="record.roomEnable != null">
         room_enable = #{record.roomEnable,jdbcType=INTEGER},
       </if>
+      <if test="record.roomType != null">
+        room_type = #{record.roomType,jdbcType=VARCHAR},
+      </if>
       <if test="record.roomCreateAt != null">
         room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
       </if>
@@ -221,6 +231,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
       room_enable = #{record.roomEnable,jdbcType=INTEGER},
+      room_type = #{record.roomType,jdbcType=VARCHAR},
       room_create_at = #{record.roomCreateAt,jdbcType=TIMESTAMP},
       stream_type = #{record.streamType,jdbcType=VARCHAR},
       stream_address = #{record.streamAddress,jdbcType=VARCHAR},
@@ -239,6 +250,9 @@
       </if>
       <if test="roomEnable != null">
         room_enable = #{roomEnable,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null">
+        room_type = #{roomType,jdbcType=VARCHAR},
       </if>
       <if test="roomCreateAt != null">
         room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
@@ -265,6 +279,7 @@
     update room
     set room_uuid = #{roomUuid,jdbcType=VARCHAR},
       room_enable = #{roomEnable,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=VARCHAR},
       room_create_at = #{roomCreateAt,jdbcType=TIMESTAMP},
       stream_type = #{streamType,jdbcType=VARCHAR},
       stream_address = #{streamAddress,jdbcType=VARCHAR},

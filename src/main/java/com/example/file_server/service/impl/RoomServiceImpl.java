@@ -2,6 +2,7 @@ package com.example.file_server.service.impl;
 
 import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.dictionary.RoomEnable;
+import com.example.file_server.dictionary.RoomType;
 import com.example.file_server.dictionary.StreamType;
 import com.example.file_server.entity.Room;
 import com.example.file_server.entity.RoomExample;
@@ -48,6 +49,7 @@ public class RoomServiceImpl {
         room.setRoomUuid(room_uuid);
         room.setRoomCreateAt(new Date());
         room.setRoomEnable(RoomEnable.Enable.getValue());
+        room.setRoomType(RoomType.Anchor.getValue());
         room.setStreamType(StreamType.Live.getValue());
         room.setStreamAddress("/" + streamApp + "/" + streamId);
         room.setStreamApp(streamApp);

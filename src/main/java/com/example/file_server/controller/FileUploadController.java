@@ -63,6 +63,12 @@ public class FileUploadController extends BaseController {
         return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
     }
 
+    @PostMapping("/uploadAvatar")
+    public Object uploadAvatar(@Validated FileUploadForm fileUploadForm) {
+        fileUploadForm.setCategory("avatar");
+        return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
+    }
+
     /**
      * 删除上传的文件
      *

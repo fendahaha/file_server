@@ -1,7 +1,6 @@
 package com.example.file_server.form;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -26,8 +25,9 @@ public class AnchorForm {
     private String anchorWieght;
 
     private String anchorRemark;
-
     private Date anchorCreateAt;
+
+    private String roomUuid;
 
     private String anchorConfig;
 
@@ -127,6 +127,14 @@ public class AnchorForm {
 
     public void setAnchorCreateAt(Date anchorCreateAt) {
         this.anchorCreateAt = anchorCreateAt;
+    }
+
+    public String getRoomUuid() {
+        return roomUuid;
+    }
+
+    public void setRoomUuid(String roomUuid) {
+        this.roomUuid = roomUuid;
     }
 
     public String getAnchorConfig() {

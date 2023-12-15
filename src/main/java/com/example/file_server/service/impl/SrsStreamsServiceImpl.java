@@ -1,6 +1,6 @@
 package com.example.file_server.service.impl;
 
-import com.example.file_server.config.CommonTransactional;
+import com.example.file_server.dictionary.RoomType;
 import com.example.file_server.dictionary.StreamType;
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.Room;
@@ -10,9 +10,14 @@ import com.example.file_server.mapper.SrsStreamsMapper;
 import com.example.file_server.utils.OnlineAnchorManager;
 import com.example.file_server.utils.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class SrsStreamsServiceImpl {
@@ -22,12 +27,20 @@ public class SrsStreamsServiceImpl {
     private RoomServiceImpl roomService;
     @Autowired
     private AnchorServiceImpl anchorService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
-    public boolean onPublic(SrsStreams srsStreams) {
+    public static String anchorStreamsKey = "anchor_streams";
+    public static String onlineRoomKey = "online_room_uuid";
+
+    public String getRoomUuid(SrsStreams srsStreams) {
         String param = srsStreams.getParam();
         HashMap<String, String> hashMap = UrlUtil.extractFromQueryString(param.substring(1));
-        String room_uuid = hashMap.get("token");
-        System.out.println("room_uuid " + room_uuid);
+        return hashMap.get("token");
+    }
+
+    public void onPublic(SrsStreams srsStreams) {
+        String room_uuid = getRoomUuid(srsStreams);
         List<Room> rooms = roomService.getRoomsByUUIds(Collections.singletonList(room_uuid));
         if (rooms.isEmpty()) {
             throw new DbActionExcetion("token不合法");
@@ -39,41 +52,48 @@ public class SrsStreamsServiceImpl {
         if (!room.getStreamType().equals(StreamType.Live.getValue())) {
             throw new DbActionExcetion("房间直播类型不是live");
         }
-        List<Anchor> anchors = anchorService.getAnchorByRoomUUID(room.getRoomUuid());
-        if (anchors.isEmpty()) {
-            throw new DbActionExcetion("主播不存在");
+        if (room.getRoomType().equals(RoomType.Anchor.getValue())) {
+            List<Anchor> anchors = anchorService.getAnchorByRoomUUID(room.getRoomUuid());
+            if (anchors.isEmpty()) {
+                throw new DbActionExcetion("主播不存在");
+            }
+//            OnlineAnchorManager.put(anchors.get(0));
+            redisTemplate.opsForHash().put(anchorStreamsKey, srsStreams.getStream_id(), anchors.get(0).getAnchorUuid());
+            redisTemplate.opsForSet().add(onlineRoomKey, room.getRoomUuid());
+        } else {
+            throw new DbActionExcetion("roomType不存在");
         }
-        insert(srsStreams);
-        OnlineAnchorManager.put(anchors.get(0));
-        return true;
+//        try {
+//            insert(srsStreams);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     public void onUnPublic(SrsStreams srsStreams) {
-        String param = srsStreams.getParam();
-        HashMap<String, String> hashMap = UrlUtil.extractFromQueryString(param.substring(1));
-        String room_uuid = hashMap.get("token");
+        String room_uuid = getRoomUuid(srsStreams);
         List<Room> rooms = roomService.getRoomsByUUIds(Collections.singletonList(room_uuid));
         if (!rooms.isEmpty()) {
-            List<Anchor> anchors = anchorService.getAnchorByRoomUUID(rooms.get(0).getRoomUuid());
-            if (!anchors.isEmpty()) {
-                OnlineAnchorManager.remove(anchors.get(0));
+            Room room = rooms.get(0);
+            if (room.getRoomType().equals(RoomType.Anchor.getValue())) {
+                List<Anchor> anchors = anchorService.getAnchorByRoomUUID(room.getRoomUuid());
+                if (!anchors.isEmpty()) {
+                    redisTemplate.opsForHash().delete(anchorStreamsKey, srsStreams.getStream_id());
+                    redisTemplate.opsForSet().remove(onlineRoomKey,room.getRoomUuid());
+//                    OnlineAnchorManager.remove(anchors.get(0));
+                }
             }
         }
-        try {
-            insert(srsStreams);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            insert(srsStreams);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
-
-    @CommonTransactional
     public SrsStreams insert(SrsStreams srsStreams) {
         srsStreams.setCreate_at(new Date());
         int i = srsStreamsMapper.insertSelective(srsStreams);
-        if (i <= 0) {
-            throw new DbActionExcetion("fail");
-        }
         return srsStreams;
     }
 }

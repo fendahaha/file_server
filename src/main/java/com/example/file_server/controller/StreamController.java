@@ -33,9 +33,8 @@ public class StreamController {
     public Object streams(@RequestBody SrsStreams srsStreams) {
         System.out.println("srsStreams.getParam:" + srsStreams.getParam());
         if (srsStreams.getAction().equals(StreamAction.Publish.getValue())) {
-            if (srsStreamsService.onPublic(srsStreams)) {
-                return ResponseEntity.ok(0);
-            }
+            srsStreamsService.onPublic(srsStreams);
+            return ResponseEntity.ok(0);
         }
         if (srsStreams.getAction().equals(StreamAction.UnPublish.getValue())) {
             srsStreamsService.onUnPublic(srsStreams);

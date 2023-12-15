@@ -11,6 +11,7 @@ import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.utils.OnlineAnchorManager;
 import com.example.file_server.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static com.example.file_server.service.impl.SrsStreamsServiceImpl.anchorStreamsKey;
 
 @Service
 public class AnchorServiceImpl {
@@ -27,6 +30,8 @@ public class AnchorServiceImpl {
     private RoomServiceImpl roomService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     public void queryUserRooms(List<Anchor> anchors) {
         if (!anchors.isEmpty()) {
@@ -63,13 +68,12 @@ public class AnchorServiceImpl {
         hashMap.put("pageLimit", form.getPageSize());
 
         List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
-        int count = anchorMapper.selectCount(example);
-
+        long total = anchorMapper.countByExample(example);
         queryUserRooms(anchors);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", anchors);
-        map.put("total", count);
+        map.put("total", total);
         return map;
     }
 
@@ -131,16 +135,57 @@ public class AnchorServiceImpl {
         return anchorMapper.selectByExample(example);
     }
 
-    /*获取在线主播*/
+    /**
+     * 获取在线主播
+     */
     public List<Anchor> onlineAnchors() {
-        Collection<Anchor> anchors = OnlineAnchorManager.values();
-        if (anchors.size() > 0) {
+        List<String> uuids = redisTemplate.opsForHash().values(anchorStreamsKey);
+        if (uuids.size() > 0) {
             AnchorExample anchorExample = new AnchorExample();
-            anchorExample.createCriteria().andAnchorUuidIn(anchors.stream().map(Anchor::getAnchorUuid).toList());
+            anchorExample.createCriteria().andAnchorUuidIn(uuids);
             List<Anchor> anchors1 = anchorMapper.selectByExample(anchorExample);
             queryUserRooms(anchors1);
             return anchors1;
         }
         return new ArrayList<Anchor>();
+    }
+
+    /**
+     * 获取所有主播（包括在线状态）
+     */
+    public List<HashMap<String, Object>> allAnchors() {
+        List<String> anchor_uuids = redisTemplate.opsForHash().values(anchorStreamsKey);
+        AnchorExample example = new AnchorExample();
+        example.setOrderByClause("anchor_create_at desc");
+        List<Anchor> anchors = anchorMapper.selectByExample(example);
+        queryUserRooms(anchors);
+        List<HashMap<String, Object>> list = anchors.stream().map(e -> {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("name", e.getUser().getUserDisplayName());
+            map.put("email", e.getUser().getUserEmail());
+            map.put("phone", e.getUser().getUserPhone());
+            map.put("country", e.getUser().getUserCountry());
+            map.put("avatar", e.getUser().getUserAvatar());
+            map.put("remark", e.getAnchorRemark());
+            map.put("room_uuid", e.getRoomUuid());
+            map.put("user_uuid", e.getUserUuid());
+            map.put("online", anchor_uuids.contains(e.getAnchorUuid()));
+            return map;
+        }).toList();
+        return list;
+    }
+
+    /**
+     * 查询单个主播详情
+     */
+    public Anchor get(String room_uuid) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andRoomUuidEqualTo(room_uuid);
+        List<Anchor> anchors = anchorMapper.selectByExample(example);
+        if (anchors.isEmpty()) {
+            throw new DbActionExcetion("fail");
+        }
+        queryUserRooms(anchors);
+        return anchors.get(0);
     }
 }

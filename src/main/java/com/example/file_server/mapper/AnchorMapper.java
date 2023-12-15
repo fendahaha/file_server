@@ -25,8 +25,6 @@ public interface AnchorMapper {
 
     List<Anchor> selectByExample2(HashMap<String, Object> map);
 
-    int selectCount(AnchorExample example);
-
     Anchor selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Anchor record, @Param("example") AnchorExample example);

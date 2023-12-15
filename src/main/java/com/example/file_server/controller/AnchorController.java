@@ -5,8 +5,10 @@ import com.example.file_server.form.AnchorForm;
 import com.example.file_server.service.impl.AnchorServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.file_server.service.impl.SrsStreamsServiceImpl.onlineRoomKey;
 
 @Validated
 @RequestMapping("/anchor")
@@ -60,5 +64,23 @@ public class AnchorController extends BaseController {
     public Object online() {
         List<Anchor> anchors = service.onlineAnchors();
         return ResponseUtil.ok(anchors);
+    }
+
+    /**
+     * 获取所有主播(包括在线状态)
+     */
+    @PostMapping("/allAnchors")
+    public Object allAnchors() {
+        List<HashMap<String, Object>> hashMaps = service.allAnchors();
+        return ResponseUtil.ok(hashMaps);
+    }
+
+    /**
+     * 根据获取主播
+     */
+    @PostMapping("/query")
+    public Object query(@Size(min = 1) @RequestParam("room_uuid") String room_uuid) {
+        Anchor anchor = service.get(room_uuid);
+        return ResponseUtil.ok(anchor);
     }
 }

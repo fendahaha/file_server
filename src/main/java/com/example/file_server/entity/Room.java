@@ -10,6 +10,8 @@ public class Room {
     private String roomUuid;
 
     private Integer roomEnable;
+
+    private String roomType;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date roomCreateAt;
 
@@ -45,6 +47,14 @@ public class Room {
 
     public void setRoomEnable(Integer roomEnable) {
         this.roomEnable = roomEnable;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public Date getRoomCreateAt() {

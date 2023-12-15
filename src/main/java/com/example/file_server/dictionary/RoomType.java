@@ -1,16 +1,16 @@
 package com.example.file_server.dictionary;
 
 public enum RoomType {
-    Anchor("主播", 1),
-    Event("赛事", 2),
-    TV("电视", 3),
-    Other("其他", 4);
+    Anchor("主播", "anchor"),
+    Event("赛事", "event"),
+    TV("电视", "tv"),
+    Other("其他", "other");
 
 
     private String name;
-    private int value;
+    private String value;
 
-    RoomType(String name, int value) {
+    RoomType(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -19,7 +19,7 @@ public enum RoomType {
         return name;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 }
