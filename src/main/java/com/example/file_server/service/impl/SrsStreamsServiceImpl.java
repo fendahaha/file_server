@@ -7,10 +7,9 @@ import com.example.file_server.entity.Room;
 import com.example.file_server.entity.SrsStreams;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.mapper.SrsStreamsMapper;
-import com.example.file_server.utils.OnlineAnchorManager;
+import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +28,8 @@ public class SrsStreamsServiceImpl {
     private AnchorServiceImpl anchorService;
     @Autowired
     private RedisTemplate redisTemplate;
-
-    public static String anchorStreamsKey = "anchor_streams";
-    public static String onlineRoomKey = "online_room_uuid";
+    @Autowired
+    private OnlineStreamManager onlineStreamManager;
 
     public String getRoomUuid(SrsStreams srsStreams) {
         String param = srsStreams.getParam();
@@ -57,9 +55,7 @@ public class SrsStreamsServiceImpl {
             if (anchors.isEmpty()) {
                 throw new DbActionExcetion("主播不存在");
             }
-//            OnlineAnchorManager.put(anchors.get(0));
-            redisTemplate.opsForHash().put(anchorStreamsKey, srsStreams.getStream_id(), anchors.get(0).getAnchorUuid());
-            redisTemplate.opsForSet().add(onlineRoomKey, room.getRoomUuid());
+            onlineStreamManager.put(srsStreams, anchors.get(0), room);
         } else {
             throw new DbActionExcetion("roomType不存在");
         }
@@ -78,9 +74,8 @@ public class SrsStreamsServiceImpl {
             if (room.getRoomType().equals(RoomType.Anchor.getValue())) {
                 List<Anchor> anchors = anchorService.getAnchorByRoomUUID(room.getRoomUuid());
                 if (!anchors.isEmpty()) {
-                    redisTemplate.opsForHash().delete(anchorStreamsKey, srsStreams.getStream_id());
-                    redisTemplate.opsForSet().remove(onlineRoomKey,room.getRoomUuid());
-//                    OnlineAnchorManager.remove(anchors.get(0));
+                    System.out.println("onlineStreamManager.del");
+                    onlineStreamManager.del(srsStreams, anchors.get(0), room);
                 }
             }
         }

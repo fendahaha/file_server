@@ -8,19 +8,14 @@ import com.example.file_server.entity.User;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.mapper.AnchorMapper;
-import com.example.file_server.utils.OnlineAnchorManager;
+import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static com.example.file_server.service.impl.SrsStreamsServiceImpl.anchorStreamsKey;
 
 @Service
 public class AnchorServiceImpl {
@@ -31,7 +26,7 @@ public class AnchorServiceImpl {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
-    private RedisTemplate redisTemplate;
+    private OnlineStreamManager onlineStreamManager;
 
     public void queryUserRooms(List<Anchor> anchors) {
         if (!anchors.isEmpty()) {
@@ -139,8 +134,8 @@ public class AnchorServiceImpl {
      * 获取在线主播
      */
     public List<Anchor> onlineAnchors() {
-        List<String> uuids = redisTemplate.opsForHash().values(anchorStreamsKey);
-        if (uuids.size() > 0) {
+        List<String> uuids = onlineStreamManager.get_anchor_uuids();
+        if (!uuids.isEmpty()) {
             AnchorExample anchorExample = new AnchorExample();
             anchorExample.createCriteria().andAnchorUuidIn(uuids);
             List<Anchor> anchors1 = anchorMapper.selectByExample(anchorExample);
@@ -154,7 +149,7 @@ public class AnchorServiceImpl {
      * 获取所有主播（包括在线状态）
      */
     public List<HashMap<String, Object>> allAnchors() {
-        List<String> anchor_uuids = redisTemplate.opsForHash().values(anchorStreamsKey);
+        List<String> anchor_uuids = onlineStreamManager.get_anchor_uuids();
         AnchorExample example = new AnchorExample();
         example.setOrderByClause("anchor_create_at desc");
         List<Anchor> anchors = anchorMapper.selectByExample(example);
