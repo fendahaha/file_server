@@ -30,11 +30,17 @@ public class GiftController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
+    @PostMapping("/all")
+    public Object all() {
+        return ResponseUtil.ok(giftService.all());
+    }
+
     @PostMapping("/list")
     public Object list(@RequestBody @Validated GiftSearchForm searchForm) {
         HashMap<String, Object> map = giftService.list(searchForm);
         return ResponseUtil.ok(map);
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/create")
     public Object create(@RequestBody @Validated GiftForm giftForm) {
@@ -44,6 +50,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update")
     public Object update(@RequestBody @Validated GiftForm giftForm) {
@@ -53,6 +60,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated GiftForm giftForm) {

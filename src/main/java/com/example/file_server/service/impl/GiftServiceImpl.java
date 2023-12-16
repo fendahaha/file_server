@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class GiftServiceImpl {
@@ -32,6 +33,13 @@ public class GiftServiceImpl {
         }
         return CommonServiceUtil.listPage(giftMapper, giftExample, form.getPageNum(), form.getPageSize());
     }
+
+    public List<Gift> all() {
+        GiftExample giftExample = new GiftExample();
+        giftExample.setOrderByClause("gift_order asc, gift_create_at desc");
+        return giftMapper.selectByExample(giftExample);
+    }
+
     @CommonTransactional
     public Gift create(GiftForm giftForm) {
         Gift gift = new Gift();
@@ -47,6 +55,7 @@ public class GiftServiceImpl {
         }
         return gift;
     }
+
     @CommonTransactional
     public boolean update(GiftForm giftForm) {
         Gift gift = new Gift();
@@ -58,6 +67,7 @@ public class GiftServiceImpl {
         int i = giftMapper.updateByPrimaryKeySelective(gift);
         return i > 0;
     }
+
     @CommonTransactional
     public void delete(GiftForm giftForm) {
         int i = giftMapper.deleteByPrimaryKey(giftForm.getId());
