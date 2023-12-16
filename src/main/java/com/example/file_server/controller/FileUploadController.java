@@ -7,8 +7,6 @@ import com.example.file_server.form.FileSearchForm;
 import com.example.file_server.form.FileUploadForm;
 import com.example.file_server.service.UploadFileService;
 import com.example.file_server.utils.ResponseUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,10 +44,8 @@ public class FileUploadController extends BaseController {
      */
     @GetMapping("/list")
     public Object list(@Validated FileListForm fileListForm) {
-        PageHelper.startPage(fileListForm.getPageNum(), fileListForm.getPageSize());
-        List<UploadFile> list = uploadFileService.list();
-        PageInfo<UploadFile> pageInfo = new PageInfo<>(list);
-        return ResponseUtil.ok(pageInfo);
+        HashMap<String, Object> map = uploadFileService.list(fileListForm);
+        return ResponseUtil.ok(map);
     }
 
     /**
@@ -60,12 +57,6 @@ public class FileUploadController extends BaseController {
      */
     @PostMapping("/upload")
     public Object upload(@Validated FileUploadForm fileUploadForm) {
-        return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
-    }
-
-    @PostMapping("/uploadAvatar")
-    public Object uploadAvatar(@Validated FileUploadForm fileUploadForm) {
-        fileUploadForm.setCategory("avatar");
         return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
     }
 

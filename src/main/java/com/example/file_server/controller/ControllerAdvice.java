@@ -19,6 +19,7 @@ import java.util.List;
 public class ControllerAdvice {
     @ExceptionHandler(ConstraintViolationException.class)
     public Object handleValidationExceptions(ConstraintViolationException ex) {
+        ex.printStackTrace();
         StringBuilder errors = new StringBuilder();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             errors.append(violation.getMessage()).append("\n");
@@ -28,8 +29,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        System.out.println("adsads------------------");
-        StringBuilder errors = new StringBuilder();
+        ex.printStackTrace();
         BindingResult bindingResult = ex.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -52,26 +52,29 @@ public class ControllerAdvice {
      * 请求方法不被允许异常
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public Object httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", e);
-        return ResponseUtil.badRequest("");
+    public Object httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        ex.printStackTrace();
+        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", ex);
+        return ResponseUtil.badRequest("HttpRequestMethodNotSupportedException");
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public Object httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", e);
-        return ResponseUtil.badRequest("");
+    public Object httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
+        ex.printStackTrace();
+        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", ex);
+        return ResponseUtil.badRequest("HttpMediaTypeNotSupportedException");
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public Object noHandlerFoundException(NoHandlerFoundException e) {
-        //LOGGER.info("全局异常捕获器-捕获到NoHandlerFoundException：", e);
-        return ResponseUtil.badRequest("");
+    public Object noHandlerFoundException(NoHandlerFoundException ex) {
+        ex.printStackTrace();
+        //LOGGER.info("全局异常捕获器-捕获到NoHandlerFoundException：", ex);
+        return ResponseUtil.badRequest("noHandlerFoundException");
     }
 
 //    @ExceptionHandler(AuthenticationException.class)
-//    public Object authenticationException(AuthenticationException e) {
-//        //LOGGER.info("全局异常捕获器-捕获到AuthenticationException：", e);
+//    public Object authenticationException(AuthenticationException ex) {
+//        //LOGGER.info("全局异常捕获器-捕获到AuthenticationException：", ex);
 //        return ResponseUtil.badRequest("");
 //    }
 
@@ -79,9 +82,10 @@ public class ControllerAdvice {
      * 总异常：只要出现异常，总会被这个拦截，因为所以的异常父类为：Exception
      */
     @ExceptionHandler(Exception.class)
-    public Object exception(Exception e) {
-        //LOGGER.info("全局异常捕获器-捕获到Exception：", e);
-        return ResponseUtil.badRequest(e.getMessage());
+    public Object exception(Exception ex) {
+        ex.printStackTrace();
+        //LOGGER.info("全局异常捕获器-捕获到Exception：", ex);
+        return ResponseUtil.badRequest(ex.getMessage());
     }
 
 }

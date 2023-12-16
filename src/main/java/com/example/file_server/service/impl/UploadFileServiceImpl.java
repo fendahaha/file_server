@@ -5,6 +5,7 @@ import com.example.file_server.config.FileUploadConfiguration;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
 import com.example.file_server.form.FileDeleteForm;
+import com.example.file_server.form.FileListForm;
 import com.example.file_server.form.FileSearchForm;
 import com.example.file_server.form.FileUploadForm;
 import com.example.file_server.mapper.UploadFileMapper;
@@ -16,7 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UploadFileServiceImpl implements UploadFileService {
@@ -27,12 +31,13 @@ public class UploadFileServiceImpl implements UploadFileService {
     @Autowired
     private FileUploadConfiguration fileUploadConfiguration;
 
-    public List<UploadFile> list() {
+    public HashMap<String, Object> list(FileListForm form) {
         UploadFileExample example = new UploadFileExample();
         example.setOrderByClause("file_upload_date desc");
-        UploadFileExample.Criteria criteria = example.createCriteria();
-        List<UploadFile> uploadFiles = uploadFileMapper.selectByExample(example);
-        return uploadFiles;
+        example.createCriteria()
+                .andFileTypeLike("image/%")
+                .andFileCategoryEqualTo("media\\image");
+        return CommonServiceUtil.listPage(uploadFileMapper, example, form.getPageNum(), form.getPageSize());
     }
 
     public Path getFileRelativePath(String filename, String category) {
@@ -136,6 +141,7 @@ public class UploadFileServiceImpl implements UploadFileService {
         UploadFileExample example = categorysQuery(fileCategorys);
         return delete(example);
     }
+
     @CommonTransactional
     public int delete_auto(FileDeleteForm fileDeleteForm) {
         List<String> fileUniqueNames = fileDeleteForm.getFileUniqueNames();

@@ -37,7 +37,7 @@ public class FileUploadConfiguration {
             fileRootPath = FileUploadUtil.createPathIfNotExist(file_upload_location);
         } catch (IOException e) {
             e.printStackTrace();
-            fileRootPath = Paths.get("");
+            fileRootPath = Paths.get("uploads");
         }
     }
 }

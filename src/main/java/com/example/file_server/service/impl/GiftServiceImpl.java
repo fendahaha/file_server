@@ -14,34 +14,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 public class GiftServiceImpl {
     @Autowired
     private GiftMapper giftMapper;
 
-    public HashMap<String, Object> list(GiftSearchForm searchForm) {
+    public HashMap<String, Object> list(GiftSearchForm form) {
         GiftExample giftExample = new GiftExample();
         GiftExample.Criteria criteria = giftExample.createCriteria();
         giftExample.setOrderByClause("gift_order asc, gift_create_at desc");
-        if (StringUtils.isNotBlank(searchForm.getGiftName())) {
-            criteria.andGiftNameEqualTo(searchForm.getGiftName());
+        if (StringUtils.isNotBlank(form.getGiftName())) {
+            criteria.andGiftNameEqualTo(form.getGiftName());
         }
-        if (searchForm.getGiftValue() != null) {
-            criteria.andGiftValueEqualTo(searchForm.getGiftValue());
+        if (form.getGiftValue() != null) {
+            criteria.andGiftValueEqualTo(form.getGiftValue());
         }
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("example", giftExample);
-        int start = (searchForm.getPageNum() - 1) * searchForm.getPageSize();
-        map.put("pageStart", start);
-        map.put("pageLimit", searchForm.getPageSize());
-        List<Gift> gifts = giftMapper.selectByExample2(map);
-        Integer total = giftMapper.selectCount(giftExample);
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("list", gifts);
-        hashMap.put("total", total);
-        return hashMap;
+        return CommonServiceUtil.listPage(giftMapper, giftExample, form.getPageNum(), form.getPageSize());
     }
     @CommonTransactional
     public Gift create(GiftForm giftForm) {

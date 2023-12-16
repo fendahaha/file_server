@@ -55,20 +55,8 @@ public class AnchorServiceImpl {
         AnchorExample example = new AnchorExample();
         AnchorExample.Criteria criteria = example.createCriteria();
         example.setOrderByClause("anchor_create_at desc");
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("example", example);
-        int start = (form.getPageNum() - 1) * form.getPageSize();
-        hashMap.put("pageStart", start);
-        hashMap.put("pageLimit", form.getPageSize());
-
-        List<Anchor> anchors = anchorMapper.selectByExample2(hashMap);
-        long total = anchorMapper.countByExample(example);
-        queryUserRooms(anchors);
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("list", anchors);
-        map.put("total", total);
+        HashMap<String, Object> map = CommonServiceUtil.listPage(anchorMapper, example, form.getPageNum(), form.getPageSize());
+        queryUserRooms((List<Anchor>) map.get("list"));
         return map;
     }
 

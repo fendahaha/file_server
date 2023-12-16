@@ -1,8 +1,12 @@
 package com.example.file_server.mapper;
 
+import com.example.file_server.entity.Anchor;
 import com.example.file_server.entity.UploadFile;
 import com.example.file_server.entity.UploadFileExample;
+
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UploadFileMapper {
@@ -17,6 +21,8 @@ public interface UploadFileMapper {
     int insertSelective(UploadFile record);
 
     List<UploadFile> selectByExample(UploadFileExample example);
+
+    List<UploadFile> selectByExample2(HashMap<String, Object> map);
 
     UploadFile selectByPrimaryKey(Integer id);
 
