@@ -3,6 +3,7 @@ package com.example.file_server.controller;
 import com.example.file_server.entity.Gift;
 import com.example.file_server.form.GiftForm;
 import com.example.file_server.form.GiftSearchForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.GiftServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class GiftController extends BaseController {
         HashMap<String, Object> map = giftService.list(searchForm);
         return ResponseUtil.ok(map);
     }
-
+    @AuthenticateRequire
     @PostMapping("/create")
     public Object create(@RequestBody @Validated GiftForm giftForm) {
         Gift gift = giftService.create(giftForm);
@@ -42,7 +43,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
-
+    @AuthenticateRequire
     @PostMapping("/update")
     public Object update(@RequestBody @Validated GiftForm giftForm) {
         boolean update = giftService.update(giftForm);
@@ -51,7 +52,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
-
+    @AuthenticateRequire
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated GiftForm giftForm) {
         giftService.delete(giftForm);

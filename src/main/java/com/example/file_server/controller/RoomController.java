@@ -3,6 +3,7 @@ package com.example.file_server.controller;
 import com.example.file_server.entity.Room;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.form.RoomQueryForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.RoomServiceImpl;
 import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.ResponseUtil;
@@ -27,7 +28,7 @@ public class RoomController extends BaseController {
     public Object index(@PathVariable String room_uuid) {
         return "";
     }
-
+    @AuthenticateRequire
     @PostMapping("/list")
     public Object list(@Validated RoomQueryForm roomQueryForm) {
         PageHelper.startPage(roomQueryForm.getPageNum(), roomQueryForm.getPageSize());
@@ -35,7 +36,7 @@ public class RoomController extends BaseController {
         PageInfo<Room> pageInfo = new PageInfo<>(list);
         return ResponseUtil.ok(pageInfo);
     }
-
+    @AuthenticateRequire
     @PostMapping("/create")
     public Object create(@RequestBody RoomCreateFrom roomCreateFrom) {
         int i = roomService._create(roomCreateFrom);
@@ -44,12 +45,12 @@ public class RoomController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
-
+    @AuthenticateRequire
     @PostMapping("/update")
     public Object update() {
         return "";
     }
-
+    @AuthenticateRequire
     @PostMapping("/delete{room_uuid}")
     public Object delete(@PathVariable String room_uuid) {
         return "";

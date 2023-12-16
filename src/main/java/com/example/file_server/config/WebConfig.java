@@ -27,13 +27,16 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(fileUploadConfiguration.getFile_upload_path())
                 .addResourceLocations("file:" + fileUploadConfiguration.getFile_upload_location());
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/public/", "classpath:/resources/", "classpath:/static/");
     }
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(authenticateInterceptor).addPathPatterns("/file/**")
-//                .excludePathPatterns(fileUploadConfiguration.getFile_upload_path());
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authenticateInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(fileUploadConfiguration.getFile_upload_path(), "/static/**", "/chat");
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

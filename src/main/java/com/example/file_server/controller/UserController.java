@@ -5,6 +5,7 @@ import com.example.file_server.entity.User;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.UserServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.servlet.http.HttpSession;
@@ -81,7 +82,7 @@ public class UserController extends BaseController {
     public Object delete() {
         return "";
     }
-
+    @AuthenticateRequire
     @PostMapping("/update")
     public Object update(HttpSession session, @RequestBody @Validated UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);

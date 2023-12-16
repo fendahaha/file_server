@@ -5,6 +5,7 @@ import com.example.file_server.form.FileDeleteForm;
 import com.example.file_server.form.FileListForm;
 import com.example.file_server.form.FileSearchForm;
 import com.example.file_server.form.FileUploadForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.UploadFileService;
 import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class FileUploadController extends BaseController {
      * @param pageNum
      * @param pageSize
      */
+    @AuthenticateRequire
     @GetMapping("/list")
     public Object list(@Validated FileListForm fileListForm) {
         HashMap<String, Object> map = uploadFileService.list(fileListForm);
@@ -55,6 +57,7 @@ public class FileUploadController extends BaseController {
      * @param tags     标签
      * @param file     文件名称
      */
+    @AuthenticateRequire
     @PostMapping("/upload")
     public Object upload(@Validated FileUploadForm fileUploadForm) {
         return ResponseUtil.ok(uploadFileService.upload(fileUploadForm));
@@ -67,6 +70,7 @@ public class FileUploadController extends BaseController {
      * @param fileTags        标签
      * @param fileCategorys   目录
      */
+    @AuthenticateRequire
     @PostMapping("/deleteByUniqueNames")
     public Object deleteByUniqueNames(@RequestBody @Validated FileDeleteForm fileDeleteForm) {
         int i = uploadFileService.delete_auto(fileDeleteForm);

@@ -1,6 +1,7 @@
 package com.example.file_server.controller;
 
 import com.example.file_server.form.AnchorForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class GiftSendRecordController extends BaseController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
-
+    @AuthenticateRequire
     @PostMapping("/list")
     public Object list(@RequestBody @Validated AnchorForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
-
+    @AuthenticateRequire
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated AnchorForm form) {
         service.delete(form);

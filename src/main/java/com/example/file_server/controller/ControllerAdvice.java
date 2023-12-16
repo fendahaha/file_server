@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.exception.AuthenticateException;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -54,29 +55,25 @@ public class ControllerAdvice {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Object httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         ex.printStackTrace();
-        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", ex);
         return ResponseUtil.badRequest("HttpRequestMethodNotSupportedException");
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Object httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
         ex.printStackTrace();
-        //LOGGER.info("全局异常捕获器-捕获到HttpRequestMethodNotSupportedException：", ex);
         return ResponseUtil.badRequest("HttpMediaTypeNotSupportedException");
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public Object noHandlerFoundException(NoHandlerFoundException ex) {
         ex.printStackTrace();
-        //LOGGER.info("全局异常捕获器-捕获到NoHandlerFoundException：", ex);
         return ResponseUtil.badRequest("noHandlerFoundException");
     }
 
-//    @ExceptionHandler(AuthenticationException.class)
-//    public Object authenticationException(AuthenticationException ex) {
-//        //LOGGER.info("全局异常捕获器-捕获到AuthenticationException：", ex);
-//        return ResponseUtil.badRequest("");
-//    }
+    @ExceptionHandler(AuthenticateException.class)
+    public Object authenticateException(AuthenticateException ex) {
+        return ResponseUtil.unauthorized("AuthenticateException");
+    }
 
     /**
      * 总异常：只要出现异常，总会被这个拦截，因为所以的异常父类为：Exception

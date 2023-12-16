@@ -2,6 +2,7 @@ package com.example.file_server.controller;
 
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.form.AnchorForm;
+import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.AnchorServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.validation.constraints.Min;
@@ -31,23 +32,24 @@ public class AnchorController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
+    @AuthenticateRequire
     @PostMapping("/list")
     public Object list(@RequestBody @Validated AnchorForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
-
+    @AuthenticateRequire
     @PostMapping("/create")
     public Object create(@RequestBody @Validated AnchorForm form) throws Exception {
         return ResponseUtil.ok(service.create(form));
     }
-
+    @AuthenticateRequire
     @PostMapping("/update")
     public Object update(@RequestBody @Validated AnchorForm form) {
         service.update(form);
         return ResponseUtil.ok(true);
     }
-
+    @AuthenticateRequire
     @PostMapping("/delete")
     public Object delete(@Min(0) Integer id) throws Exception {
         service.deleteById(id);
