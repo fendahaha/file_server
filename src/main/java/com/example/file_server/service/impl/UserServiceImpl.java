@@ -1,6 +1,7 @@
 package com.example.file_server.service.impl;
 
 import com.example.file_server.config.CommonTransactional;
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.Client;
 import com.example.file_server.entity.User;
@@ -26,7 +27,7 @@ public class UserServiceImpl {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private ClientMapper clientMapper;
+    private ClientServiceImpl clientService;
 
     public boolean userExist(String userName) {
         UserExample example = new UserExample();
@@ -37,10 +38,11 @@ public class UserServiceImpl {
     }
 
     @CommonTransactional
-    public User registerUser(UserRegisterForm userRegisterForm) {
+    public User registerClient(UserRegisterForm userRegisterForm) {
         Date date = new Date();
         String uuid = UUIDUtil.generateUUID();
         User user = new User();
+        user.setUserRole(Role.Client.getValue());
         user.setUserName(userRegisterForm.getUserName());
         user.setUserPassword(userRegisterForm.getUserPassword());
         user.setUserEmail(userRegisterForm.getUserEmail());
@@ -53,19 +55,7 @@ public class UserServiceImpl {
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
-        Client client = new Client();
-        client.setUserUuid(uuid);
-        client.setClientUuid(UUIDUtil.generateUUID());
-        client.setClientLeavel(1);
-        client.setCreateAt(date);
-        client.setClientMoney(1000.0);
-        client.setClientMoneySended(0.0);
-        client.setClientMoneyRecharged(1000.0);
-        int i1 = clientMapper.insertSelective(client);
-        if (i1 <= 0) {
-            throw new DbActionExcetion("fail");
-        }
-
+        clientService.create(user);
         return user;
     }
 
@@ -113,6 +103,7 @@ public class UserServiceImpl {
             user.setUserDisplayName(UserUtil.generateUsername());
         }
         user.setUserType(UserType.Anchor.getValue());
+        user.setUserRole(Role.Anchor.getValue());
         user.setCreateAt(new Date());
         user.setUserName(form.getUserName());
         user.setUserPassword(form.getUserPassword());

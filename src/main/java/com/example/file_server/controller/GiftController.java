@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.entity.Gift;
 import com.example.file_server.form.GiftForm;
 import com.example.file_server.form.GiftSearchForm;
@@ -34,7 +35,7 @@ public class GiftController extends BaseController {
         HashMap<String, Object> map = giftService.list(searchForm);
         return ResponseUtil.ok(map);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/create")
     public Object create(@RequestBody @Validated GiftForm giftForm) {
         Gift gift = giftService.create(giftForm);
@@ -43,7 +44,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update")
     public Object update(@RequestBody @Validated GiftForm giftForm) {
         boolean update = giftService.update(giftForm);
@@ -52,7 +53,7 @@ public class GiftController extends BaseController {
         }
         return ResponseUtil.internalServerError(null);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated GiftForm giftForm) {
         giftService.delete(giftForm);

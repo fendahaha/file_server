@@ -12,6 +12,7 @@
     <result column="user_country" jdbcType="VARCHAR" property="userCountry" />
     <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="user_role" jdbcType="INTEGER" property="userRole" />
     <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, user_uuid, user_name, user_password, user_display_name, user_email, user_phone, 
-    user_country, user_avatar, user_type, create_at
+    user_country, user_avatar, user_type, user_role, create_at
   </sql>
   <select id="selectByExample" parameterType="com.example.file_server.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,13 @@
     insert into user (id, user_uuid, user_name, 
       user_password, user_display_name, user_email, 
       user_phone, user_country, user_avatar, 
-      user_type, create_at)
+      user_type, user_role, create_at
+      )
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{userPassword,jdbcType=VARCHAR}, #{userDisplayName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
       #{userPhone,jdbcType=VARCHAR}, #{userCountry,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, 
-      #{userType,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP})
+      #{userType,jdbcType=INTEGER}, #{userRole,jdbcType=INTEGER}, #{createAt,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.User">
     insert into user
@@ -148,6 +151,9 @@
       </if>
       <if test="userType != null">
         user_type,
+      </if>
+      <if test="userRole != null">
+        user_role,
       </if>
       <if test="createAt != null">
         create_at,
@@ -183,6 +189,9 @@
       </if>
       <if test="userType != null">
         #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=INTEGER},
       </if>
       <if test="createAt != null">
         #{createAt,jdbcType=TIMESTAMP},
@@ -228,6 +237,9 @@
       <if test="record.userType != null">
         user_type = #{record.userType,jdbcType=INTEGER},
       </if>
+      <if test="record.userRole != null">
+        user_role = #{record.userRole,jdbcType=INTEGER},
+      </if>
       <if test="record.createAt != null">
         create_at = #{record.createAt,jdbcType=TIMESTAMP},
       </if>
@@ -248,6 +260,7 @@
       user_country = #{record.userCountry,jdbcType=VARCHAR},
       user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
       user_type = #{record.userType,jdbcType=INTEGER},
+      user_role = #{record.userRole,jdbcType=INTEGER},
       create_at = #{record.createAt,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -283,6 +296,9 @@
       <if test="userType != null">
         user_type = #{userType,jdbcType=INTEGER},
       </if>
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=INTEGER},
+      </if>
       <if test="createAt != null">
         create_at = #{createAt,jdbcType=TIMESTAMP},
       </if>
@@ -300,6 +316,7 @@
       user_country = #{userCountry,jdbcType=VARCHAR},
       user_avatar = #{userAvatar,jdbcType=VARCHAR},
       user_type = #{userType,jdbcType=INTEGER},
+      user_role = #{userRole,jdbcType=INTEGER},
       create_at = #{createAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

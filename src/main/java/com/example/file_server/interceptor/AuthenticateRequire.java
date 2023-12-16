@@ -1,11 +1,13 @@
 package com.example.file_server.interceptor;
 
+import com.example.file_server.dictionary.Role;
+
 import java.lang.annotation.*;
 
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthenticateRequire {
-    String value() default "";
+    Role value() default Role.Base;
 
 }

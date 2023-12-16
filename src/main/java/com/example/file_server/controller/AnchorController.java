@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.entity.Anchor;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
@@ -32,24 +33,24 @@ public class AnchorController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/list")
     public Object list(@RequestBody @Validated AnchorForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/create")
     public Object create(@RequestBody @Validated AnchorForm form) throws Exception {
         return ResponseUtil.ok(service.create(form));
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update")
     public Object update(@RequestBody @Validated AnchorForm form) {
         service.update(form);
         return ResponseUtil.ok(true);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete")
     public Object delete(@Min(0) Integer id) throws Exception {
         service.deleteById(id);

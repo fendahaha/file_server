@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.entity.Room;
 import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.form.RoomQueryForm;
@@ -24,11 +25,7 @@ public class RoomController extends BaseController {
     @Autowired
     private OnlineStreamManager onlineStreamManager;
 
-    @PostMapping("/{room_uuid}")
-    public Object index(@PathVariable String room_uuid) {
-        return "";
-    }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/list")
     public Object list(@Validated RoomQueryForm roomQueryForm) {
         PageHelper.startPage(roomQueryForm.getPageNum(), roomQueryForm.getPageSize());
@@ -36,21 +33,18 @@ public class RoomController extends BaseController {
         PageInfo<Room> pageInfo = new PageInfo<>(list);
         return ResponseUtil.ok(pageInfo);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/create")
-    public Object create(@RequestBody RoomCreateFrom roomCreateFrom) {
-        int i = roomService._create(roomCreateFrom);
-        if (i > 0) {
-            return ResponseUtil.ok(i);
-        }
-        return ResponseUtil.internalServerError(null);
+    public Object create(@RequestBody RoomCreateFrom roomCreateFrom) throws Exception {
+        Room room = roomService.create();
+        return ResponseUtil.ok(room);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update")
     public Object update() {
         return "";
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete{room_uuid}")
     public Object delete(@PathVariable String room_uuid) {
         return "";

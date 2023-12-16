@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.User;
 import com.example.file_server.form.UserLoginForm;
@@ -43,6 +44,7 @@ public class UserController extends BaseController {
         return ResponseUtil.badRequest("用户名或密码错误");
     }
 
+    @AuthenticateRequire
     @PostMapping("/getLoginUser")
     public Object getUser(@SessionAttribute(name = "user", required = false) User user) {
         if (user != null) {
@@ -59,29 +61,13 @@ public class UserController extends BaseController {
 
     @PostMapping("/registClient")
     public Object register(@RequestBody @Validated UserRegisterForm userRegisterForm) {
-        try {
-            if (userService.userExist(userRegisterForm.getUserName())) {
-                return ResponseUtil.badRequest("账号已存在");
-            }
-            User user = userService.registerUser(userRegisterForm);
-            if (user != null) {
-                return ResponseUtil.ok(user);
-            }
-        } catch (Exception e) {
-            return ResponseUtil.internalServerError(null);
+        if (userService.userExist(userRegisterForm.getUserName())) {
+            return ResponseUtil.badRequest("账号已存在");
         }
-        return ResponseUtil.internalServerError(null);
+        User user = userService.registerClient(userRegisterForm);
+        return ResponseUtil.ok(user);
     }
 
-    @PostMapping("/list")
-    public Object list() {
-        return "";
-    }
-
-    @PostMapping("/delete")
-    public Object delete() {
-        return "";
-    }
     @AuthenticateRequire
     @PostMapping("/update")
     public Object update(HttpSession session, @RequestBody @Validated UserUpdateForm userUpdateForm) {
@@ -89,11 +75,6 @@ public class UserController extends BaseController {
         User user = userService.getUserByUUID(userUpdateForm.getUserUuid());
         session.setAttribute("user", user);
         return ResponseUtil.ok(true);
-    }
-
-    @PostMapping("/create")
-    public Object create() {
-        return "";
     }
 
 }

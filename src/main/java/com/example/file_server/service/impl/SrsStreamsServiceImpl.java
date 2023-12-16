@@ -27,8 +27,6 @@ public class SrsStreamsServiceImpl {
     @Autowired
     private AnchorServiceImpl anchorService;
     @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
     private OnlineStreamManager onlineStreamManager;
 
     public String getRoomUuid(SrsStreams srsStreams) {

@@ -1,5 +1,6 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
@@ -33,7 +34,7 @@ public class GiftSendRecordController extends BaseController {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }
-    @AuthenticateRequire
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete")
     public Object delete(@RequestBody @Validated AnchorForm form) {
         service.delete(form);

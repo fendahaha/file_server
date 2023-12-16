@@ -11,6 +11,10 @@ public class AuthenticateException extends RuntimeException {
         this.authenticateType = authenticateType;
     }
 
+    public AuthenticateException(String message) {
+        super(message);
+    }
+
     public AuthenticateType getAuthenticateType() {
         return authenticateType;
     }

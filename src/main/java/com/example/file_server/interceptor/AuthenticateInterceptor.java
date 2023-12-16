@@ -1,6 +1,6 @@
 package com.example.file_server.interceptor;
 
-import com.example.file_server.dictionary.AuthenticateType;
+import com.example.file_server.dictionary.Role;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.User;
 import com.example.file_server.exception.AuthenticateException;
@@ -21,23 +21,28 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
             Method method = ((HandlerMethod) handler).getMethod();
             AuthenticateRequire annotation = method.getAnnotation(AuthenticateRequire.class);
             if (annotation != null) {
-//                String value = annotation.value();
-                if (doAuthenticate(request, response, handler)) {
-                    return true;
-                } else {
-                    throw new AuthenticateException(AuthenticateType.Unauthenticated);
-                }
+                return doAuthenticate(request, response, handler, annotation);
             }
         }
         return true;
     }
 
-    public boolean doAuthenticate(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean doAuthenticate(HttpServletRequest request, HttpServletResponse response, Object handler, AuthenticateRequire annotation) {
+        Role role = annotation.value();
         HttpSession session = request.getSession(true);
-        Object user = session.getAttribute("user");
-        if (user != null) {
-            if (((User) user).getUserType() != UserType.UnverifiedUser.getValue()) {
-                return true;
+        Object u = session.getAttribute("user");
+        if (u != null) {
+            User user = (User) u;
+            if (user.getUserType() != UserType.UnverifiedUser.getValue()) {
+                if (role != Role.Base) {
+                    if (user.getUserRole() <= role.getValue()) {
+                        return true;
+                    } else {
+                        throw new AuthenticateException("权限不够");
+                    }
+                } else {
+                    return true;
+                }
             }
         }
 
@@ -63,6 +68,6 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
             }
         }
 
-        return false;
+        throw new AuthenticateException("未登录");
     }
 }

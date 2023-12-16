@@ -24,6 +24,8 @@ public class User {
     private String userAvatar;
 
     private Integer userType;
+
+    private Integer userRole;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createAt;
 
@@ -105,6 +107,14 @@ public class User {
 
     public void setUserType(Integer userType) {
         this.userType = userType;
+    }
+
+    public Integer getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Integer userRole) {
+        this.userRole = userRole;
     }
 
     public Date getCreateAt() {

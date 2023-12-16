@@ -7,7 +7,6 @@ import com.example.file_server.dictionary.StreamType;
 import com.example.file_server.entity.Room;
 import com.example.file_server.entity.RoomExample;
 import com.example.file_server.exception.DbActionExcetion;
-import com.example.file_server.form.RoomCreateFrom;
 import com.example.file_server.mapper.RoomMapper;
 import com.example.file_server.utils.UUIDUtil;
 import com.example.file_server.utils.UrlUtil;
@@ -23,15 +22,6 @@ public class RoomServiceImpl {
 
     @Autowired
     private RoomMapper roomMapper;
-
-    public int _create(RoomCreateFrom roomCreateFrom) {
-        Room room = new Room();
-
-        room.setRoomUuid(UUIDUtil.generateStreamUniqueName());
-
-        room.setRoomCreateAt(new Date());
-        return roomMapper.insertSelective(room);
-    }
 
     public List<Room> list() {
         return roomMapper.selectByExample(null);
