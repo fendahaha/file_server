@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 
 public class JsonUtil {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         //在反序列化时忽略在 json 中存在但 Java 对象不存在的属性
@@ -31,6 +31,10 @@ public class JsonUtil {
     public static HashMap<String, Object> json2Map(String s) throws JsonProcessingException {
         return objectMapper.readValue(s, new TypeReference<HashMap<String, Object>>() {
         });
+    }
+
+    public static <T> T json2Object(String s, TypeReference<T> typeReference) throws JsonProcessingException {
+        return objectMapper.readValue(s, typeReference);
     }
 
 }

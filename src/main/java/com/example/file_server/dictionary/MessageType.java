@@ -5,13 +5,17 @@ public enum MessageType {
     Gift(2),
     chat(3);
 
-    private final int value;
+    private final Integer value;
 
-    MessageType(int value) {
+    MessageType(Integer value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
+    }
+
+    public boolean equals(Integer i) {
+        return value.equals(i);
     }
 }
