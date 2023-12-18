@@ -7,6 +7,7 @@ import com.example.file_server.entity.Room;
 import com.example.file_server.entity.User;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
+import com.example.file_server.form.AnchorListForm;
 import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.UUIDUtil;
@@ -51,12 +52,21 @@ public class AnchorServiceImpl {
         }
     }
 
-    public HashMap<String, Object> list(AnchorForm form) {
-        AnchorExample example = new AnchorExample();
-        AnchorExample.Criteria criteria = example.createCriteria();
-        example.setOrderByClause("anchor_create_at desc");
-        HashMap<String, Object> map = CommonServiceUtil.listPage(anchorMapper, example, form.getPageNum(), form.getPageSize());
-        queryUserRooms((List<Anchor>) map.get("list"));
+    public HashMap<String, Object> list(AnchorListForm form) {
+        HashMap<String, Object> objectHashMap = new HashMap<>();
+        objectHashMap.put("orderByClause", "anchor_create_at desc");
+        objectHashMap.put("pageStart", (form.getPageNum() - 1) * form.getPageSize());
+        objectHashMap.put("pageLimit", form.getPageSize());
+        objectHashMap.put("roomEnable", form.getRoomEnable());
+        objectHashMap.put("streamType", form.getStreamType());
+        objectHashMap.put("userName", form.getUserName());
+        List<Anchor> anchors = anchorMapper.selectByExample3(objectHashMap);
+        queryUserRooms(anchors);
+        int total = anchorMapper.selectCountByExample3(objectHashMap);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("list", anchors);
+        map.put("total", total);
         return map;
     }
 

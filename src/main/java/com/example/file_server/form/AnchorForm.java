@@ -1,5 +1,6 @@
 package com.example.file_server.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Min;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class AnchorForm {
     private String anchorWieght;
 
     private String anchorRemark;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date anchorCreateAt;
 
     private String roomUuid;

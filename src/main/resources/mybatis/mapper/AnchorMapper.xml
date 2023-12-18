@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_uuid, anchor_uuid, anchor_sanwei, anchor_height, anchor_wieght, anchor_remark, 
+    id, user_uuid, anchor_uuid, anchor_sanwei, anchor_height, anchor_wieght, anchor_remark,
     anchor_create_at, room_uuid
   </sql>
   <sql id="Blob_Column_List">
@@ -111,7 +111,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -129,13 +129,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Anchor">
-    insert into anchor (id, user_uuid, anchor_uuid, 
-      anchor_sanwei, anchor_height, anchor_wieght, 
-      anchor_remark, anchor_create_at, room_uuid, 
+    insert into anchor (id, user_uuid, anchor_uuid,
+      anchor_sanwei, anchor_height, anchor_wieght,
+      anchor_remark, anchor_create_at, room_uuid,
       anchor_config)
-    values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, 
-      #{anchorSanwei,jdbcType=VARCHAR}, #{anchorHeight,jdbcType=VARCHAR}, #{anchorWieght,jdbcType=VARCHAR}, 
-      #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, #{roomUuid,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR},
+      #{anchorSanwei,jdbcType=VARCHAR}, #{anchorHeight,jdbcType=VARCHAR}, #{anchorWieght,jdbcType=VARCHAR},
+      #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, #{roomUuid,jdbcType=VARCHAR},
       #{anchorConfig,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Anchor">
@@ -383,4 +383,55 @@
       limit #{pageStart},#{pageLimit}
     </if>
   </select>
+
+  <select id="selectByExample3" parameterType="map" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    a.id, a.user_uuid, a.anchor_uuid, a.anchor_sanwei, a.anchor_height, a.anchor_wieght, a.anchor_remark,
+    a.anchor_create_at, a.room_uuid
+    from anchor a
+    left join user as u on a.user_uuid=u.user_uuid
+    left join room as r on a.room_uuid= r.room_uuid
+    <where>
+      <trim prefix="" prefixOverrides="and" suffix="">
+        <if test="roomEnable!=null">
+          and r.room_enable=#{roomEnable}
+        </if>
+        <if test="streamType!=null">
+          and r.stream_type=#{streamType}
+        </if>
+        <if test="userName!=null">
+          and u.user_name=#{userName}
+        </if>
+      </trim>
+    </where>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="pageStart != null and pageLimit != null">
+      limit #{pageStart},#{pageLimit}
+    </if>
+  </select>
+    <select id="selectCountByExample3" parameterType="map" resultType="int">
+        select
+        count(*)
+        from anchor a
+        left join user as u on a.user_uuid=u.user_uuid
+        left join room as r on a.room_uuid= r.room_uuid
+        <where>
+            <trim prefix="" prefixOverrides="and" suffix="">
+                <if test="roomEnable!=null">
+                    and r.room_enable=#{roomEnable}
+                </if>
+                <if test="streamType!=null">
+                    and r.stream_type=#{streamType}
+                </if>
+                <if test="userName!=null">
+                    and u.user_name=#{userName}
+                </if>
+            </trim>
+        </where>
+    </select>
 </mapper>
