@@ -1,5 +1,7 @@
 package com.example.file_server.config.messageBroker;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -10,6 +12,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class MyWebSocketMessageBrokerConfigurer implements WebSocketMessageBrokerConfigurer {
+    @Autowired
+    private MyChannelInterceptor myChannelInterceptor;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -32,6 +36,6 @@ public class MyWebSocketMessageBrokerConfigurer implements WebSocketMessageBroke
                 .maxPoolSize(200)       // 最大线程数
                 .queueCapacity(1000)    // 队列容量
                 .keepAliveSeconds(60);  // 线程空闲时间
-        registration.interceptors(new MyChannelInterceptor());
+        registration.interceptors(myChannelInterceptor);
     }
 }
