@@ -80,9 +80,6 @@ public class AnchorServiceImpl {
         record.setUserUuid(user.getUserUuid());
         record.setRoomUuid(room.getRoomUuid());
         record.setAnchorUuid(UUIDUtil.generateUUID());
-//        record.setAnchorSanwei(form.getAnchorSanwei());
-//        record.setAnchorHeight(form.getAnchorHeight());
-//        record.setAnchorWieght(form.getAnchorWieght());
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorCreateAt(user.getCreateAt());
@@ -101,9 +98,6 @@ public class AnchorServiceImpl {
         record.setAnchorUuid(form.getAnchorUuid());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorRemark(form.getAnchorRemark());
-//        record.setAnchorWieght(form.getAnchorWieght());
-//        record.setAnchorHeight(form.getAnchorHeight());
-//        record.setAnchorSanwei(form.getAnchorSanwei());
         int i = anchorMapper.updateByExampleSelective(record, example);
         if (i <= 0) {
             throw new DbActionExcetion("fail");
@@ -112,6 +106,18 @@ public class AnchorServiceImpl {
         userUpdateForm.setUserUuid(form.getUserUuid());
         userUpdateForm.setUserAvatar(form.getUserAvatar());
         userService.updateUser(userUpdateForm);
+    }
+
+    @CommonTransactional
+    public synchronized void receiveMoney(String anchorUuid, Integer value) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andAnchorUuidEqualTo(anchorUuid);
+        Anchor anchor = anchorMapper.selectByExample(example).get(0);
+        anchor.setAnchorMoney(anchor.getAnchorMoney() + value);
+        int i = anchorMapper.updateByExampleSelective(anchor, example);
+        if (i < 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
 
     @CommonTransactional

@@ -17,6 +17,10 @@ import java.util.HashMap;
 public class GiftSendRecordServiceImpl {
     @Autowired
     private GiftSendRecordMapper mapper;
+    @Autowired
+    private AnchorServiceImpl anchorService;
+    @Autowired
+    private ClientServiceImpl clientService;
 
     public HashMap<String, Object> list(AnchorForm form) {
         GiftSendRecordExample example = new GiftSendRecordExample();
@@ -49,6 +53,8 @@ public class GiftSendRecordServiceImpl {
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
+        anchorService.receiveMoney(anchorUuid, giftValue);
+        clientService.sendMoney(userUuid, giftValue);
         return record;
     }
 }

@@ -375,6 +375,66 @@ public class AnchorExample {
             return (Criteria) this;
         }
 
+        public Criteria andAnchorMoneyIsNull() {
+            addCriterion("anchor_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyIsNotNull() {
+            addCriterion("anchor_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyEqualTo(Integer value) {
+            addCriterion("anchor_money =", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyNotEqualTo(Integer value) {
+            addCriterion("anchor_money <>", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyGreaterThan(Integer value) {
+            addCriterion("anchor_money >", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("anchor_money >=", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyLessThan(Integer value) {
+            addCriterion("anchor_money <", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyLessThanOrEqualTo(Integer value) {
+            addCriterion("anchor_money <=", value, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyIn(List<Integer> values) {
+            addCriterion("anchor_money in", values, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyNotIn(List<Integer> values) {
+            addCriterion("anchor_money not in", values, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyBetween(Integer value1, Integer value2) {
+            addCriterion("anchor_money between", value1, value2, "anchorMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorMoneyNotBetween(Integer value1, Integer value2) {
+            addCriterion("anchor_money not between", value1, value2, "anchorMoney");
+            return (Criteria) this;
+        }
+
         public Criteria andAnchorCreateAtIsNull() {
             addCriterion("anchor_create_at is null");
             return (Criteria) this;

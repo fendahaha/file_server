@@ -375,52 +375,52 @@ public class ClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyEqualTo(Double value) {
+        public Criteria andClientMoneyEqualTo(Integer value) {
             addCriterion("client_money =", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyNotEqualTo(Double value) {
+        public Criteria andClientMoneyNotEqualTo(Integer value) {
             addCriterion("client_money <>", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyGreaterThan(Double value) {
+        public Criteria andClientMoneyGreaterThan(Integer value) {
             addCriterion("client_money >", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyGreaterThanOrEqualTo(Double value) {
+        public Criteria andClientMoneyGreaterThanOrEqualTo(Integer value) {
             addCriterion("client_money >=", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyLessThan(Double value) {
+        public Criteria andClientMoneyLessThan(Integer value) {
             addCriterion("client_money <", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyLessThanOrEqualTo(Double value) {
+        public Criteria andClientMoneyLessThanOrEqualTo(Integer value) {
             addCriterion("client_money <=", value, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyIn(List<Double> values) {
+        public Criteria andClientMoneyIn(List<Integer> values) {
             addCriterion("client_money in", values, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyNotIn(List<Double> values) {
+        public Criteria andClientMoneyNotIn(List<Integer> values) {
             addCriterion("client_money not in", values, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyBetween(Double value1, Double value2) {
+        public Criteria andClientMoneyBetween(Integer value1, Integer value2) {
             addCriterion("client_money between", value1, value2, "clientMoney");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyNotBetween(Double value1, Double value2) {
+        public Criteria andClientMoneyNotBetween(Integer value1, Integer value2) {
             addCriterion("client_money not between", value1, value2, "clientMoney");
             return (Criteria) this;
         }
@@ -435,52 +435,52 @@ public class ClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedEqualTo(Double value) {
+        public Criteria andClientMoneySendedEqualTo(Integer value) {
             addCriterion("client_money_sended =", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedNotEqualTo(Double value) {
+        public Criteria andClientMoneySendedNotEqualTo(Integer value) {
             addCriterion("client_money_sended <>", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedGreaterThan(Double value) {
+        public Criteria andClientMoneySendedGreaterThan(Integer value) {
             addCriterion("client_money_sended >", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedGreaterThanOrEqualTo(Double value) {
+        public Criteria andClientMoneySendedGreaterThanOrEqualTo(Integer value) {
             addCriterion("client_money_sended >=", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedLessThan(Double value) {
+        public Criteria andClientMoneySendedLessThan(Integer value) {
             addCriterion("client_money_sended <", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedLessThanOrEqualTo(Double value) {
+        public Criteria andClientMoneySendedLessThanOrEqualTo(Integer value) {
             addCriterion("client_money_sended <=", value, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedIn(List<Double> values) {
+        public Criteria andClientMoneySendedIn(List<Integer> values) {
             addCriterion("client_money_sended in", values, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedNotIn(List<Double> values) {
+        public Criteria andClientMoneySendedNotIn(List<Integer> values) {
             addCriterion("client_money_sended not in", values, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedBetween(Double value1, Double value2) {
+        public Criteria andClientMoneySendedBetween(Integer value1, Integer value2) {
             addCriterion("client_money_sended between", value1, value2, "clientMoneySended");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneySendedNotBetween(Double value1, Double value2) {
+        public Criteria andClientMoneySendedNotBetween(Integer value1, Integer value2) {
             addCriterion("client_money_sended not between", value1, value2, "clientMoneySended");
             return (Criteria) this;
         }
@@ -495,52 +495,52 @@ public class ClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedEqualTo(Double value) {
+        public Criteria andClientMoneyRechargedEqualTo(Integer value) {
             addCriterion("client_money_recharged =", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedNotEqualTo(Double value) {
+        public Criteria andClientMoneyRechargedNotEqualTo(Integer value) {
             addCriterion("client_money_recharged <>", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedGreaterThan(Double value) {
+        public Criteria andClientMoneyRechargedGreaterThan(Integer value) {
             addCriterion("client_money_recharged >", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedGreaterThanOrEqualTo(Double value) {
+        public Criteria andClientMoneyRechargedGreaterThanOrEqualTo(Integer value) {
             addCriterion("client_money_recharged >=", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedLessThan(Double value) {
+        public Criteria andClientMoneyRechargedLessThan(Integer value) {
             addCriterion("client_money_recharged <", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedLessThanOrEqualTo(Double value) {
+        public Criteria andClientMoneyRechargedLessThanOrEqualTo(Integer value) {
             addCriterion("client_money_recharged <=", value, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedIn(List<Double> values) {
+        public Criteria andClientMoneyRechargedIn(List<Integer> values) {
             addCriterion("client_money_recharged in", values, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedNotIn(List<Double> values) {
+        public Criteria andClientMoneyRechargedNotIn(List<Integer> values) {
             addCriterion("client_money_recharged not in", values, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedBetween(Double value1, Double value2) {
+        public Criteria andClientMoneyRechargedBetween(Integer value1, Integer value2) {
             addCriterion("client_money_recharged between", value1, value2, "clientMoneyRecharged");
             return (Criteria) this;
         }
 
-        public Criteria andClientMoneyRechargedNotBetween(Double value1, Double value2) {
+        public Criteria andClientMoneyRechargedNotBetween(Integer value1, Integer value2) {
             addCriterion("client_money_recharged not between", value1, value2, "clientMoneyRecharged");
             return (Criteria) this;
         }

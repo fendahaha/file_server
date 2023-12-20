@@ -12,6 +12,8 @@ public class Anchor {
     private String anchorUuid;
 
     private String anchorRemark;
+
+    private Integer anchorMoney;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date anchorCreateAt;
 
@@ -68,6 +70,14 @@ public class Anchor {
 
     public void setAnchorRemark(String anchorRemark) {
         this.anchorRemark = anchorRemark;
+    }
+
+    public Integer getAnchorMoney() {
+        return anchorMoney;
+    }
+
+    public void setAnchorMoney(Integer anchorMoney) {
+        this.anchorMoney = anchorMoney;
     }
 
     public Date getAnchorCreateAt() {

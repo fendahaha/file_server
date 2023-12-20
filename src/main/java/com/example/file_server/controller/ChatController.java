@@ -9,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
@@ -65,6 +66,13 @@ public class ChatController {
     @MessageMapping("/greeting3")
     public void touser(@Payload String username) {
         this.template.convertAndSendToUser(username, "/queue/position-updates", "hello-payload");
+    }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public Object index(String name) {
+        this.template.convertAndSendToUser(name, "/queue/person", "hello-payload");
+        return "ok";
     }
 
 }

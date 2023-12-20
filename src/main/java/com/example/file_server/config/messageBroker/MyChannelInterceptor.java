@@ -14,6 +14,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -74,8 +75,13 @@ public class MyChannelInterceptor implements ChannelInterceptor {
                         });
                         String anchorUuid = (String) nativeHeaders.get("anchorUuid").get(0);
                         String anchorName = (String) nativeHeaders.get("anchorName").get(0);
-                        giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
-                                gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
+                        try {
+                            giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
+                                    gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            throw ex;
+                        }
                     }
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
