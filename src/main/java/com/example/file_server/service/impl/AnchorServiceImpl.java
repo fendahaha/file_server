@@ -171,10 +171,8 @@ public class AnchorServiceImpl {
     /**
      * 查询单个主播详情
      */
-    public Anchor get(String room_uuid) {
-        AnchorExample example = new AnchorExample();
-        example.createCriteria().andRoomUuidEqualTo(room_uuid);
-        List<Anchor> anchors = anchorMapper.selectByExample(example);
+    public Anchor getByRoomUuid(String room_uuid) {
+        List<Anchor> anchors = getAnchorByRoomUUID(room_uuid);
         if (anchors.isEmpty()) {
             throw new DbActionExcetion("fail");
         }

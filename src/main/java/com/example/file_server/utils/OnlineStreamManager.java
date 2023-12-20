@@ -12,8 +12,8 @@ import java.util.List;
 @Component
 public class OnlineStreamManager {
     private RedisTemplate redisTemplate;
-    public String anchorStreamsKey = "anchor_streams";
-    public String onlineRoomKey = "online_room_uuid";
+    public String anchorStreamsKeyHash = "anchor_streams";
+    public String onlineRoomKeySet = "online_room_uuid";
 
     @Autowired
     public OnlineStreamManager(RedisTemplate redisTemplate) {
@@ -21,21 +21,21 @@ public class OnlineStreamManager {
     }
 
     public void put(SrsStreams srsStreams, Anchor anchor, Room room) {
-        redisTemplate.opsForHash().put(anchorStreamsKey, srsStreams.getStream_id(), anchor.getAnchorUuid());
-        redisTemplate.opsForSet().add(onlineRoomKey, room.getRoomUuid());
+        redisTemplate.opsForHash().put(anchorStreamsKeyHash, srsStreams.getStream_id(), anchor.getAnchorUuid());
+        redisTemplate.opsForSet().add(onlineRoomKeySet, room.getRoomUuid());
     }
 
     public void del(SrsStreams srsStreams, Anchor anchor, Room room) {
-        Long delete = redisTemplate.opsForHash().delete(anchorStreamsKey, srsStreams.getStream_id());
-        Long remove = redisTemplate.opsForSet().remove(onlineRoomKey, room.getRoomUuid());
+        Long delete = redisTemplate.opsForHash().delete(anchorStreamsKeyHash, srsStreams.getStream_id());
+        Long remove = redisTemplate.opsForSet().remove(onlineRoomKeySet, room.getRoomUuid());
     }
 
     public List<String> get_anchor_uuids() {
-        return (List<String>) redisTemplate.opsForHash().values(anchorStreamsKey);
+        return (List<String>) redisTemplate.opsForHash().values(anchorStreamsKeyHash);
     }
 
     public boolean is_online(String room_uuid) {
-        return redisTemplate.opsForSet().isMember(onlineRoomKey, room_uuid);
+        return redisTemplate.opsForSet().isMember(onlineRoomKeySet, room_uuid);
     }
 
 }

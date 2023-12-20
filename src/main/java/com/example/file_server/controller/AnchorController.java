@@ -84,7 +84,7 @@ public class AnchorController extends BaseController {
      */
     @PostMapping("/query")
     public Object query(@Size(min = 1) @RequestParam("room_uuid") String room_uuid) {
-        Anchor anchor = service.get(room_uuid);
+        Anchor anchor = service.getByRoomUuid(room_uuid);
         return ResponseUtil.ok(anchor);
     }
 }
