@@ -5,9 +5,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
     <result column="anchor_uuid" jdbcType="VARCHAR" property="anchorUuid" />
-    <result column="anchor_sanwei" jdbcType="VARCHAR" property="anchorSanwei" />
-    <result column="anchor_height" jdbcType="VARCHAR" property="anchorHeight" />
-    <result column="anchor_wieght" jdbcType="VARCHAR" property="anchorWieght" />
     <result column="anchor_remark" jdbcType="VARCHAR" property="anchorRemark" />
     <result column="anchor_create_at" jdbcType="TIMESTAMP" property="anchorCreateAt" />
     <result column="room_uuid" jdbcType="VARCHAR" property="roomUuid" />
@@ -74,8 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_uuid, anchor_uuid, anchor_sanwei, anchor_height, anchor_wieght, anchor_remark,
-    anchor_create_at, room_uuid
+    id, user_uuid, anchor_uuid, anchor_remark, anchor_create_at, room_uuid
   </sql>
   <sql id="Blob_Column_List">
     anchor_config
@@ -111,7 +107,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -129,13 +125,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Anchor">
-    insert into anchor (id, user_uuid, anchor_uuid,
-      anchor_sanwei, anchor_height, anchor_wieght,
-      anchor_remark, anchor_create_at, room_uuid,
+    insert into anchor (id, user_uuid, anchor_uuid, 
+      anchor_remark, anchor_create_at, room_uuid, 
       anchor_config)
-    values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR},
-      #{anchorSanwei,jdbcType=VARCHAR}, #{anchorHeight,jdbcType=VARCHAR}, #{anchorWieght,jdbcType=VARCHAR},
-      #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, #{roomUuid,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, 
+      #{anchorRemark,jdbcType=VARCHAR}, #{anchorCreateAt,jdbcType=TIMESTAMP}, #{roomUuid,jdbcType=VARCHAR}, 
       #{anchorConfig,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Anchor">
@@ -149,15 +143,6 @@
       </if>
       <if test="anchorUuid != null">
         anchor_uuid,
-      </if>
-      <if test="anchorSanwei != null">
-        anchor_sanwei,
-      </if>
-      <if test="anchorHeight != null">
-        anchor_height,
-      </if>
-      <if test="anchorWieght != null">
-        anchor_wieght,
       </if>
       <if test="anchorRemark != null">
         anchor_remark,
@@ -181,15 +166,6 @@
       </if>
       <if test="anchorUuid != null">
         #{anchorUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorSanwei != null">
-        #{anchorSanwei,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorHeight != null">
-        #{anchorHeight,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorWieght != null">
-        #{anchorWieght,jdbcType=VARCHAR},
       </if>
       <if test="anchorRemark != null">
         #{anchorRemark,jdbcType=VARCHAR},
@@ -223,15 +199,6 @@
       <if test="record.anchorUuid != null">
         anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
       </if>
-      <if test="record.anchorSanwei != null">
-        anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
-      </if>
-      <if test="record.anchorHeight != null">
-        anchor_height = #{record.anchorHeight,jdbcType=VARCHAR},
-      </if>
-      <if test="record.anchorWieght != null">
-        anchor_wieght = #{record.anchorWieght,jdbcType=VARCHAR},
-      </if>
       <if test="record.anchorRemark != null">
         anchor_remark = #{record.anchorRemark,jdbcType=VARCHAR},
       </if>
@@ -254,9 +221,6 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_uuid = #{record.userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
-      anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
-      anchor_height = #{record.anchorHeight,jdbcType=VARCHAR},
-      anchor_wieght = #{record.anchorWieght,jdbcType=VARCHAR},
       anchor_remark = #{record.anchorRemark,jdbcType=VARCHAR},
       anchor_create_at = #{record.anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
@@ -270,9 +234,6 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_uuid = #{record.userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
-      anchor_sanwei = #{record.anchorSanwei,jdbcType=VARCHAR},
-      anchor_height = #{record.anchorHeight,jdbcType=VARCHAR},
-      anchor_wieght = #{record.anchorWieght,jdbcType=VARCHAR},
       anchor_remark = #{record.anchorRemark,jdbcType=VARCHAR},
       anchor_create_at = #{record.anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{record.roomUuid,jdbcType=VARCHAR}
@@ -288,15 +249,6 @@
       </if>
       <if test="anchorUuid != null">
         anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorSanwei != null">
-        anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorHeight != null">
-        anchor_height = #{anchorHeight,jdbcType=VARCHAR},
-      </if>
-      <if test="anchorWieght != null">
-        anchor_wieght = #{anchorWieght,jdbcType=VARCHAR},
       </if>
       <if test="anchorRemark != null">
         anchor_remark = #{anchorRemark,jdbcType=VARCHAR},
@@ -317,9 +269,6 @@
     update anchor
     set user_uuid = #{userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
-      anchor_height = #{anchorHeight,jdbcType=VARCHAR},
-      anchor_wieght = #{anchorWieght,jdbcType=VARCHAR},
       anchor_remark = #{anchorRemark,jdbcType=VARCHAR},
       anchor_create_at = #{anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{roomUuid,jdbcType=VARCHAR},
@@ -330,9 +279,6 @@
     update anchor
     set user_uuid = #{userUuid,jdbcType=VARCHAR},
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
-      anchor_sanwei = #{anchorSanwei,jdbcType=VARCHAR},
-      anchor_height = #{anchorHeight,jdbcType=VARCHAR},
-      anchor_wieght = #{anchorWieght,jdbcType=VARCHAR},
       anchor_remark = #{anchorRemark,jdbcType=VARCHAR},
       anchor_create_at = #{anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{roomUuid,jdbcType=VARCHAR}
@@ -383,14 +329,12 @@
       limit #{pageStart},#{pageLimit}
     </if>
   </select>
-
-  <select id="selectByExample3" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByExample3" parameterType="map" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
     </if>
-    a.id, a.user_uuid, a.anchor_uuid, a.anchor_sanwei, a.anchor_height, a.anchor_wieght, a.anchor_remark,
-    a.anchor_create_at, a.room_uuid
+    a.id, a.user_uuid, a.anchor_uuid, a.anchor_remark, a.anchor_create_at, a.room_uuid, a.anchor_config
     from anchor a
     left join user as u on a.user_uuid=u.user_uuid
     left join room as r on a.room_uuid= r.room_uuid
@@ -414,24 +358,24 @@
       limit #{pageStart},#{pageLimit}
     </if>
   </select>
-    <select id="selectCountByExample3" parameterType="map" resultType="int">
-        select
-        count(*)
-        from anchor a
-        left join user as u on a.user_uuid=u.user_uuid
-        left join room as r on a.room_uuid= r.room_uuid
-        <where>
-            <trim prefix="" prefixOverrides="and" suffix="">
-                <if test="roomEnable!=null">
-                    and r.room_enable=#{roomEnable}
-                </if>
-                <if test="streamType!=null">
-                    and r.stream_type=#{streamType}
-                </if>
-                <if test="userName!=null">
-                    and u.user_name=#{userName}
-                </if>
-            </trim>
-        </where>
-    </select>
+  <select id="selectCountByExample3" parameterType="map" resultType="int">
+    select
+    count(*)
+    from anchor a
+    left join user as u on a.user_uuid=u.user_uuid
+    left join room as r on a.room_uuid= r.room_uuid
+    <where>
+      <trim prefix="" prefixOverrides="and" suffix="">
+        <if test="roomEnable!=null">
+          and r.room_enable=#{roomEnable}
+        </if>
+        <if test="streamType!=null">
+          and r.stream_type=#{streamType}
+        </if>
+        <if test="userName!=null">
+          and u.user_name=#{userName}
+        </if>
+      </trim>
+    </where>
+  </select>
 </mapper>

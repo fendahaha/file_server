@@ -8,6 +8,7 @@ import com.example.file_server.entity.User;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.AnchorListForm;
+import com.example.file_server.form.UserUpdateForm;
 import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.UUIDUtil;
@@ -79,9 +80,9 @@ public class AnchorServiceImpl {
         record.setUserUuid(user.getUserUuid());
         record.setRoomUuid(room.getRoomUuid());
         record.setAnchorUuid(UUIDUtil.generateUUID());
-        record.setAnchorSanwei(form.getAnchorSanwei());
-        record.setAnchorHeight(form.getAnchorHeight());
-        record.setAnchorWieght(form.getAnchorWieght());
+//        record.setAnchorSanwei(form.getAnchorSanwei());
+//        record.setAnchorHeight(form.getAnchorHeight());
+//        record.setAnchorWieght(form.getAnchorWieght());
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorCreateAt(user.getCreateAt());
@@ -97,15 +98,20 @@ public class AnchorServiceImpl {
         AnchorExample example = new AnchorExample();
         example.createCriteria().andAnchorUuidEqualTo(form.getAnchorUuid());
         Anchor record = new Anchor();
+        record.setAnchorUuid(form.getAnchorUuid());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorRemark(form.getAnchorRemark());
-        record.setAnchorWieght(form.getAnchorWieght());
-        record.setAnchorHeight(form.getAnchorHeight());
-        record.setAnchorSanwei(form.getAnchorSanwei());
+//        record.setAnchorWieght(form.getAnchorWieght());
+//        record.setAnchorHeight(form.getAnchorHeight());
+//        record.setAnchorSanwei(form.getAnchorSanwei());
         int i = anchorMapper.updateByExampleSelective(record, example);
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
+        UserUpdateForm userUpdateForm = new UserUpdateForm();
+        userUpdateForm.setUserUuid(form.getUserUuid());
+        userUpdateForm.setUserAvatar(form.getUserAvatar());
+        userService.updateUser(userUpdateForm);
     }
 
     @CommonTransactional

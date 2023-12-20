@@ -19,12 +19,6 @@ public class AnchorForm {
 
     private String anchorUuid;
 
-    private String anchorSanwei;
-
-    private String anchorHeight;
-
-    private String anchorWieght;
-
     private String anchorRemark;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date anchorCreateAt;
@@ -89,30 +83,6 @@ public class AnchorForm {
 
     public void setAnchorUuid(String anchorUuid) {
         this.anchorUuid = anchorUuid;
-    }
-
-    public String getAnchorSanwei() {
-        return anchorSanwei;
-    }
-
-    public void setAnchorSanwei(String anchorSanwei) {
-        this.anchorSanwei = anchorSanwei;
-    }
-
-    public String getAnchorHeight() {
-        return anchorHeight;
-    }
-
-    public void setAnchorHeight(String anchorHeight) {
-        this.anchorHeight = anchorHeight;
-    }
-
-    public String getAnchorWieght() {
-        return anchorWieght;
-    }
-
-    public void setAnchorWieght(String anchorWieght) {
-        this.anchorWieght = anchorWieght;
     }
 
     public String getAnchorRemark() {

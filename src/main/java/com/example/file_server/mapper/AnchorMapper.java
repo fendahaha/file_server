@@ -23,12 +23,6 @@ public interface AnchorMapper {
 
     List<Anchor> selectByExample(AnchorExample example);
 
-    List<Anchor> selectByExample2(HashMap<String, Object> map);
-
-    List<Anchor> selectByExample3(HashMap<String, Object> map);
-
-    int selectCountByExample3(HashMap<String, Object> map);
-
     Anchor selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Anchor record, @Param("example") AnchorExample example);
@@ -42,4 +36,10 @@ public interface AnchorMapper {
     int updateByPrimaryKeyWithBLOBs(Anchor record);
 
     int updateByPrimaryKey(Anchor record);
+
+    List<Anchor> selectByExample2(HashMap<String, Object> map);
+
+    List<Anchor> selectByExample3(HashMap<String, Object> map);
+
+    int selectCountByExample3(HashMap<String, Object> map);
 }

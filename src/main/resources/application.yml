@@ -42,3 +42,9 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   async-count: true
+logging:
+  level:
+    org:
+      mybatis: DEBUG
+      apache:
+        ibatis: DEBUG
