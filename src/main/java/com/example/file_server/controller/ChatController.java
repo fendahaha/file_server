@@ -1,6 +1,15 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.config.messageBroker.MessageEntity;
+import com.example.file_server.config.messageBroker.MyStompUserPrincipal;
+import com.example.file_server.dictionary.MessageType;
+import com.example.file_server.entity.Gift;
+import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
+import com.example.file_server.utils.JsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -9,12 +18,16 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.Date;
+import java.util.HashMap;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -24,6 +37,9 @@ public class ChatController {
     @Autowired
     private WebSocketMessageBrokerStats webSocketMessageBrokerStats;
     private SimpMessagingTemplate template;
+
+    @Autowired
+    private GiftSendRecordServiceImpl giftSendRecordService;
 
     private String getTimestamp() {
         long time = new Date().getTime();
@@ -73,6 +89,38 @@ public class ChatController {
     public Object index(String name) {
         this.template.convertAndSendToUser(name, "/queue/person", "hello-payload");
         return "ok";
+    }
+
+    @MessageMapping("/gift")
+    public void giftSend(@Payload String messageBody, SimpMessageHeaderAccessor headerAccessor) {
+        Principal user = headerAccessor.getUser();
+        MyStompUserPrincipal u = (MyStompUserPrincipal) user;
+        MessageHeaders messageHeaders = headerAccessor.getMessageHeaders();
+        LinkedMultiValueMap nativeHeaders = messageHeaders.get("nativeHeaders", LinkedMultiValueMap.class);
+        try {
+            MessageEntity messageEntity = JsonUtil.json2Object(messageBody, new TypeReference<MessageEntity>() {
+            });
+            if (MessageType.Gift.equals(messageEntity.getType())) {
+                Gift gift = JsonUtil.json2Object(messageEntity.getData(), new TypeReference<Gift>() {
+                });
+                String anchorUuid = (String) nativeHeaders.get("anchorUuid").get(0);
+                String anchorName = (String) nativeHeaders.get("anchorName").get(0);
+                String room_topic = (String) nativeHeaders.get("room_topic").get(0);
+                try {
+                    giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
+                            gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
+                    this.template.convertAndSend(room_topic, messageBody);
+                } catch (Exception ex) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("type", "money_not_enough");
+                    this.template.convertAndSendToUser(user.getName(), "/queue/person", JsonUtil.map2Json(map));
+                }
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            this.template.convertAndSendToUser(user.getName(), "/queue/person", e.getMessage());
+        }
+
     }
 
 }

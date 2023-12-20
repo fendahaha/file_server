@@ -35,7 +35,7 @@ public class MyStompUserPrincipal implements Principal {
 
     @Override
     public String getName() {
-        return userName;
+        return userUuid;
     }
 
     public Integer getId() {

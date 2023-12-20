@@ -1,7 +1,5 @@
 package com.example.file_server.config.messageBroker;
 
-import com.example.file_server.dictionary.MessageType;
-import com.example.file_server.entity.Gift;
 import com.example.file_server.entity.User;
 import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.service.impl.UserServiceImpl;
@@ -14,7 +12,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -28,8 +25,6 @@ import java.util.List;
 public class MyChannelInterceptor implements ChannelInterceptor {
     @Autowired
     private UserServiceImpl userService;
-    @Autowired
-    private GiftSendRecordServiceImpl giftSendRecordService;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
@@ -67,25 +62,6 @@ public class MyChannelInterceptor implements ChannelInterceptor {
                 MyStompUserPrincipal u = (MyStompUserPrincipal) user;
                 byte[] payload = (byte[]) message.getPayload();
                 String s = new String(payload, StandardCharsets.UTF_8);
-                try {
-                    MessageEntity messageEntity = JsonUtil.json2Object(s, new TypeReference<MessageEntity>() {
-                    });
-                    if (MessageType.Gift.equals(messageEntity.getType())) {
-                        Gift gift = JsonUtil.json2Object(messageEntity.getData(), new TypeReference<Gift>() {
-                        });
-                        String anchorUuid = (String) nativeHeaders.get("anchorUuid").get(0);
-                        String anchorName = (String) nativeHeaders.get("anchorName").get(0);
-                        try {
-                            giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
-                                    gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            throw ex;
-                        }
-                    }
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
             } else {
                 throw new RuntimeException("未登录用户");
             }
