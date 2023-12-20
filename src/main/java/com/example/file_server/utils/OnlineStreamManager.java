@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Component
 public class OnlineStreamManager {
     private RedisTemplate redisTemplate;
-    public String anchorStreamsKeyHash = "anchor_streams";
-    public String onlineRoomKeySet = "online_room_uuid";
+    public String anchors = "online_anchor_uuids";
+    public String rooms = "online_room_uuids";
 
     @Autowired
     public OnlineStreamManager(RedisTemplate redisTemplate) {
@@ -21,21 +22,22 @@ public class OnlineStreamManager {
     }
 
     public void put(SrsStreams srsStreams, Anchor anchor, Room room) {
-        redisTemplate.opsForHash().put(anchorStreamsKeyHash, srsStreams.getStream_id(), anchor.getAnchorUuid());
-        redisTemplate.opsForSet().add(onlineRoomKeySet, room.getRoomUuid());
+        redisTemplate.opsForSet().add(anchors, anchor.getAnchorUuid());
+        redisTemplate.opsForSet().add(rooms, room.getRoomUuid());
     }
 
     public void del(SrsStreams srsStreams, Anchor anchor, Room room) {
-        Long delete = redisTemplate.opsForHash().delete(anchorStreamsKeyHash, srsStreams.getStream_id());
-        Long remove = redisTemplate.opsForSet().remove(onlineRoomKeySet, room.getRoomUuid());
+        Long delete = redisTemplate.opsForSet().remove(anchors, anchor.getAnchorUuid());
+        Long remove = redisTemplate.opsForSet().remove(rooms, room.getRoomUuid());
     }
 
-    public List<String> get_anchor_uuids() {
-        return (List<String>) redisTemplate.opsForHash().values(anchorStreamsKeyHash);
+    public ArrayList<String> get_anchor_uuids() {
+        Set members = redisTemplate.opsForSet().members(anchors);
+        return new ArrayList<String>(members);
     }
 
     public boolean is_online(String room_uuid) {
-        return redisTemplate.opsForSet().isMember(onlineRoomKeySet, room_uuid);
+        return redisTemplate.opsForSet().isMember(rooms, room_uuid);
     }
 
 }

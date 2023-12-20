@@ -26,8 +26,8 @@ public class RedisController {
 
     @GetMapping("/streams")
     public Object index() {
-        List anchorUuids = redisTemplate.opsForHash().values(onlineStreamManager.anchorStreamsKeyHash);
-        Set members = redisTemplate.opsForSet().members(onlineStreamManager.onlineRoomKeySet);
+        List anchorUuids = redisTemplate.opsForHash().values(onlineStreamManager.anchors);
+        Set members = redisTemplate.opsForSet().members(onlineStreamManager.rooms);
         HashMap<String, Object> map = new HashMap<>();
         map.put("anchors", anchorUuids);
         map.put("rooms", members);
@@ -36,7 +36,7 @@ public class RedisController {
 
     @GetMapping("/clean")
     public Object clean() {
-        Long delete = redisTemplate.delete(Arrays.asList(onlineStreamManager.anchorStreamsKeyHash, onlineStreamManager.onlineRoomKeySet));
+        Long delete = redisTemplate.delete(Arrays.asList(onlineStreamManager.anchors, onlineStreamManager.rooms));
         return delete;
     }
 
@@ -52,8 +52,8 @@ public class RedisController {
 
     @GetMapping("/t3")
     public Object index3() {
-        Boolean b = redisTemplate.hasKey(onlineStreamManager.onlineRoomKeySet);
-        Boolean b1 = redisTemplate.hasKey(onlineStreamManager.anchorStreamsKeyHash);
+        Boolean b = redisTemplate.hasKey(onlineStreamManager.rooms);
+        Boolean b1 = redisTemplate.hasKey(onlineStreamManager.anchors);
         return Arrays.asList(b, b1);
     }
 

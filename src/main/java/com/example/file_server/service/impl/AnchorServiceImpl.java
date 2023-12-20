@@ -1,10 +1,7 @@
 package com.example.file_server.service.impl;
 
 import com.example.file_server.config.CommonTransactional;
-import com.example.file_server.entity.Anchor;
-import com.example.file_server.entity.AnchorExample;
-import com.example.file_server.entity.Room;
-import com.example.file_server.entity.User;
+import com.example.file_server.entity.*;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.AnchorListForm;
@@ -18,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AnchorServiceImpl {
@@ -29,6 +28,10 @@ public class AnchorServiceImpl {
     private UserServiceImpl userService;
     @Autowired
     private OnlineStreamManager onlineStreamManager;
+    @Autowired
+    private GiftSendRecordServiceImpl giftSendRecordService;
+    @Autowired
+    private ClientServiceImpl clientService;
 
     public void queryUserRooms(List<Anchor> anchors) {
         if (!anchors.isEmpty()) {
@@ -121,6 +124,13 @@ public class AnchorServiceImpl {
     }
 
     @CommonTransactional
+    public void receiveGift(String userUuid, String userName, String anchorUuid, String anchorName, String giftUuid, String giftname, Integer giftValue) {
+        giftSendRecordService.insert(userUuid, userName, anchorUuid, anchorName, giftUuid, giftname, giftValue);
+        receiveMoney(anchorUuid, giftValue);
+        clientService.sendMoney(userUuid, giftValue);
+    }
+
+    @CommonTransactional
     public void deleteById(int id) {
         Anchor anchor = anchorMapper.selectByPrimaryKey(id);
         if (anchor == null) {
@@ -172,6 +182,8 @@ public class AnchorServiceImpl {
             map.put("country", e.getUser().getUserCountry());
             map.put("avatar", e.getUser().getUserAvatar());
             map.put("remark", e.getAnchorRemark());
+            map.put("anchorConfig", e.getAnchorConfig());
+            map.put("anchorUuid", e.getAnchorUuid());
             map.put("room_uuid", e.getRoomUuid());
             map.put("user_uuid", e.getUserUuid());
             map.put("online", anchor_uuids.contains(e.getAnchorUuid()));
@@ -190,5 +202,24 @@ public class AnchorServiceImpl {
         }
         queryUserRooms(anchors);
         return anchors.get(0);
+    }
+
+
+    public List<HashMap<String, Object>> rank() {
+        List<GiftSendRecord> giftSendRecords = giftSendRecordService.selectLatest(7);
+        List<HashMap<String, Object>> anchors = allAnchors();
+        List<HashMap<String, Object>> list = anchors.stream()
+                .map(anchorMap -> {
+                    String anchorUuid = (String) anchorMap.get("anchorUuid");
+                    Integer moneySum = giftSendRecords.stream()
+                            .filter(giftSendRecord -> giftSendRecord.getAnchorUuid().equals(anchorUuid))
+                            .collect(Collectors.summingInt(GiftSendRecord::getGiftValue));
+                    anchorMap.put("moneySum", moneySum);
+                    return anchorMap;
+                })
+                .sorted((r1, r2) -> ((Integer) r2.get("moneySum")).compareTo((Integer) r1.get("moneySum")))
+                .toList();
+
+        return list;
     }
 }

@@ -4,6 +4,7 @@ import com.example.file_server.config.messageBroker.MessageEntity;
 import com.example.file_server.config.messageBroker.MyStompUserPrincipal;
 import com.example.file_server.dictionary.MessageType;
 import com.example.file_server.entity.Gift;
+import com.example.file_server.service.impl.AnchorServiceImpl;
 import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -39,8 +40,7 @@ public class ChatController {
     private SimpMessagingTemplate template;
 
     @Autowired
-    private GiftSendRecordServiceImpl giftSendRecordService;
-
+    private AnchorServiceImpl anchorService;
     private String getTimestamp() {
         long time = new Date().getTime();
         return "" + time;
@@ -107,7 +107,9 @@ public class ChatController {
                 String anchorName = (String) nativeHeaders.get("anchorName").get(0);
                 String room_topic = (String) nativeHeaders.get("room_topic").get(0);
                 try {
-                    giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
+//                    giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
+//                            gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
+                    anchorService.receiveGift(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
                             gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
                     this.template.convertAndSend(room_topic, messageBody);
                 } catch (Exception ex) {

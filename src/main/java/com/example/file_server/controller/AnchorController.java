@@ -87,4 +87,10 @@ public class AnchorController extends BaseController {
         Anchor anchor = service.getByRoomUuid(room_uuid);
         return ResponseUtil.ok(anchor);
     }
+
+    @PostMapping("/rank")
+    public Object index() {
+        List<HashMap<String, Object>> rank = service.rank();
+        return ResponseUtil.ok(rank);
+    }
 }

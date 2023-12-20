@@ -10,17 +10,15 @@ import com.example.file_server.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class GiftSendRecordServiceImpl {
     @Autowired
     private GiftSendRecordMapper mapper;
-    @Autowired
-    private AnchorServiceImpl anchorService;
-    @Autowired
-    private ClientServiceImpl clientService;
 
     public HashMap<String, Object> list(AnchorForm form) {
         GiftSendRecordExample example = new GiftSendRecordExample();
@@ -53,8 +51,23 @@ public class GiftSendRecordServiceImpl {
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
-        anchorService.receiveMoney(anchorUuid, giftValue);
-        clientService.sendMoney(userUuid, giftValue);
         return record;
+    }
+
+    public List<GiftSendRecord> selectLatest(int days) {
+        if (days < 0) {
+            throw new DbActionExcetion("fail");
+        }
+        Date curr = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(curr);
+        calendar.add(Calendar.DATE, -days);
+        Date before = calendar.getTime();
+
+        GiftSendRecordExample example = new GiftSendRecordExample();
+        example.createCriteria().andGiftSendDateBetween(before, curr);
+        List<GiftSendRecord> list = mapper.selectByExample(example);
+
+        return list;
     }
 }
