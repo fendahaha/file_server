@@ -36,8 +36,6 @@ public interface AnchorMapper {
 
     int updateByPrimaryKey(Anchor record);
 
-    List<Anchor> selectByExample2(HashMap<String, Object> map);
-
     List<Anchor> selectByExample3(HashMap<String, Object> map);
 
     int selectCountByExample3(HashMap<String, Object> map);
