@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 20/12/2023 15:51:56
+ Date: 20/12/2023 21:14:31
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,7 @@ CREATE TABLE `anchor`  (
   `anchor_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `anchor_remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `anchor_config` json NULL,
+  `anchor_money` int(11) NOT NULL,
   `anchor_create_at` datetime(0) NOT NULL,
   `room_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -35,11 +36,11 @@ CREATE TABLE `anchor`  (
 -- ----------------------------
 -- Records of anchor
 -- ----------------------------
-INSERT INTO `anchor` VALUES (34, 'b287203128d14937b1a984860e65d462', 'bfaa09ddbfc048d3b5149dbd6346d0e3', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', '2023-12-15 16:42:39', 'e094b3807ff246a4b416e5210d7f88c5');
-INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
-INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '', '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
-INSERT INTO `anchor` VALUES (37, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '63fe49ad01d84fce83f9bde39ea81179', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', '2023-12-15 16:43:00', '75700f9713f14df09c290f39be48cdf7');
-INSERT INTO `anchor` VALUES (38, 'c224ae4ff27f4e668b68d8f3b537f375', 'fe3dfd9d63ff4bc1b47d2ce041588068', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', '2023-12-15 16:43:11', 'ef3491ce6ebb4e44b50b96395d3769a4');
+INSERT INTO `anchor` VALUES (34, 'b287203128d14937b1a984860e65d462', 'bfaa09ddbfc048d3b5149dbd6346d0e3', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, '2023-12-15 16:42:39', 'e094b3807ff246a4b416e5210d7f88c5');
+INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 3300, '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
+INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '', '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 3000, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
+INSERT INTO `anchor` VALUES (37, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '63fe49ad01d84fce83f9bde39ea81179', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, '2023-12-15 16:43:00', '75700f9713f14df09c290f39be48cdf7');
+INSERT INTO `anchor` VALUES (38, 'c224ae4ff27f4e668b68d8f3b537f375', 'fe3dfd9d63ff4bc1b47d2ce041588068', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, '2023-12-15 16:43:11', 'ef3491ce6ebb4e44b50b96395d3769a4');
 
 -- ----------------------------
 -- Table structure for client
@@ -50,9 +51,9 @@ CREATE TABLE `client`  (
   `user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `client_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `client_leavel` int(11) NOT NULL,
-  `client_money` double NOT NULL,
-  `client_money_sended` double NOT NULL,
-  `client_money_recharged` double NOT NULL,
+  `client_money` int(11) NOT NULL,
+  `client_money_sended` int(11) NOT NULL,
+  `client_money_recharged` int(11) NOT NULL,
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -60,7 +61,7 @@ CREATE TABLE `client`  (
 -- ----------------------------
 -- Records of client
 -- ----------------------------
-INSERT INTO `client` VALUES (3, '37a56a85f9be4e8e93b72f30cc6ddcca', '61e34f71204e40a4aa09b12fccd002d6', 1, 1000, 0, 1000, '2023-12-14 18:14:09');
+INSERT INTO `client` VALUES (3, '37a56a85f9be4e8e93b72f30cc6ddcca', '61e34f71204e40a4aa09b12fccd002d6', 1, 3700, 6300, 10000, '2023-12-14 18:14:09');
 
 -- ----------------------------
 -- Table structure for config
@@ -111,7 +112,37 @@ CREATE TABLE `gift_send_record`  (
   `gift_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_value` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of gift_send_record
+-- ----------------------------
+INSERT INTO `gift_send_record` VALUES (26, '5920fa9c9d26408d912646b33c2326b4', '2023-12-20 16:35:28', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (27, '89f26fcc2f164885bc7b1ee04bbc089a', '2023-12-20 16:35:41', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', '4cf206531625437ca6abe7dbd568f895', 'gift2', 200);
+INSERT INTO `gift_send_record` VALUES (28, '31078ba1ec2843aba1635b788ff17305', '2023-12-20 16:35:42', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (29, '4ff4f44e82424129adcec6ef16c8d66e', '2023-12-20 16:35:53', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', '4cf206531625437ca6abe7dbd568f895', 'gift2', 200);
+INSERT INTO `gift_send_record` VALUES (30, 'a720e104efef483aa7326188f9c6d814', '2023-12-20 16:35:54', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (31, '3c46c42c3b3b4ff58abb3742f232e258', '2023-12-20 16:35:58', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (38, '82cfbca2c9654558a8416c11c75fa6e7', '2023-12-20 17:52:10', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (39, 'd477381328a04a7eb761a588e8586639', '2023-12-20 17:52:10', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (40, '3b6d95f0bb564cb8a385849f4a6cc19a', '2023-12-20 17:52:24', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (47, 'e88556ef126e4b34ae87652f97bc9844', '2023-12-20 17:57:12', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (51, '04e754484ef14bd9952141d6e94fa2e7', '2023-12-20 18:02:37', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (52, '73160cacc5a5431a85fcdf35dccf999e', '2023-12-20 18:02:39', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', '4cf206531625437ca6abe7dbd568f895', 'gift2', 200);
+INSERT INTO `gift_send_record` VALUES (53, '18026cae70f24d2ba8eda8a5e059c90b', '2023-12-20 18:02:40', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (54, '41a7eee7bc8d456eb230dd04b062dc9a', '2023-12-20 18:02:40', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (61, '9ba9d87a197f4ce8bc6a8b10efc1f4a5', '2023-12-20 19:52:39', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (70, '880d72b7ff4c456295770c656522a1fd', '2023-12-20 20:50:10', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (71, '38788df4b6ca432b9cd93687ba0d3c0a', '2023-12-20 20:50:11', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (72, '204fd2ca02fc463cb32a409c43ccb1c5', '2023-12-20 20:50:11', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (73, '649f34a9a2874d55ab2a362817efb2aa', '2023-12-20 20:50:12', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (74, 'd4e1f897f4cc477490f45aa7891d4881', '2023-12-20 20:50:12', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (75, 'cbb5b1052c21495b84d066237adeafbd', '2023-12-20 20:50:13', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (76, '1d8652da68674215ad900d7eb573a8fe', '2023-12-20 20:50:13', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (77, '4268adcdb7154958b0f47eaf6257ed93', '2023-12-20 20:50:14', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (78, '009a069aac274cb3934413389a0d885a', '2023-12-20 20:50:27', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (79, '1a5a4dbb732a42f2ad0203604be00ff3', '2023-12-20 20:50:27', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (80, '90d503c2111e4026bfea4ad6c7fe4797', '2023-12-20 20:50:30', '37a56a85f9be4e8e93b72f30cc6ddcca', '3bafbbde8ab04dfdaf05895eb1e9e609', 'fenda', 'anchor2', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
 
 -- ----------------------------
 -- Table structure for room
