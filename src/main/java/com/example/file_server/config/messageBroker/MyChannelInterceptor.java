@@ -35,18 +35,17 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             // 设置用户信息
             List users = nativeHeaders.get("user");
             if (!users.isEmpty()) {
-                String userString = (String) users.get(0);
-                try {
-                    MyStompUserPrincipal user = JsonUtil.json2Object(userString, new TypeReference<>() {
-                    });
-                    if (user != null) {
-                        User userByUUID = userService.getUserByUUID(user.getUserUuid());
-                        if (userByUUID != null) {
-                            headerAccessor.setUser(user);
-                        }
+                String useruuid = (String) users.get(0);
+                if (!useruuid.equals("null")) {
+                    User userByUUID = userService.getUserByUUID(useruuid);
+                    if (userByUUID != null) {
+                        headerAccessor.setUser(new Principal() {
+                            @Override
+                            public String getName() {
+                                return userByUUID.getUserUuid();
+                            }
+                        });
                     }
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -58,11 +57,7 @@ public class MyChannelInterceptor implements ChannelInterceptor {
         if (headerAccessor != null && SimpMessageType.MESSAGE.equals(headerAccessor.getMessageType())) {
             System.out.println("MESSAGE");
             Principal user = headerAccessor.getUser();
-            if (user != null && user.getClass().equals(MyStompUserPrincipal.class)) {
-                MyStompUserPrincipal u = (MyStompUserPrincipal) user;
-                byte[] payload = (byte[]) message.getPayload();
-                String s = new String(payload, StandardCharsets.UTF_8);
-            } else {
+            if (user == null) {
                 throw new RuntimeException("未登录用户");
             }
         }

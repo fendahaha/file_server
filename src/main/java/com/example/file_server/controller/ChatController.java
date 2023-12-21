@@ -1,11 +1,9 @@
 package com.example.file_server.controller;
 
 import com.example.file_server.config.messageBroker.MessageEntity;
-import com.example.file_server.config.messageBroker.MyStompUserPrincipal;
 import com.example.file_server.dictionary.MessageType;
 import com.example.file_server.entity.Gift;
 import com.example.file_server.service.impl.AnchorServiceImpl;
-import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
@@ -94,7 +91,6 @@ public class ChatController {
     @MessageMapping("/gift")
     public void giftSend(@Payload String messageBody, SimpMessageHeaderAccessor headerAccessor) {
         Principal user = headerAccessor.getUser();
-        MyStompUserPrincipal u = (MyStompUserPrincipal) user;
         MessageHeaders messageHeaders = headerAccessor.getMessageHeaders();
         LinkedMultiValueMap nativeHeaders = messageHeaders.get("nativeHeaders", LinkedMultiValueMap.class);
         try {
@@ -104,15 +100,16 @@ public class ChatController {
                 Gift gift = JsonUtil.json2Object(messageEntity.getData(), new TypeReference<Gift>() {
                 });
                 String anchorUuid = (String) nativeHeaders.get("anchorUuid").get(0);
-                String anchorName = (String) nativeHeaders.get("anchorName").get(0);
+                String anchorUserName = (String) nativeHeaders.get("anchorUserName").get(0);
                 String room_topic = (String) nativeHeaders.get("room_topic").get(0);
+                String clientUuid = (String) nativeHeaders.get("clientUuid").get(0);
+                String clientUsername = (String) nativeHeaders.get("clientUserName").get(0);
                 try {
-//                    giftSendRecordService.insert(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
-//                            gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
-                    anchorService.receiveGift(u.getUserUuid(), u.getUserName(), anchorUuid, anchorName,
+                    anchorService.receiveGift(clientUuid, clientUsername, anchorUuid, anchorUserName,
                             gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
                     this.template.convertAndSend(room_topic, messageBody);
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("type", "money_not_enough");
                     this.template.convertAndSendToUser(user.getName(), "/queue/person", JsonUtil.map2Json(map));

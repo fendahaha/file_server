@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class AnchorServiceImpl {
@@ -197,9 +196,6 @@ public class AnchorServiceImpl {
      */
     public Anchor getByRoomUuid(String room_uuid) {
         List<Anchor> anchors = getAnchorByRoomUUID(room_uuid);
-        if (anchors.isEmpty()) {
-            throw new DbActionExcetion("fail");
-        }
         queryUserRooms(anchors);
         return anchors.get(0);
     }
