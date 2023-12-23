@@ -3,14 +3,13 @@ package com.example.file_server.service.impl;
 import com.example.file_server.config.CommonTransactional;
 import com.example.file_server.dictionary.Role;
 import com.example.file_server.dictionary.UserType;
-import com.example.file_server.entity.Client;
-import com.example.file_server.entity.User;
-import com.example.file_server.entity.UserExample;
+import com.example.file_server.entity.*;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
+import com.example.file_server.mapper.AnchorMapper;
 import com.example.file_server.mapper.ClientMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -28,6 +28,8 @@ public class UserServiceImpl {
     private UserMapper userMapper;
     @Autowired
     private ClientServiceImpl clientService;
+    @Autowired
+    private AnchorMapper anchorMapper;
 
     public boolean userExist(String userName) {
         UserExample example = new UserExample();
@@ -59,13 +61,44 @@ public class UserServiceImpl {
         return user;
     }
 
-    public User getUser(UserLoginForm userLoginForm) {
+    public HashMap<String, Object> queryUserInfoByExample(UserExample example) {
+        List<User> users = userMapper.selectByExample(example);
+        if (!users.isEmpty()) {
+            HashMap<String, Object> map = new HashMap<>();
+            User user = users.get(0);
+            map.put("user", user);
+            if (user.getUserType().equals(UserType.Client.getValue())) {
+                Client client = clientService.getByUserUuid(user.getUserUuid());
+                map.put("client", client);
+            }
+            if (user.getUserType().equals(UserType.Anchor.getValue())) {
+                AnchorExample anchorExample = new AnchorExample();
+                anchorExample.createCriteria().andUserUuidEqualTo(user.getUserUuid());
+                List<Anchor> anchors = anchorMapper.selectByExample(anchorExample);
+                Anchor anchor = anchors.get(0);
+                map.put("anchor", anchor);
+            }
+            if (user.getUserType().equals(UserType.Administrator.getValue())) {
+
+            }
+            return map;
+        }
+        return null;
+    }
+
+    public HashMap<String, Object> getUser(UserLoginForm userLoginForm) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserNameEqualTo(userLoginForm.getUserName())
                 .andUserPasswordEqualTo(userLoginForm.getUserPassword());
-        List<User> users = userMapper.selectByExample(example);
-        return users.isEmpty() ? null : users.get(0);
+        return queryUserInfoByExample(example);
+    }
+
+    public HashMap<String, Object> getUserByUUID(String uuid) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUserUuidEqualTo(uuid);
+        return queryUserInfoByExample(example);
     }
 
     @CommonTransactional
@@ -83,14 +116,6 @@ public class UserServiceImpl {
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
-    }
-
-    public User getUserByUUID(String uuid) {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andUserUuidEqualTo(uuid);
-        List<User> users = userMapper.selectByExample(example);
-        return users.get(0);
     }
 
     @CommonTransactional

@@ -54,6 +54,13 @@ public class AnchorController extends BaseController {
         return ResponseUtil.ok(true);
     }
 
+    @AuthenticateRequire(Role.Anchor)
+    @PostMapping("/update2")
+    public Object update2(@RequestBody @Validated AnchorForm form) {
+        service.update2(form);
+        return ResponseUtil.ok(true);
+    }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete")
     public Object delete(@Min(0) Integer id) throws Exception {
@@ -85,6 +92,12 @@ public class AnchorController extends BaseController {
     @PostMapping("/query")
     public Object query(@Size(min = 1) @RequestParam("room_uuid") String room_uuid) {
         Anchor anchor = service.getByRoomUuid(room_uuid);
+        return ResponseUtil.ok(anchor);
+    }
+
+    @PostMapping("/query_by_useruuid")
+    public Object query_by_useruuid(@Size(min = 1) @RequestParam("user_uuid") String uuid) {
+        Anchor anchor = service.getAnchorByUserUuid(uuid);
         return ResponseUtil.ok(anchor);
     }
 

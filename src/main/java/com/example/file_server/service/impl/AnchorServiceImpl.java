@@ -107,7 +107,25 @@ public class AnchorServiceImpl {
         UserUpdateForm userUpdateForm = new UserUpdateForm();
         userUpdateForm.setUserUuid(form.getUserUuid());
         userUpdateForm.setUserAvatar(form.getUserAvatar());
+        userUpdateForm.setUserDisplayName(form.getUserDisplayName());
+        userUpdateForm.setUserCountry(form.getUserCountry());
+        userUpdateForm.setUserEmail(form.getUserEmail());
+        userUpdateForm.setUserPhone(form.getUserPhone());
         userService.updateUser(userUpdateForm);
+    }
+
+    @CommonTransactional
+    public void update2(AnchorForm form) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andAnchorUuidEqualTo(form.getAnchorUuid());
+        Anchor record = new Anchor();
+        record.setAnchorUuid(form.getAnchorUuid());
+        record.setAnchorConfig(form.getAnchorConfig());
+        record.setAnchorRemark(form.getAnchorRemark());
+        int i = anchorMapper.updateByExampleSelective(record, example);
+        if (i <= 0) {
+            throw new DbActionExcetion("fail");
+        }
     }
 
     @CommonTransactional
@@ -147,6 +165,14 @@ public class AnchorServiceImpl {
         AnchorExample example = new AnchorExample();
         example.createCriteria().andRoomUuidEqualTo(uuid);
         return anchorMapper.selectByExample(example);
+    }
+
+    public Anchor getAnchorByUserUuid(String uuid) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andUserUuidEqualTo(uuid);
+        List<Anchor> anchors = anchorMapper.selectByExampleWithBLOBs(example);
+        queryUserRooms(anchors);
+        return anchors.get(0);
     }
 
     /**

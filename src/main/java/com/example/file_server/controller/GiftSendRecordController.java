@@ -2,6 +2,7 @@ package com.example.file_server.controller;
 
 import com.example.file_server.dictionary.Role;
 import com.example.file_server.form.AnchorForm;
+import com.example.file_server.form.GiftSendRecordForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
@@ -30,7 +31,7 @@ public class GiftSendRecordController extends BaseController {
     }
     @AuthenticateRequire
     @PostMapping("/list")
-    public Object list(@RequestBody @Validated AnchorForm form) {
+    public Object list(@RequestBody @Validated GiftSendRecordForm form) {
         HashMap<String, Object> map = service.list(form);
         return ResponseUtil.ok(map);
     }

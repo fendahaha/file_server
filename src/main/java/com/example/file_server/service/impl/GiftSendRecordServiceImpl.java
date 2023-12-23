@@ -5,8 +5,10 @@ import com.example.file_server.entity.GiftSendRecord;
 import com.example.file_server.entity.GiftSendRecordExample;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.AnchorForm;
+import com.example.file_server.form.GiftSendRecordForm;
 import com.example.file_server.mapper.GiftSendRecordMapper;
 import com.example.file_server.utils.UUIDUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,25 @@ public class GiftSendRecordServiceImpl {
     @Autowired
     private GiftSendRecordMapper mapper;
 
-    public HashMap<String, Object> list(AnchorForm form) {
+    public HashMap<String, Object> list(GiftSendRecordForm form) {
         GiftSendRecordExample example = new GiftSendRecordExample();
         GiftSendRecordExample.Criteria criteria = example.createCriteria();
         example.setOrderByClause("gift_send_date desc");
+        if (StringUtils.isNotBlank(form.getClientName())) {
+            criteria.andClientNameEqualTo(form.getClientName());
+        }
+        if (StringUtils.isNotBlank(form.getAnchorName())) {
+            criteria.andAnchorNameEqualTo(form.getAnchorName());
+        }
+        if (StringUtils.isNotBlank(form.getAnchorUuid())) {
+            criteria.andAnchorUuidEqualTo(form.getAnchorUuid());
+        }
+        if (StringUtils.isNotBlank(form.getGiftName())) {
+            criteria.andGiftNameEqualTo(form.getGiftName());
+        }
+        if (form.getGiftValue() != null) {
+            criteria.andGiftValueEqualTo(form.getGiftValue());
+        }
         return CommonServiceUtil.listPage(mapper, example, form.getPageNum(), form.getPageSize());
     }
 

@@ -19,6 +19,7 @@ import org.springframework.util.LinkedMultiValueMap;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -37,12 +38,13 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             if (!users.isEmpty()) {
                 String useruuid = (String) users.get(0);
                 if (!useruuid.equals("null")) {
-                    User userByUUID = userService.getUserByUUID(useruuid);
-                    if (userByUUID != null) {
+                    HashMap<String, Object> userInfo = userService.getUserByUUID(useruuid);
+                    if (userInfo != null) {
+                        User user = (User) userInfo.get("user");
                         headerAccessor.setUser(new Principal() {
                             @Override
                             public String getName() {
-                                return userByUUID.getUserUuid();
+                                return user.getUserUuid();
                             }
                         });
                     }

@@ -63,4 +63,11 @@ public class ClientServiceImpl {
             throw new DbActionExcetion("fail");
         }
     }
+
+    public Client getByUserUuid(String uuid){
+        ClientExample example = new ClientExample();
+        example.createCriteria().andUserUuidEqualTo(uuid);
+        List<Client> clients = clientMapper.selectByExample(example);
+        return clients.get(0);
+    }
 }
