@@ -2,6 +2,7 @@ package com.example.file_server.controller;
 
 import com.example.file_server.dictionary.Role;
 import com.example.file_server.form.ClientListForm;
+import com.example.file_server.form.ClientUpdateForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.ClientServiceImpl;
 import com.example.file_server.service.impl.UserServiceImpl;
@@ -40,5 +41,10 @@ public class ClientController {
     @GetMapping("/delete/{userUuid}")
     public Object delete(@PathVariable String userUuid) {
         return ResponseUtil.ok(clientService.deleteClient(userUuid));
+    }
+
+    @PostMapping("/update/{userUuid}")
+    public Object update(@PathVariable String userUuid, @RequestBody @Validated ClientUpdateForm form) {
+        return ResponseUtil.ok(clientService.update(userUuid, form));
     }
 }

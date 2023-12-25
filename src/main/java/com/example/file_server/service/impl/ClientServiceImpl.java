@@ -8,6 +8,7 @@ import com.example.file_server.entity.User;
 import com.example.file_server.entity.UserExample;
 import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.form.ClientListForm;
+import com.example.file_server.form.ClientUpdateForm;
 import com.example.file_server.mapper.ClientMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
@@ -131,6 +132,33 @@ public class ClientServiceImpl {
         userExample.createCriteria().andUserUuidEqualTo(userUuid);
         int i = clientMapper.deleteByExample(clientExample);
         int i1 = userMapper.deleteByExample(userExample);
+        if (i > 0 && i1 > 0) {
+            return true;
+        }
+        throw new DbActionExcetion("fail");
+    }
+
+    @CommonTransactional
+    public boolean update(String userUuid, ClientUpdateForm form) {
+        UserExample userExample = new UserExample();
+        ClientExample clientExample = new ClientExample();
+        userExample.createCriteria().andUserUuidEqualTo(userUuid);
+        clientExample.createCriteria().andUserUuidEqualTo(userUuid);
+
+        User user = new User();
+        Client client = new Client();
+        user.setUserDisplayName(form.getUserDisplayName());
+        user.setUserEmail(form.getUserEmail());
+        user.setUserPhone(form.getUserPhone());
+        user.setUserCountry(form.getUserCountry());
+        user.setUserAvatar(form.getUserAvatar());
+        client.setClientLeavel(form.getClientLeavel());
+        client.setClientMoney(form.getClientMoney());
+        client.setClientMoneySended(form.getClientMoneySended());
+        client.setClientMoneyRecharged(form.getClientMoneyRecharged());
+
+        int i = userMapper.updateByExampleSelective(user, userExample);
+        int i1 = clientMapper.updateByExampleSelective(client, clientExample);
         if (i > 0 && i1 > 0) {
             return true;
         }
