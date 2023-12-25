@@ -10,7 +10,6 @@ import com.example.file_server.form.UserLoginForm;
 import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
 import com.example.file_server.mapper.AnchorMapper;
-import com.example.file_server.mapper.ClientMapper;
 import com.example.file_server.mapper.UserMapper;
 import com.example.file_server.utils.UUIDUtil;
 import com.example.file_server.utils.UserUtil;
@@ -160,4 +159,18 @@ public class UserServiceImpl {
         return users;
     }
 
+
+    public HashMap<String, Object> get_client_with_user(String uuid) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserUuidEqualTo(uuid);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (!users.isEmpty()) {
+            Client client = clientService.getByUserUuid(users.get(0).getUserUuid());
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("user", users.get(0));
+            map.put("client", client);
+            return map;
+        }
+        return null;
+    }
 }
