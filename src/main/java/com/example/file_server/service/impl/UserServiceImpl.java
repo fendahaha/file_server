@@ -56,7 +56,7 @@ public class UserServiceImpl {
         if (i <= 0) {
             throw new DbActionExcetion("fail");
         }
-        clientService.create(user);
+        clientService.createClient(user);
         return user;
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl {
             User user = users.get(0);
             map.put("user", user);
             if (user.getUserType().equals(UserType.Client.getValue())) {
-                Client client = clientService.getByUserUuid(user.getUserUuid());
+                Client client = clientService.getClientByUserUuid(user.getUserUuid());
                 map.put("client", client);
             }
             if (user.getUserType().equals(UserType.Anchor.getValue())) {
@@ -165,7 +165,7 @@ public class UserServiceImpl {
         userExample.createCriteria().andUserUuidEqualTo(uuid);
         List<User> users = userMapper.selectByExample(userExample);
         if (!users.isEmpty()) {
-            Client client = clientService.getByUserUuid(users.get(0).getUserUuid());
+            Client client = clientService.getClientByUserUuid(users.get(0).getUserUuid());
             HashMap<String, Object> map = new HashMap<>();
             map.put("user", users.get(0));
             map.put("client", client);

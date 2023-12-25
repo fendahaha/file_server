@@ -2,7 +2,10 @@ package com.example.file_server.mapper;
 
 import com.example.file_server.entity.User;
 import com.example.file_server.entity.UserExample;
+
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -27,4 +30,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<User> selectByExample2(HashMap<String,Object> map);
 }
