@@ -99,19 +99,20 @@ public class ChatController {
             if (MessageType.Gift.equals(messageEntity.getType())) {
                 Gift gift = JsonUtil.json2Object(messageEntity.getData(), new TypeReference<Gift>() {
                 });
-                String anchorUuid = (String) nativeHeaders.get("anchorUuid").get(0);
+                String anchorUserUuid = (String) nativeHeaders.get("anchorUserUuid").get(0);
                 String anchorUserName = (String) nativeHeaders.get("anchorUserName").get(0);
                 String room_topic = (String) nativeHeaders.get("room_topic").get(0);
-                String clientUuid = (String) nativeHeaders.get("clientUuid").get(0);
+                String clientUserUuid = (String) nativeHeaders.get("clientUserUuid").get(0);
                 String clientUsername = (String) nativeHeaders.get("clientUserName").get(0);
                 try {
-                    anchorService.receiveGift(clientUuid, clientUsername, anchorUuid, anchorUserName,
+                    anchorService.receiveGift(clientUserUuid, clientUsername, anchorUserUuid, anchorUserName,
                             gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());
                     this.template.convertAndSend(room_topic, messageBody);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     HashMap<String, Object> map = new HashMap<>();
-                    map.put("type", "money_not_enough");
+                    map.put("type", "error");
+                    map.put("msg", ex.getMessage());
                     this.template.convertAndSendToUser(user.getName(), "/queue/person", JsonUtil.map2Json(map));
                 }
             }

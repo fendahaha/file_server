@@ -69,4 +69,10 @@ public class UserController extends BaseController {
         return ResponseUtil.ok(true);
     }
 
+    @AuthenticateRequire
+    @GetMapping("/{userUuid}")
+    public Object getUser(@PathVariable String userUuid) {
+        return ResponseUtil.ok(userService.getUser(userUuid));
+    }
+
 }

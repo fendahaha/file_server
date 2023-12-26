@@ -129,9 +129,9 @@ public class AnchorServiceImpl {
     }
 
     @CommonTransactional
-    public synchronized void receiveMoney(String anchorUuid, Integer value) {
+    public synchronized void receiveMoney(String anchorUserUuid, Integer value) {
         AnchorExample example = new AnchorExample();
-        example.createCriteria().andAnchorUuidEqualTo(anchorUuid);
+        example.createCriteria().andUserUuidEqualTo(anchorUserUuid);
         Anchor anchor = anchorMapper.selectByExample(example).get(0);
         anchor.setAnchorMoney(anchor.getAnchorMoney() + value);
         int i = anchorMapper.updateByExampleSelective(anchor, example);
@@ -141,9 +141,9 @@ public class AnchorServiceImpl {
     }
 
     @CommonTransactional
-    public void receiveGift(String userUuid, String userName, String anchorUuid, String anchorName, String giftUuid, String giftname, Integer giftValue) {
-        giftSendRecordService.insert(userUuid, userName, anchorUuid, anchorName, giftUuid, giftname, giftValue);
-        receiveMoney(anchorUuid, giftValue);
+    public void receiveGift(String userUuid, String userName, String anchorUserUuid, String anchorUserName, String giftUuid, String giftname, Integer giftValue) {
+        giftSendRecordService.insert(userUuid, userName, anchorUserUuid, anchorUserName, giftUuid, giftname, giftValue);
+        receiveMoney(anchorUserUuid, giftValue);
         clientService.sendMoney(userUuid, giftValue);
     }
 
