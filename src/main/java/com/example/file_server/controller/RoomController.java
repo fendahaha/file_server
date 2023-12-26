@@ -7,6 +7,7 @@ import com.example.file_server.form.RoomQueryForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.RoomServiceImpl;
 import com.example.file_server.utils.OnlineStreamManager;
+import com.example.file_server.utils.OnlineUserManager;
 import com.example.file_server.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +25,8 @@ public class RoomController extends BaseController {
     private RoomServiceImpl roomService;
     @Autowired
     private OnlineStreamManager onlineStreamManager;
+    @Autowired
+    private OnlineUserManager onlineUserManager;
 
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/list")
@@ -33,17 +36,20 @@ public class RoomController extends BaseController {
         PageInfo<Room> pageInfo = new PageInfo<>(list);
         return ResponseUtil.ok(pageInfo);
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/create")
     public Object create(@RequestBody RoomCreateFrom roomCreateFrom) throws Exception {
         Room room = roomService.create();
         return ResponseUtil.ok(room);
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update")
     public Object update() {
         return "";
     }
+
     @AuthenticateRequire(Role.Administrator)
     @PostMapping("/delete{room_uuid}")
     public Object delete(@PathVariable String room_uuid) {
@@ -53,5 +59,17 @@ public class RoomController extends BaseController {
     @PostMapping("/is_online")
     public Object is_online(@Size(min = 1) @RequestParam("room_uuid") String room_uuid) {
         return ResponseUtil.ok(onlineStreamManager.is_online(room_uuid));
+    }
+
+    @GetMapping("/{room_uuid}/onlineLoginUsers")
+    public Object onlineLoginUsers(@PathVariable String room_uuid) {
+        List users = onlineUserManager.get_login_users(room_uuid);
+        return ResponseUtil.ok(users);
+    }
+
+    @GetMapping("/{room_uuid}/onlineUsersCount")
+    public Object onlineUsersCount(@PathVariable String room_uuid) {
+        Object counts = onlineUserManager.get_room_online_user_counts(room_uuid);
+        return ResponseUtil.ok(counts);
     }
 }

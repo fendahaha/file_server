@@ -37,4 +37,8 @@ public class JsonUtil {
         return objectMapper.readValue(s, typeReference);
     }
 
+    public static String object2Json(Object o) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(o);
+    }
+
 }

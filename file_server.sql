@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 25/12/2023 21:27:54
+ Date: 26/12/2023 20:10:03
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `anchor`  (
 -- ----------------------------
 INSERT INTO `anchor` VALUES (34, 'b287203128d14937b1a984860e65d462', 'bfaa09ddbfc048d3b5149dbd6346d0e3', 'adadasdadsa', '{\"anchorHeight\": 1231, \"anchorSanwei\": 1212, \"anchorWieght\": 12312}', 0, '2023-12-15 16:42:39', 'e094b3807ff246a4b416e5210d7f88c5');
 INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 3300, '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
-INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '小本蛋', '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 4500, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
+INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '小本蛋', '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 6100, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
 INSERT INTO `anchor` VALUES (37, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '63fe49ad01d84fce83f9bde39ea81179', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, '2023-12-15 16:43:00', '75700f9713f14df09c290f39be48cdf7');
 INSERT INTO `anchor` VALUES (38, 'c224ae4ff27f4e668b68d8f3b537f375', 'fe3dfd9d63ff4bc1b47d2ce041588068', NULL, '{\"anchorHeight\": 12312, \"anchorSanwei\": 1212, \"anchorWieght\": 12312}', 0, '2023-12-15 16:43:11', 'ef3491ce6ebb4e44b50b96395d3769a4');
 
@@ -56,12 +56,13 @@ CREATE TABLE `client`  (
   `client_money_recharged` int(11) NOT NULL,
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of client
 -- ----------------------------
-INSERT INTO `client` VALUES (3, '37a56a85f9be4e8e93b72f30cc6ddcca', '61e34f71204e40a4aa09b12fccd002d6', 1, 2200, 7800, 10000, '2023-12-14 18:14:09');
+INSERT INTO `client` VALUES (3, '37a56a85f9be4e8e93b72f30cc6ddcca', '61e34f71204e40a4aa09b12fccd002d6', 1, 1500, 8500, 10000, '2023-12-14 18:14:09');
+INSERT INTO `client` VALUES (6, '9e90d2a14de84962a133a6c6bb78bbca', '4e3f18b14a664335aa5085c3abc6a18f', 1, 100, 900, 1000, '2023-12-26 16:26:37');
 
 -- ----------------------------
 -- Table structure for config
@@ -112,7 +113,7 @@ CREATE TABLE `gift_send_record`  (
   `gift_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gift_value` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 132 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gift_send_record
@@ -157,6 +158,16 @@ INSERT INTO `gift_send_record` VALUES (110, 'ddbd802c37b6415f8605da932b2a21de', 
 INSERT INTO `gift_send_record` VALUES (111, '2fc99803275c4918a0684a9e5485d128', '2023-12-21 17:48:14', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
 INSERT INTO `gift_send_record` VALUES (112, '3fcb9f204c1c41c7921ba0853bf40c2b', '2023-12-21 17:48:20', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
 INSERT INTO `gift_send_record` VALUES (113, 'e1641cf44c1f444db1e2aa27dd7116d2', '2023-12-23 17:43:04', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', '4cf206531625437ca6abe7dbd568f895', 'gift2', 200);
+INSERT INTO `gift_send_record` VALUES (114, '72e34360a5c4445bae371b9693aaf442', '2023-12-26 14:02:33', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (116, '7cac2ee8ea0a48c5bfafe993ff986848', '2023-12-26 15:09:55', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (117, '1675ce7c9ee64c909da20de6f72469e4', '2023-12-26 15:30:11', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (118, '1f48710548c241cebe7f5725e534b7d5', '2023-12-26 15:30:33', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (119, '77967e6de0b4433aa2cac7d9d148d7ef', '2023-12-26 15:34:19', '37a56a85f9be4e8e93b72f30cc6ddcca', '6cda7ad7dde64894b91f38530514f53d', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (123, '41e5a20dceed4c18a3ca55ddc38329d5', '2023-12-26 16:26:19', '37a56a85f9be4e8e93b72f30cc6ddcca', 'bf03b2c3fe88412a84a52d18808e58c0', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
+INSERT INTO `gift_send_record` VALUES (124, 'cffc46b584c743c8a7d8f04bf296eb7a', '2023-12-26 16:26:46', '9e90d2a14de84962a133a6c6bb78bbca', 'bf03b2c3fe88412a84a52d18808e58c0', 'fenda2', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (125, '698b7ed362e5438895e1c7ffe185b847', '2023-12-26 16:26:46', '9e90d2a14de84962a133a6c6bb78bbca', 'bf03b2c3fe88412a84a52d18808e58c0', 'fenda2', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (126, '112e4d8272e04153ba1f11a957ac7b00', '2023-12-26 16:26:46', '9e90d2a14de84962a133a6c6bb78bbca', 'bf03b2c3fe88412a84a52d18808e58c0', 'fenda2', 'anchor3', 'e3fbfc76ca6c46ae9e959db2f47f3540', 'gift3', 300);
+INSERT INTO `gift_send_record` VALUES (131, '751e6e499c344c2fab2d202cd10d23e3', '2023-12-26 18:10:06', '37a56a85f9be4e8e93b72f30cc6ddcca', 'bf03b2c3fe88412a84a52d18808e58c0', 'fenda', 'anchor3', 'ed48631f50a04112b003a0f106f718ec', 'gift1', 100);
 
 -- ----------------------------
 -- Table structure for room
@@ -292,7 +303,7 @@ CREATE TABLE `upload_file`  (
   `file_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_upload_date` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 286 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 289 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of upload_file
@@ -366,6 +377,9 @@ INSERT INTO `upload_file` VALUES (282, 'a0378249a628b7238582a722d4681dd23771fe62
 INSERT INTO `upload_file` VALUES (283, 'c10991c940ec6370c1fc4cb0e10e357e67a2be9ec632658bd8f565446b793e0c.png', 'zb9.png', 14026, 'image/png', 'avatar\\c10991c940ec6370c1fc4cb0e10e357e67a2be9ec632658bd8f565446b793e0c.png', NULL, 'avatar', '2023-12-25 17:28:58');
 INSERT INTO `upload_file` VALUES (284, 'ba1068f2e28acb0cc0504d76612224c03c4e5963c203ad4909554d851aa4b365.png', 'zb28.png', 16537, 'image/png', 'avatar\\ba1068f2e28acb0cc0504d76612224c03c4e5963c203ad4909554d851aa4b365.png', NULL, 'avatar', '2023-12-25 21:00:00');
 INSERT INTO `upload_file` VALUES (285, '9471b23ce774a0c865117c83abce20bcb625446c13c06844a1e07090ecd00ac0.png', 'zb6.png', 13331, 'image/png', 'image\\9471b23ce774a0c865117c83abce20bcb625446c13c06844a1e07090ecd00ac0.png', NULL, 'image', '2023-12-25 21:25:55');
+INSERT INTO `upload_file` VALUES (286, '13a25016b95ac49cf00c715d3643aac125003d24117d393f6ee47a09eda23f6d.png', 'zb5.png', 22793, 'image/png', 'avatar\\13a25016b95ac49cf00c715d3643aac125003d24117d393f6ee47a09eda23f6d.png', NULL, 'avatar', '2023-12-26 16:27:09');
+INSERT INTO `upload_file` VALUES (287, 'fcb19d32e6d3469d102a6df54fd2c5dab9c2f07fb2f4912276b866785dbc7571.png', 'zb17.png', 12959, 'image/png', 'avatar\\fcb19d32e6d3469d102a6df54fd2c5dab9c2f07fb2f4912276b866785dbc7571.png', NULL, 'avatar', '2023-12-26 16:28:33');
+INSERT INTO `upload_file` VALUES (288, 'b458bf296cd106072b766ffebbec3fec73b23ec0ab88d4eb7f0359e83618f6c1.png', 'zb11.png', 93322, 'image/png', 'avatar\\b458bf296cd106072b766ffebbec3fec73b23ec0ab88d4eb7f0359e83618f6c1.png', NULL, 'avatar', '2023-12-26 16:40:28');
 
 -- ----------------------------
 -- Table structure for user
@@ -385,17 +399,18 @@ CREATE TABLE `user`  (
   `user_role` int(11) NOT NULL COMMENT '0:已登录 1:管理员 2.主播 3.用户',
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (39, 'fenda', 'admin', '123456', 'admin', 'a@mail.com', '142342', 'china', 'avatar\\6da2bdd9bbd112b7e069aeeb72349149758cc0fd3732f25f2d91e9906edff9d2.png', 1, 1, '2023-12-14 18:13:29');
-INSERT INTO `user` VALUES (40, '37a56a85f9be4e8e93b72f30cc6ddcca', 'fenda', '123456', 'SeriousWolf391', 'aa2dwe@gmail.com', '76543123123', 'china12', 'avatar\\c10991c940ec6370c1fc4cb0e10e357e67a2be9ec632658bd8f565446b793e0c.png', 3, 3, '2023-12-14 18:14:09');
+INSERT INTO `user` VALUES (40, '37a56a85f9be4e8e93b72f30cc6ddcca', 'fenda', '123456', 'SeriousWolf391', 'aa2dwe@gmail.com', '76543123123', 'china12345', 'avatar\\b458bf296cd106072b766ffebbec3fec73b23ec0ab88d4eb7f0359e83618f6c1.png', 3, 3, '2023-12-14 18:14:09');
 INSERT INTO `user` VALUES (46, 'b287203128d14937b1a984860e65d462', 'anchor1', 'anchor1', 'RudeLion96', 'a12@gmail.com', '12431312313', 'china123', 'avatar\\ef781850b4cbe0ecbe19d462506cbca1f6d014b806ef6557bcc48ea676aaaf33.png', 2, 2, '2023-12-15 16:42:39');
-INSERT INTO `user` VALUES (47, '15a107a22d60427e827e4c7af90e369a', 'anchor2', 'anchor2', 'LazyTiger35', NULL, NULL, 'philippine', 'avatar\\054c3c81e2ddfc52fb6afdf923ff31e22e8e5210129150db46baf80f8f58dd1f.png', 2, 2, '2023-12-15 16:42:48');
+INSERT INTO `user` VALUES (47, '15a107a22d60427e827e4c7af90e369a', 'anchor2', 'anchor2', 'LazyTiger35', 'adasd', '12131312313', 'philippine1', 'avatar\\054c3c81e2ddfc52fb6afdf923ff31e22e8e5210129150db46baf80f8f58dd1f.png', 2, 2, '2023-12-15 16:42:48');
 INSERT INTO `user` VALUES (48, 'bf03b2c3fe88412a84a52d18808e58c0', 'anchor3', 'anchor3', 'SeriousEagle82', NULL, NULL, NULL, 'avatar\\bc8c30f04b7fe04748b4f3233eb194e52bb06619aacc39b1de7a98f2a4be78a2.png', 2, 2, '2023-12-15 16:42:53');
 INSERT INTO `user` VALUES (49, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', 'anchor4', 'anchor4', 'SeriousLion71', NULL, NULL, NULL, 'avatar\\3b336effafa163693e9b12aaee4f621ef076236d88564101da0c3ffe41ff4c63.png', 2, 2, '2023-12-15 16:43:00');
 INSERT INTO `user` VALUES (50, 'c224ae4ff27f4e668b68d8f3b537f375', 'anchor5', 'anchor5', 'QuickWolf51', NULL, NULL, NULL, 'avatar\\cc5f4a3ff269ea777fc617927052e2b77833c5ba9653bc772fc4f3974cbba0e8.png', 2, 2, '2023-12-15 16:43:11');
+INSERT INTO `user` VALUES (53, '9e90d2a14de84962a133a6c6bb78bbca', 'fenda2', '123456', 'RudeWolf87', 'ad', 'asdasd', NULL, 'avatar\\fcb19d32e6d3469d102a6df54fd2c5dab9c2f07fb2f4912276b866785dbc7571.png', 3, 3, '2023-12-26 16:26:37');
 
 SET FOREIGN_KEY_CHECKS = 1;

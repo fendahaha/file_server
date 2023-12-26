@@ -7,6 +7,7 @@ import com.example.file_server.form.UserRegisterForm;
 import com.example.file_server.form.UserUpdateForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.UserServiceImpl;
+import com.example.file_server.utils.OnlineUserManager;
 import com.example.file_server.utils.ResponseUtil;
 import com.example.file_server.utils.UserSessionUtil;
 import jakarta.servlet.http.HttpSession;
@@ -74,5 +75,4 @@ public class UserController extends BaseController {
     public Object getUser(@PathVariable String userUuid) {
         return ResponseUtil.ok(userService.getUser(userUuid));
     }
-
 }
