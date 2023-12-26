@@ -13,7 +13,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 
 @Component
 public class AuthenticateInterceptor implements HandlerInterceptor {
@@ -32,9 +31,9 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
     public boolean doAuthenticate(HttpServletRequest request, HttpServletResponse response, Object handler, AuthenticateRequire annotation) {
         Role role = annotation.value();
         HttpSession session = request.getSession(true);
-        HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute(UserSessionUtil.sessionAttributeName);
-        if (userInfo != null) {
-            User user = (User) userInfo.get("user");
+
+        User user = UserSessionUtil.getAttribute(session);
+        if (user != null) {
             if (user.getUserType() != UserType.UnverifiedUser.getValue()) {
                 if (role != Role.Base) {
                     if (user.getUserRole() <= role.getValue()) {

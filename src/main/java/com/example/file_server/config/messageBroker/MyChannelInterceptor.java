@@ -1,11 +1,7 @@
 package com.example.file_server.config.messageBroker;
 
 import com.example.file_server.entity.User;
-import com.example.file_server.service.impl.GiftSendRecordServiceImpl;
 import com.example.file_server.service.impl.UserServiceImpl;
-import com.example.file_server.utils.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -17,9 +13,7 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -38,9 +32,8 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             if (!users.isEmpty()) {
                 String useruuid = (String) users.get(0);
                 if (!useruuid.equals("null")) {
-                    HashMap<String, Object> userInfo = userService.getUserByUUID(useruuid);
-                    if (userInfo != null) {
-                        User user = (User) userInfo.get("user");
+                    User user = userService.getUser(useruuid);
+                    if (user != null) {
                         headerAccessor.setUser(new Principal() {
                             @Override
                             public String getName() {

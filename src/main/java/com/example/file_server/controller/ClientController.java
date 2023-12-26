@@ -38,11 +38,13 @@ public class ClientController {
         return ResponseUtil.ok(map);
     }
 
+    @AuthenticateRequire(Role.Administrator)
     @GetMapping("/delete/{userUuid}")
     public Object delete(@PathVariable String userUuid) {
         return ResponseUtil.ok(clientService.deleteClient(userUuid));
     }
 
+    @AuthenticateRequire(Role.Administrator)
     @PostMapping("/update/{userUuid}")
     public Object update(@PathVariable String userUuid, @RequestBody @Validated ClientUpdateForm form) {
         return ResponseUtil.ok(clientService.update(userUuid, form));

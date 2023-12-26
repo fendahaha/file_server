@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -25,13 +23,10 @@ public class UserController extends BaseController {
     /*用户和主播登录*/
     @PostMapping("/login")
     public Object login(HttpSession httpSession, @RequestBody @Validated UserLoginForm userLoginForm) {
-        HashMap<String, Object> map = userService.getUser(userLoginForm);
-        if (map != null) {
-            User user = (User) map.get("user");
-            if (user.getUserType() != UserType.Administrator.getValue()) {
-                UserSessionUtil.setAttribute(httpSession, map);
-                return ResponseUtil.ok(map);
-            }
+        User user = userService.getUser(userLoginForm.getUserName(), userLoginForm.getUserPassword());
+        if (user != null && !user.getUserType().equals(UserType.Administrator.getValue())) {
+            UserSessionUtil.setAttribute(httpSession, user);
+            return ResponseUtil.ok(user);
         }
         return ResponseUtil.badRequest("用户名或密码错误");
     }
@@ -39,24 +34,17 @@ public class UserController extends BaseController {
     /*管理员登录*/
     @PostMapping("/adminLogin")
     public Object adminlogin(HttpSession httpSession, @RequestBody @Validated UserLoginForm userLoginForm) {
-        HashMap<String, Object> map = userService.getUser(userLoginForm);
-        if (map != null) {
-            User user = (User) map.get("user");
-            if (user.getUserType() == UserType.Administrator.getValue()) {
-                UserSessionUtil.setAttribute(httpSession, map);
-                return ResponseUtil.ok(map);
-            }
+        User user = userService.getUser(userLoginForm.getUserName(), userLoginForm.getUserPassword());
+        if (user != null && user.getUserType().equals(UserType.Administrator.getValue())) {
+            UserSessionUtil.setAttribute(httpSession, user);
+            return ResponseUtil.ok(user);
         }
         return ResponseUtil.badRequest("用户名或密码错误");
     }
 
-    @AuthenticateRequire
     @PostMapping("/getLoginUser")
-    public Object getUser(@SessionAttribute(name = UserSessionUtil.sessionAttributeName, required = false) HashMap<String, Object> userInfo) {
-        if (userInfo != null) {
-            return ResponseUtil.ok(userInfo);
-        }
-        return ResponseUtil.badRequest("未登录");
+    public Object getUser(@SessionAttribute(name = UserSessionUtil.sessionAttributeName, required = false) User user) {
+        return ResponseUtil.ok(user);
     }
 
     @PostMapping("/logout")
@@ -78,8 +66,6 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     public Object update(HttpSession session, @RequestBody @Validated UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);
-        HashMap<String, Object> userInfo = userService.getUserByUUID(userUpdateForm.getUserUuid());
-        UserSessionUtil.setAttribute(session, userInfo);
         return ResponseUtil.ok(true);
     }
 
