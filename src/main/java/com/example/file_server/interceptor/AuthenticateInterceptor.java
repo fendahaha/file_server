@@ -4,6 +4,7 @@ import com.example.file_server.dictionary.Role;
 import com.example.file_server.dictionary.UserType;
 import com.example.file_server.entity.User;
 import com.example.file_server.exception.AuthenticateException;
+import com.example.file_server.utils.UserSessionUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
     public boolean doAuthenticate(HttpServletRequest request, HttpServletResponse response, Object handler, AuthenticateRequire annotation) {
         Role role = annotation.value();
         HttpSession session = request.getSession(true);
-        HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userInfo");
+        HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute(UserSessionUtil.sessionAttributeName);
         if (userInfo != null) {
             User user = (User) userInfo.get("user");
             if (user.getUserType() != UserType.UnverifiedUser.getValue()) {

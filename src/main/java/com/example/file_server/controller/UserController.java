@@ -8,6 +8,7 @@ import com.example.file_server.form.UserUpdateForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.UserServiceImpl;
 import com.example.file_server.utils.ResponseUtil;
+import com.example.file_server.utils.UserSessionUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -21,9 +22,6 @@ public class UserController extends BaseController {
     @Autowired
     private UserServiceImpl userService;
 
-    private final Integer sessionMaxInactiveInterval = 3600 * 2;
-    private final String userAttributeName = "userInfo";
-
     /*用户和主播登录*/
     @PostMapping("/login")
     public Object login(HttpSession httpSession, @RequestBody @Validated UserLoginForm userLoginForm) {
@@ -31,8 +29,7 @@ public class UserController extends BaseController {
         if (map != null) {
             User user = (User) map.get("user");
             if (user.getUserType() != UserType.Administrator.getValue()) {
-                httpSession.setAttribute(userAttributeName, map);
-                httpSession.setMaxInactiveInterval(sessionMaxInactiveInterval);
+                UserSessionUtil.setAttribute(httpSession, map);
                 return ResponseUtil.ok(map);
             }
         }
@@ -46,8 +43,7 @@ public class UserController extends BaseController {
         if (map != null) {
             User user = (User) map.get("user");
             if (user.getUserType() == UserType.Administrator.getValue()) {
-                httpSession.setAttribute("userInfo", map);
-                httpSession.setMaxInactiveInterval(sessionMaxInactiveInterval);
+                UserSessionUtil.setAttribute(httpSession, map);
                 return ResponseUtil.ok(map);
             }
         }
@@ -56,7 +52,7 @@ public class UserController extends BaseController {
 
     @AuthenticateRequire
     @PostMapping("/getLoginUser")
-    public Object getUser(@SessionAttribute(name = "userInfo", required = false) HashMap<String, Object> userInfo) {
+    public Object getUser(@SessionAttribute(name = UserSessionUtil.sessionAttributeName, required = false) HashMap<String, Object> userInfo) {
         if (userInfo != null) {
             return ResponseUtil.ok(userInfo);
         }
@@ -83,8 +79,7 @@ public class UserController extends BaseController {
     public Object update(HttpSession session, @RequestBody @Validated UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);
         HashMap<String, Object> userInfo = userService.getUserByUUID(userUpdateForm.getUserUuid());
-        session.setAttribute(userAttributeName, userInfo);
-        session.setMaxInactiveInterval(sessionMaxInactiveInterval);
+        UserSessionUtil.setAttribute(session, userInfo);
         return ResponseUtil.ok(true);
     }
 
