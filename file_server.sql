@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 26/12/2023 20:10:03
+ Date: 27/12/2023 20:25:14
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `anchor`  (
 -- Records of anchor
 -- ----------------------------
 INSERT INTO `anchor` VALUES (34, 'b287203128d14937b1a984860e65d462', 'bfaa09ddbfc048d3b5149dbd6346d0e3', 'adadasdadsa', '{\"anchorHeight\": 1231, \"anchorSanwei\": 1212, \"anchorWieght\": 12312}', 0, '2023-12-15 16:42:39', 'e094b3807ff246a4b416e5210d7f88c5');
-INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 3300, '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
+INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', 'hahah-boobs', '{\"covers\": [\"anchor_avatar\\\\cccaba5f426738768385e454874e8cbf99817a3ef1ad6115aa062c410b022f90.png\", \"anchor_avatar\\\\fd2ac76e4a82518b5340300abe05e90c4b182d8440c7d591762f58a47c5f8dc4.png\", \"anchor_avatar\\\\5b886484a88b1330243ae3d4493d62aa7589ebbe48a9a1cc0332db88a8debc02.png\", \"anchor_avatar\\\\393cded99c74f6254dcd5bfa81d09053c335fcae0702db81c160e8754465c6f9.png\", \"anchor_avatar\\\\aab465bbcc91e4f54ef5a2fa838db9737595fa87547a08c9c0a39ec3445a4368.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 50}', 3300, '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
 INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '小本蛋', '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 6100, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
 INSERT INTO `anchor` VALUES (37, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '63fe49ad01d84fce83f9bde39ea81179', NULL, '{\"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, '2023-12-15 16:43:00', '75700f9713f14df09c290f39be48cdf7');
 INSERT INTO `anchor` VALUES (38, 'c224ae4ff27f4e668b68d8f3b537f375', 'fe3dfd9d63ff4bc1b47d2ce041588068', NULL, '{\"anchorHeight\": 12312, \"anchorSanwei\": 1212, \"anchorWieght\": 12312}', 0, '2023-12-15 16:43:11', 'ef3491ce6ebb4e44b50b96395d3769a4');
@@ -303,7 +303,7 @@ CREATE TABLE `upload_file`  (
   `file_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `file_upload_date` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 289 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 307 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of upload_file
@@ -380,6 +380,24 @@ INSERT INTO `upload_file` VALUES (285, '9471b23ce774a0c865117c83abce20bcb625446c
 INSERT INTO `upload_file` VALUES (286, '13a25016b95ac49cf00c715d3643aac125003d24117d393f6ee47a09eda23f6d.png', 'zb5.png', 22793, 'image/png', 'avatar\\13a25016b95ac49cf00c715d3643aac125003d24117d393f6ee47a09eda23f6d.png', NULL, 'avatar', '2023-12-26 16:27:09');
 INSERT INTO `upload_file` VALUES (287, 'fcb19d32e6d3469d102a6df54fd2c5dab9c2f07fb2f4912276b866785dbc7571.png', 'zb17.png', 12959, 'image/png', 'avatar\\fcb19d32e6d3469d102a6df54fd2c5dab9c2f07fb2f4912276b866785dbc7571.png', NULL, 'avatar', '2023-12-26 16:28:33');
 INSERT INTO `upload_file` VALUES (288, 'b458bf296cd106072b766ffebbec3fec73b23ec0ab88d4eb7f0359e83618f6c1.png', 'zb11.png', 93322, 'image/png', 'avatar\\b458bf296cd106072b766ffebbec3fec73b23ec0ab88d4eb7f0359e83618f6c1.png', NULL, 'avatar', '2023-12-26 16:40:28');
+INSERT INTO `upload_file` VALUES (289, '47235b68c22437e9d57fa4ac1511fe954d1f3e840079422b8f81653f9f3438dd.png', 'zb4.png', 62329, 'image/png', 'anchor_avatar\\47235b68c22437e9d57fa4ac1511fe954d1f3e840079422b8f81653f9f3438dd.png', NULL, 'anchor_avatar', '2023-12-27 15:12:29');
+INSERT INTO `upload_file` VALUES (290, 'd66854742d6613915e882e143e8f03d6182873ac8afa3b1f517b583be962acb8.png', 'zb9.png', 14026, 'image/png', 'anchor_avatar\\d66854742d6613915e882e143e8f03d6182873ac8afa3b1f517b583be962acb8.png', NULL, 'anchor_avatar', '2023-12-27 15:17:36');
+INSERT INTO `upload_file` VALUES (291, 'd1eb751661a37536736709bfcfef40c0b2ae99e5dc6714bb2e241a930acd26c7.png', 'zb3.png', 103042, 'image/png', 'anchor_avatar\\d1eb751661a37536736709bfcfef40c0b2ae99e5dc6714bb2e241a930acd26c7.png', NULL, 'anchor_avatar', '2023-12-27 15:18:45');
+INSERT INTO `upload_file` VALUES (292, 'a7fda941b58395a083ad3615186737e36a92c16217b889fab59f8ad4ca712a8c.png', 'zb4.png', 62329, 'image/png', 'anchor_avatar\\a7fda941b58395a083ad3615186737e36a92c16217b889fab59f8ad4ca712a8c.png', NULL, 'anchor_avatar', '2023-12-27 15:18:45');
+INSERT INTO `upload_file` VALUES (293, 'ca1ba4853690c3efbfdae62f55505a89902f297a4e337fcb58f5880ae1792ed5.png', 'zb9.png', 14026, 'image/png', 'anchor_avatar\\ca1ba4853690c3efbfdae62f55505a89902f297a4e337fcb58f5880ae1792ed5.png', NULL, 'anchor_avatar', '2023-12-27 15:46:47');
+INSERT INTO `upload_file` VALUES (294, '38268947acafe8520d0b430c9530d2e50517cce048b701f3867aea6c6a1a1c7b.png', 'zb9.png', 14026, 'image/png', 'anchor_avatar\\38268947acafe8520d0b430c9530d2e50517cce048b701f3867aea6c6a1a1c7b.png', NULL, 'anchor_avatar', '2023-12-27 15:47:45');
+INSERT INTO `upload_file` VALUES (295, 'c2073637506dfadc5411437b1816166869c2ffb6d5db91c39ffdda17065040bb.png', 'zb10.png', 106391, 'image/png', 'anchor_avatar\\c2073637506dfadc5411437b1816166869c2ffb6d5db91c39ffdda17065040bb.png', NULL, 'anchor_avatar', '2023-12-27 15:49:42');
+INSERT INTO `upload_file` VALUES (296, 'cbc159d064c576230b9677bce2855243f71babbf7479ab13aa583657b7ffe5b6.png', 'zb9.png', 14026, 'image/png', 'anchor_avatar\\cbc159d064c576230b9677bce2855243f71babbf7479ab13aa583657b7ffe5b6.png', NULL, 'anchor_avatar', '2023-12-27 15:59:12');
+INSERT INTO `upload_file` VALUES (297, 'cccaba5f426738768385e454874e8cbf99817a3ef1ad6115aa062c410b022f90.png', 'zb10.png', 106391, 'image/png', 'anchor_avatar\\cccaba5f426738768385e454874e8cbf99817a3ef1ad6115aa062c410b022f90.png', NULL, 'anchor_avatar', '2023-12-27 15:59:12');
+INSERT INTO `upload_file` VALUES (298, 'bc67380acd6d2aa29444ef4bf94406a55fe8ff3852e37bcffeec1a83ad5068a0.png', 'zb11.png', 93322, 'image/png', 'anchor_avatar\\bc67380acd6d2aa29444ef4bf94406a55fe8ff3852e37bcffeec1a83ad5068a0.png', NULL, 'anchor_avatar', '2023-12-27 15:59:26');
+INSERT INTO `upload_file` VALUES (299, 'fd2ac76e4a82518b5340300abe05e90c4b182d8440c7d591762f58a47c5f8dc4.png', 'zb15.png', 12081, 'image/png', 'anchor_avatar\\fd2ac76e4a82518b5340300abe05e90c4b182d8440c7d591762f58a47c5f8dc4.png', NULL, 'anchor_avatar', '2023-12-27 15:59:29');
+INSERT INTO `upload_file` VALUES (300, '5b886484a88b1330243ae3d4493d62aa7589ebbe48a9a1cc0332db88a8debc02.png', 'zb7.png', 55939, 'image/png', 'anchor_avatar\\5b886484a88b1330243ae3d4493d62aa7589ebbe48a9a1cc0332db88a8debc02.png', NULL, 'anchor_avatar', '2023-12-27 15:59:32');
+INSERT INTO `upload_file` VALUES (301, 'b087c0af093711d7fe6c014c787059f01ab1620dcd13663cb722db026d32c990.png', 'zb16.png', 11816, 'image/png', 'anchor_avatar\\b087c0af093711d7fe6c014c787059f01ab1620dcd13663cb722db026d32c990.png', NULL, 'anchor_avatar', '2023-12-27 15:59:43');
+INSERT INTO `upload_file` VALUES (302, '647f88a9e8e41ebdb53b902df3d70843e3ff9d9fa49800f1218f0a7fb9c0be72.png', 'zb17.png', 12959, 'image/png', 'anchor_avatar\\647f88a9e8e41ebdb53b902df3d70843e3ff9d9fa49800f1218f0a7fb9c0be72.png', NULL, 'anchor_avatar', '2023-12-27 15:59:43');
+INSERT INTO `upload_file` VALUES (303, 'bfd882daea54b87f3305c44d4fbcb0326609f7f62a7b5bed9934361637fc8ce9.png', 'zb18.png', 7585, 'image/png', 'anchor_avatar\\bfd882daea54b87f3305c44d4fbcb0326609f7f62a7b5bed9934361637fc8ce9.png', NULL, 'anchor_avatar', '2023-12-27 16:00:35');
+INSERT INTO `upload_file` VALUES (304, '6465cc2ba4f1630a86253c8fff4104fdb72f4ae4491283ca2358448fc93b65b0.png', 'zb26.png', 75524, 'image/png', 'anchor_avatar\\6465cc2ba4f1630a86253c8fff4104fdb72f4ae4491283ca2358448fc93b65b0.png', NULL, 'anchor_avatar', '2023-12-27 16:00:39');
+INSERT INTO `upload_file` VALUES (305, '393cded99c74f6254dcd5bfa81d09053c335fcae0702db81c160e8754465c6f9.png', 'zb3.png', 103042, 'image/png', 'anchor_avatar\\393cded99c74f6254dcd5bfa81d09053c335fcae0702db81c160e8754465c6f9.png', NULL, 'anchor_avatar', '2023-12-27 16:11:09');
+INSERT INTO `upload_file` VALUES (306, 'aab465bbcc91e4f54ef5a2fa838db9737595fa87547a08c9c0a39ec3445a4368.png', 'zb27.png', 58070, 'image/png', 'anchor_avatar\\aab465bbcc91e4f54ef5a2fa838db9737595fa87547a08c9c0a39ec3445a4368.png', NULL, 'anchor_avatar', '2023-12-27 18:05:29');
 
 -- ----------------------------
 -- Table structure for user
