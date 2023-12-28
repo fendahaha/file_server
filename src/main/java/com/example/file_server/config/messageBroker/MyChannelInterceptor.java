@@ -1,6 +1,7 @@
 package com.example.file_server.config.messageBroker;
 
 import com.example.file_server.dictionary.MessageType;
+import com.example.file_server.dictionary.PageType;
 import com.example.file_server.entity.User;
 import com.example.file_server.service.impl.UserServiceImpl;
 import com.example.file_server.utils.OnlineUserManager;
@@ -40,33 +41,38 @@ public class MyChannelInterceptor implements ChannelInterceptor {
         if (headerAccessor != null) {
             Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
             String userUuid = (String) sessionAttributes.get("userUuid");
-            String roomUuid = (String) sessionAttributes.get("roomUuid");
+            String pageType = (String) sessionAttributes.get("pageType");
             if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
-                onlineUserManager.user_increment(roomUuid, sessionId);
-                // 设置用户信息
-                if (!userUuid.equals("undefined") && !userUuid.equals("null")) {
-                    User user = userService.getUser(userUuid);
-                    if (user != null) {
-                        User user1 = new User();
-                        user1.setUserUuid(user.getUserUuid());
-                        user1.setUserName(user.getUserName());
-                        user1.setUserType(user.getUserType());
-                        user1.setUserDisplayName(user.getUserDisplayName());
-                        user1.setUserAvatar(user.getUserAvatar());
-                        user1.setUserCountry(user.getUserCountry());
-                        user1.setUserRole(user.getUserRole());
+                User user = null;
+                if (userUuid != null) {
+                    if (!userUuid.equals("undefined") && !userUuid.equals("null")) {
+                        user = userService.getUser(userUuid);
+                        if (user != null) {
+                            User user1 = new User();
+                            user1.setUserUuid(user.getUserUuid());
+                            user1.setUserName(user.getUserName());
+                            user1.setUserType(user.getUserType());
+                            user1.setUserDisplayName(user.getUserDisplayName());
+                            user1.setUserAvatar(user.getUserAvatar());
+                            user1.setUserCountry(user.getUserCountry());
+                            user1.setUserRole(user.getUserRole());
+                            headerAccessor.setUser(new MyStompPrincipal(user.getUserUuid()));
+                        }
+                    }
+                }
+                if (PageType.Room.equals(pageType)) {
+                    String roomUuid = (String) sessionAttributes.get("roomUuid");
+                    onlineUserManager.user_increment(roomUuid, sessionId);
+                    if (userUuid != null && user != null) {
                         try {
-                            onlineUserManager.put_login_user(roomUuid, userUuid, user1);
+                            onlineUserManager.put_login_user(roomUuid, userUuid, user);
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
-                        headerAccessor.setUser(new Principal() {
-                            @Override
-                            public String getName() {
-                                return user.getUserUuid();
-                            }
-                        });
                     }
+                }
+                if (PageType.Home.equals(pageType)) {
+
                 }
             }
 
@@ -75,7 +81,7 @@ public class MyChannelInterceptor implements ChannelInterceptor {
 
             if (SimpMessageType.MESSAGE.equals(headerAccessor.getMessageType())) {
                 Principal user = headerAccessor.getUser();
-                if (user == null) {
+                if (!(user instanceof MyStompPrincipal)) {
                     throw new RuntimeException("未登录用户");
                 }
             }
@@ -85,10 +91,13 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             }
 
             if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
-                onlineUserManager.user_decrement(roomUuid, sessionId);
-                Principal user = headerAccessor.getUser();
-                if (user != null) {
-                    onlineUserManager.remove_login_user(roomUuid, userUuid);
+                if (PageType.Room.equals(pageType)) {
+                    String roomUuid = (String) sessionAttributes.get("roomUuid");
+                    onlineUserManager.user_decrement(roomUuid, sessionId);
+                    Principal user = headerAccessor.getUser();
+                    if (user != null) {
+                        onlineUserManager.remove_login_user(roomUuid, userUuid);
+                    }
                 }
             }
         }
@@ -98,30 +107,30 @@ public class MyChannelInterceptor implements ChannelInterceptor {
 
     @Override
     public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-
-    }
-
-    @Override
-    public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
         StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        String destination = headerAccessor.getDestination();
         if (headerAccessor != null) {
-            Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
-            String userUuid = (String) sessionAttributes.get("userUuid");
-            String roomUuid = (String) sessionAttributes.get("roomUuid");
-            String topic = "/topic/" + roomUuid;
             try {
-                if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
-                    this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
-                }
-                if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
-                    this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
+                Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
+                String pageType = (String) sessionAttributes.get("pageType");
+                if (PageType.Room.equals(pageType)) {
+                    String roomUuid = (String) sessionAttributes.get("roomUuid");
+                    String topic = "/topic/" + roomUuid;
+                    if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
+                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
+                    }
+                    if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
+                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
+                    }
                 }
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-
         }
+    }
+
+    @Override
+    public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
+
     }
 
 }

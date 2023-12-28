@@ -1,5 +1,6 @@
 package com.example.file_server.config.messageBroker;
 
+import com.example.file_server.dictionary.PageType;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -15,9 +16,17 @@ public class MyHandshakeInterceptor implements HandshakeInterceptor {
         ServletServerHttpRequest request1 = (ServletServerHttpRequest) request;
         HttpServletRequest servletRequest = request1.getServletRequest();
         String userUuid = servletRequest.getParameter("userUuid");
-        String roomUuid = servletRequest.getParameter("roomUuid");
+        String pageType = servletRequest.getParameter("pageType");
         attributes.put("userUuid", userUuid);
-        attributes.put("roomUuid", roomUuid);
+        attributes.put("pageType", pageType);
+        if (pageType == null) {
+            return false;
+        }
+
+        if (PageType.Room.equals(pageType)) {
+            String roomUuid = servletRequest.getParameter("roomUuid");
+            attributes.put("roomUuid", roomUuid);
+        }
         return true;
     }
 
