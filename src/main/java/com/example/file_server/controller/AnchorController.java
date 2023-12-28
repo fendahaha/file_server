@@ -117,6 +117,11 @@ public class AnchorController extends BaseController {
         return ResponseUtil.ok(rank);
     }
 
+    @GetMapping("/is_online")
+    public Object is_online(@Size(min = 1) @RequestParam(value = "anchor_uuid") String uuid) {
+        return ResponseUtil.ok(onlineStreamManager.is_anchor_online(uuid));
+    }
+
     @AuthenticateRequire(Role.Anchor)
     @GetMapping("/setOnlineStatus")
     public Object setOnlineStatus(@Size(min = 1) @RequestParam("user_uuid") String uuid,

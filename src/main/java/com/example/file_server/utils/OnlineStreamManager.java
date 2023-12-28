@@ -40,4 +40,7 @@ public class OnlineStreamManager {
         return redisTemplate.opsForSet().isMember(rooms, room_uuid);
     }
 
+    public boolean is_anchor_online(String anchor_uuid) {
+        return redisTemplate.opsForSet().isMember(anchors, anchor_uuid);
+    }
 }
