@@ -120,7 +120,7 @@ public class AnchorController extends BaseController {
     @AuthenticateRequire(Role.Anchor)
     @GetMapping("/setOnlineStatus")
     public Object setOnlineStatus(@Size(min = 1) @RequestParam("user_uuid") String uuid,
-                                  @Size(min = 0) @RequestParam("status") Integer status) {
+                                  @Min(0) @RequestParam("status") Integer status) {
         Anchor anchor = service.getAnchorByUserUuid(uuid);
         Room room = anchor.getRoom();
         if (status.equals(0)) {
