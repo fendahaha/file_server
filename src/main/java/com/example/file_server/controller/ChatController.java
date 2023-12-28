@@ -8,7 +8,6 @@ import com.example.file_server.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -17,7 +16,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +36,7 @@ public class ChatController {
 
     @Autowired
     private AnchorServiceImpl anchorService;
+
     private String getTimestamp() {
         long time = new Date().getTime();
         return "" + time;
@@ -89,21 +88,19 @@ public class ChatController {
     }
 
     @MessageMapping("/gift")
-    public void giftSend(@Payload String messageBody, SimpMessageHeaderAccessor headerAccessor) {
+    public void giftSend(@Payload String messageBody, StompHeaderAccessor headerAccessor) {
         Principal user = headerAccessor.getUser();
-        MessageHeaders messageHeaders = headerAccessor.getMessageHeaders();
-        LinkedMultiValueMap nativeHeaders = messageHeaders.get("nativeHeaders", LinkedMultiValueMap.class);
         try {
             MessageEntity messageEntity = JsonUtil.json2Object(messageBody, new TypeReference<MessageEntity>() {
             });
             if (MessageType.Gift.equals(messageEntity.getType())) {
                 Gift gift = JsonUtil.json2Object(messageEntity.getData(), new TypeReference<Gift>() {
                 });
-                String anchorUserUuid = (String) nativeHeaders.get("anchorUserUuid").get(0);
-                String anchorUserName = (String) nativeHeaders.get("anchorUserName").get(0);
-                String room_topic = (String) nativeHeaders.get("room_topic").get(0);
-                String clientUserUuid = (String) nativeHeaders.get("clientUserUuid").get(0);
-                String clientUsername = (String) nativeHeaders.get("clientUserName").get(0);
+                String anchorUserUuid = headerAccessor.getNativeHeader("anchorUserUuid").get(0);
+                String anchorUserName = headerAccessor.getNativeHeader("anchorUserName").get(0);
+                String room_topic = headerAccessor.getNativeHeader("room_topic").get(0);
+                String clientUserUuid = headerAccessor.getNativeHeader("clientUserUuid").get(0);
+                String clientUsername = headerAccessor.getNativeHeader("clientUserName").get(0);
                 try {
                     anchorService.receiveGift(clientUserUuid, clientUsername, anchorUserUuid, anchorUserName,
                             gift.getGiftUuid(), gift.getGiftName(), gift.getGiftValue());

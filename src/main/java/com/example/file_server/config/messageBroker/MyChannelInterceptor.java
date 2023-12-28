@@ -1,14 +1,18 @@
 package com.example.file_server.config.messageBroker;
 
+import com.example.file_server.dictionary.MessageType;
 import com.example.file_server.entity.User;
 import com.example.file_server.service.impl.UserServiceImpl;
 import com.example.file_server.utils.OnlineUserManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -18,10 +22,16 @@ import java.util.Map;
 
 @Component
 public class MyChannelInterceptor implements ChannelInterceptor {
-    @Autowired
     private UserServiceImpl userService;
-    @Autowired
     private OnlineUserManager onlineUserManager;
+    private SimpMessagingTemplate template;
+
+    @Autowired
+    public MyChannelInterceptor(UserServiceImpl userService, OnlineUserManager onlineUserManager, @Lazy SimpMessagingTemplate template) {
+        this.userService = userService;
+        this.onlineUserManager = onlineUserManager;
+        this.template = template;
+    }
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
@@ -31,8 +41,6 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
             String userUuid = (String) sessionAttributes.get("userUuid");
             String roomUuid = (String) sessionAttributes.get("roomUuid");
-//            MessageHeaders messageHeaders = headerAccessor.getMessageHeaders();
-//            LinkedMultiValueMap nativeHeaders = messageHeaders.get("nativeHeaders", LinkedMultiValueMap.class);
             if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
                 onlineUserManager.user_increment(roomUuid, sessionId);
                 // 设置用户信息
@@ -73,6 +81,7 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             }
 
             if (SimpMessageType.HEARTBEAT.equals(headerAccessor.getMessageType())) {
+
             }
 
             if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
@@ -85,4 +94,34 @@ public class MyChannelInterceptor implements ChannelInterceptor {
         }
         return message;
     }
+
+
+    @Override
+    public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
+
+    }
+
+    @Override
+    public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
+        StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+        String destination = headerAccessor.getDestination();
+        if (headerAccessor != null) {
+            Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
+            String userUuid = (String) sessionAttributes.get("userUuid");
+            String roomUuid = (String) sessionAttributes.get("roomUuid");
+            String topic = "/topic/" + roomUuid;
+            try {
+                if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
+                    this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
+                }
+                if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
+                    this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
+                }
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
 }
