@@ -83,7 +83,6 @@ public class SrsStreamsServiceImpl {
             if (room.getRoomType().equals(RoomType.Anchor.getValue())) {
                 List<Anchor> anchors = anchorService.getAnchorByRoomUUID(room.getRoomUuid());
                 if (!anchors.isEmpty()) {
-                    System.out.println("onlineStreamManager.del");
                     onlineStreamManager.del(srsStreams, anchors.get(0), room);
                     try {
                         this.simpMessagingTemplate.convertAndSend("/topic/homePage",

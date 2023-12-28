@@ -1,16 +1,22 @@
 package com.example.file_server.controller;
 
+import com.example.file_server.dictionary.MessageType;
 import com.example.file_server.dictionary.Role;
 import com.example.file_server.entity.Anchor;
+import com.example.file_server.entity.Room;
+import com.example.file_server.entity.SrsStreams;
 import com.example.file_server.form.AnchorForm;
 import com.example.file_server.form.AnchorListForm;
 import com.example.file_server.interceptor.AuthenticateRequire;
 import com.example.file_server.service.impl.AnchorServiceImpl;
+import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.ResponseUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +32,10 @@ import java.util.List;
 public class AnchorController extends BaseController {
     @Autowired
     private AnchorServiceImpl service;
+    @Autowired
+    private OnlineStreamManager onlineStreamManager;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -105,5 +115,33 @@ public class AnchorController extends BaseController {
     public Object index() {
         List<HashMap<String, Object>> rank = service.rank();
         return ResponseUtil.ok(rank);
+    }
+
+    @AuthenticateRequire(Role.Anchor)
+    @GetMapping("/setOnlineStatus")
+    public Object setOnlineStatus(@Size(min = 1) @RequestParam("user_uuid") String uuid,
+                                  @Size(min = 0) @RequestParam("status") Integer status) {
+        Anchor anchor = service.getAnchorByUserUuid(uuid);
+        Room room = anchor.getRoom();
+        if (status.equals(0)) {
+            onlineStreamManager.del(new SrsStreams(), anchor, room);
+            try {
+                this.simpMessagingTemplate.convertAndSend("/topic/homePage",
+                        MessageType.Page.createMessage("OnlineAnchorsUpdate"));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } else if (status.equals(1)) {
+            onlineStreamManager.put(new SrsStreams(), anchor, room);
+            try {
+                this.simpMessagingTemplate.convertAndSend("/topic/homePage",
+                        MessageType.Page.createMessage("OnlineAnchorsUpdate"));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return ResponseUtil.ok(false);
+        }
+        return ResponseUtil.ok(true);
     }
 }
