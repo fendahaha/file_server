@@ -13,6 +13,13 @@ public class MessageEntity {
     public MessageEntity() {
     }
 
+    public MessageEntity(String id, Integer type, String data, Date time) {
+        this.id = id;
+        this.type = type;
+        this.data = data;
+        this.time = time;
+    }
+
     public String getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package com.example.file_server.service.impl;
 
+import com.example.file_server.dictionary.MessageType;
 import com.example.file_server.dictionary.RoomType;
 import com.example.file_server.dictionary.StreamType;
 import com.example.file_server.entity.Anchor;
@@ -9,8 +10,10 @@ import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.mapper.SrsStreamsMapper;
 import com.example.file_server.utils.OnlineStreamManager;
 import com.example.file_server.utils.UrlUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -28,6 +31,8 @@ public class SrsStreamsServiceImpl {
     private AnchorServiceImpl anchorService;
     @Autowired
     private OnlineStreamManager onlineStreamManager;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     public String getRoomUuid(SrsStreams srsStreams) {
         String param = srsStreams.getParam();
@@ -54,6 +59,12 @@ public class SrsStreamsServiceImpl {
                 throw new DbActionExcetion("主播不存在");
             }
             onlineStreamManager.put(srsStreams, anchors.get(0), room);
+            try {
+                this.simpMessagingTemplate.convertAndSend("/topic/homePage",
+                        MessageType.Page.createMessage("OnlineAnchorsUpdate"));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         } else {
             throw new DbActionExcetion("roomType不存在");
         }
@@ -74,6 +85,12 @@ public class SrsStreamsServiceImpl {
                 if (!anchors.isEmpty()) {
                     System.out.println("onlineStreamManager.del");
                     onlineStreamManager.del(srsStreams, anchors.get(0), room);
+                    try {
+                        this.simpMessagingTemplate.convertAndSend("/topic/homePage",
+                                MessageType.Page.createMessage("OnlineAnchorsUpdate"));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
