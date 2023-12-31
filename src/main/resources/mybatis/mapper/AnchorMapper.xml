@@ -7,6 +7,7 @@
     <result column="anchor_uuid" jdbcType="VARCHAR" property="anchorUuid" />
     <result column="anchor_remark" jdbcType="VARCHAR" property="anchorRemark" />
     <result column="anchor_money" jdbcType="INTEGER" property="anchorMoney" />
+    <result column="anchor_followers" jdbcType="INTEGER" property="anchorFollowers" />
     <result column="anchor_create_at" jdbcType="TIMESTAMP" property="anchorCreateAt" />
     <result column="room_uuid" jdbcType="VARCHAR" property="roomUuid" />
   </resultMap>
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_uuid, anchor_uuid, anchor_remark, anchor_money, anchor_create_at, room_uuid
+    id, user_uuid, anchor_uuid, anchor_remark, anchor_money, anchor_followers, anchor_create_at, 
+    room_uuid
   </sql>
   <sql id="Blob_Column_List">
     anchor_config
@@ -127,11 +129,13 @@
   </delete>
   <insert id="insert" parameterType="com.example.file_server.entity.Anchor">
     insert into anchor (id, user_uuid, anchor_uuid, 
-      anchor_remark, anchor_money, anchor_create_at, 
-      room_uuid, anchor_config)
+      anchor_remark, anchor_money, anchor_followers, 
+      anchor_create_at, room_uuid, anchor_config
+      )
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{anchorUuid,jdbcType=VARCHAR}, 
-      #{anchorRemark,jdbcType=VARCHAR}, #{anchorMoney,jdbcType=INTEGER}, #{anchorCreateAt,jdbcType=TIMESTAMP}, 
-      #{roomUuid,jdbcType=VARCHAR}, #{anchorConfig,jdbcType=LONGVARCHAR})
+      #{anchorRemark,jdbcType=VARCHAR}, #{anchorMoney,jdbcType=INTEGER}, #{anchorFollowers,jdbcType=INTEGER}, 
+      #{anchorCreateAt,jdbcType=TIMESTAMP}, #{roomUuid,jdbcType=VARCHAR}, #{anchorConfig,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.file_server.entity.Anchor">
     insert into anchor
@@ -150,6 +154,9 @@
       </if>
       <if test="anchorMoney != null">
         anchor_money,
+      </if>
+      <if test="anchorFollowers != null">
+        anchor_followers,
       </if>
       <if test="anchorCreateAt != null">
         anchor_create_at,
@@ -176,6 +183,9 @@
       </if>
       <if test="anchorMoney != null">
         #{anchorMoney,jdbcType=INTEGER},
+      </if>
+      <if test="anchorFollowers != null">
+        #{anchorFollowers,jdbcType=INTEGER},
       </if>
       <if test="anchorCreateAt != null">
         #{anchorCreateAt,jdbcType=TIMESTAMP},
@@ -212,6 +222,9 @@
       <if test="record.anchorMoney != null">
         anchor_money = #{record.anchorMoney,jdbcType=INTEGER},
       </if>
+      <if test="record.anchorFollowers != null">
+        anchor_followers = #{record.anchorFollowers,jdbcType=INTEGER},
+      </if>
       <if test="record.anchorCreateAt != null">
         anchor_create_at = #{record.anchorCreateAt,jdbcType=TIMESTAMP},
       </if>
@@ -233,6 +246,7 @@
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
       anchor_remark = #{record.anchorRemark,jdbcType=VARCHAR},
       anchor_money = #{record.anchorMoney,jdbcType=INTEGER},
+      anchor_followers = #{record.anchorFollowers,jdbcType=INTEGER},
       anchor_create_at = #{record.anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{record.roomUuid,jdbcType=VARCHAR},
       anchor_config = #{record.anchorConfig,jdbcType=LONGVARCHAR}
@@ -247,6 +261,7 @@
       anchor_uuid = #{record.anchorUuid,jdbcType=VARCHAR},
       anchor_remark = #{record.anchorRemark,jdbcType=VARCHAR},
       anchor_money = #{record.anchorMoney,jdbcType=INTEGER},
+      anchor_followers = #{record.anchorFollowers,jdbcType=INTEGER},
       anchor_create_at = #{record.anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{record.roomUuid,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -268,6 +283,9 @@
       <if test="anchorMoney != null">
         anchor_money = #{anchorMoney,jdbcType=INTEGER},
       </if>
+      <if test="anchorFollowers != null">
+        anchor_followers = #{anchorFollowers,jdbcType=INTEGER},
+      </if>
       <if test="anchorCreateAt != null">
         anchor_create_at = #{anchorCreateAt,jdbcType=TIMESTAMP},
       </if>
@@ -286,6 +304,7 @@
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
       anchor_remark = #{anchorRemark,jdbcType=VARCHAR},
       anchor_money = #{anchorMoney,jdbcType=INTEGER},
+      anchor_followers = #{anchorFollowers,jdbcType=INTEGER},
       anchor_create_at = #{anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{roomUuid,jdbcType=VARCHAR},
       anchor_config = #{anchorConfig,jdbcType=LONGVARCHAR}
@@ -297,6 +316,7 @@
       anchor_uuid = #{anchorUuid,jdbcType=VARCHAR},
       anchor_remark = #{anchorRemark,jdbcType=VARCHAR},
       anchor_money = #{anchorMoney,jdbcType=INTEGER},
+      anchor_followers = #{anchorFollowers,jdbcType=INTEGER},
       anchor_create_at = #{anchorCreateAt,jdbcType=TIMESTAMP},
       room_uuid = #{roomUuid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -307,7 +327,7 @@
     <if test="distinct">
       distinct
     </if>
-    a.id, a.user_uuid, a.anchor_uuid, a.anchor_remark, a.anchor_create_at, a.room_uuid, a.anchor_config
+    a.id, a.user_uuid, a.anchor_uuid, a.anchor_remark, a.anchor_money, a.anchor_followers,a.anchor_create_at, a.room_uuid, a.anchor_config
     from anchor a
     left join user as u on a.user_uuid=u.user_uuid
     left join room as r on a.room_uuid= r.room_uuid

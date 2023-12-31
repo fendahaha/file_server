@@ -34,9 +34,10 @@
         <!--        <table tableName="user" domainObjectName="User"/>-->
         <!--        <table tableName="room" domainObjectName="Room"/>-->
         <!--        <table tableName="config" domainObjectName="Config"/>-->
-        <!--        <table tableName="anchor" domainObjectName="Anchor"/>-->
+<!--        <table tableName="anchor" domainObjectName="Anchor"/>-->
+        <table tableName="follows" domainObjectName="Follows"/>
         <!--        <table tableName="gift" domainObjectName="Gift"/>-->
-        <table tableName="client" domainObjectName="Client"/>
+        <!--        <table tableName="client" domainObjectName="Client"/>-->
         <!--        <table tableName="gift_send_record" domainObjectName="GiftSendRecord"/>-->
         <!--        <table tableName="srs_streams" domainObjectName="SrsStreams">-->
         <!--            <property name="useActualColumnNames" value="true"/>-->

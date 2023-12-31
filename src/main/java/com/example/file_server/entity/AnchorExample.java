@@ -435,6 +435,66 @@ public class AnchorExample {
             return (Criteria) this;
         }
 
+        public Criteria andAnchorFollowersIsNull() {
+            addCriterion("anchor_followers is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersIsNotNull() {
+            addCriterion("anchor_followers is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersEqualTo(Integer value) {
+            addCriterion("anchor_followers =", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersNotEqualTo(Integer value) {
+            addCriterion("anchor_followers <>", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersGreaterThan(Integer value) {
+            addCriterion("anchor_followers >", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersGreaterThanOrEqualTo(Integer value) {
+            addCriterion("anchor_followers >=", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersLessThan(Integer value) {
+            addCriterion("anchor_followers <", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersLessThanOrEqualTo(Integer value) {
+            addCriterion("anchor_followers <=", value, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersIn(List<Integer> values) {
+            addCriterion("anchor_followers in", values, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersNotIn(List<Integer> values) {
+            addCriterion("anchor_followers not in", values, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersBetween(Integer value1, Integer value2) {
+            addCriterion("anchor_followers between", value1, value2, "anchorFollowers");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnchorFollowersNotBetween(Integer value1, Integer value2) {
+            addCriterion("anchor_followers not between", value1, value2, "anchorFollowers");
+            return (Criteria) this;
+        }
+
         public Criteria andAnchorCreateAtIsNull() {
             addCriterion("anchor_create_at is null");
             return (Criteria) this;

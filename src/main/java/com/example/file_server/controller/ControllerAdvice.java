@@ -1,6 +1,7 @@
 package com.example.file_server.controller;
 
 import com.example.file_server.exception.AuthenticateException;
+import com.example.file_server.exception.DbActionExcetion;
 import com.example.file_server.utils.ResponseUtil;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -73,6 +74,14 @@ public class ControllerAdvice {
     @ExceptionHandler(AuthenticateException.class)
     public Object authenticateException(AuthenticateException ex) {
         return ResponseUtil.unauthorized("AuthenticateException");
+    }
+
+    /**
+     * 数据库操作异常
+     */
+    @ExceptionHandler(DbActionExcetion.class)
+    public Object dbActionExcetion(AuthenticateException ex) {
+        return ResponseUtil.badRequest("DbActionExcetion");
     }
 
     /**

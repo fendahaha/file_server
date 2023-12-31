@@ -84,6 +84,7 @@ public class AnchorServiceImpl {
         record.setAnchorRemark(form.getAnchorRemark());
         record.setAnchorConfig(form.getAnchorConfig());
         record.setAnchorCreateAt(user.getCreateAt());
+        record.setAnchorFollowers(0);
         int i = anchorMapper.insertSelective(record);
         if (i <= 0) {
             throw new DbActionExcetion("fail");
