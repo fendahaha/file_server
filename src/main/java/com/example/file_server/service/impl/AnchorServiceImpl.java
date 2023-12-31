@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AnchorServiceImpl {
@@ -164,7 +163,7 @@ public class AnchorServiceImpl {
     public List<Anchor> getAnchorByRoomUUID(String uuid) {
         AnchorExample example = new AnchorExample();
         example.createCriteria().andRoomUuidEqualTo(uuid);
-        return anchorMapper.selectByExample(example);
+        return anchorMapper.selectByExampleWithBLOBs(example);
     }
 
     public Anchor getAnchorByUserUuid(String uuid) {
@@ -183,7 +182,7 @@ public class AnchorServiceImpl {
         if (!uuids.isEmpty()) {
             AnchorExample anchorExample = new AnchorExample();
             anchorExample.createCriteria().andAnchorUuidIn(uuids);
-            List<Anchor> anchors1 = anchorMapper.selectByExample(anchorExample);
+            List<Anchor> anchors1 = anchorMapper.selectByExampleWithBLOBs(anchorExample);
             queryUserRooms(anchors1);
             return anchors1;
         }
@@ -197,7 +196,7 @@ public class AnchorServiceImpl {
         List<String> anchor_uuids = onlineStreamManager.get_anchor_uuids();
         AnchorExample example = new AnchorExample();
         example.setOrderByClause("anchor_create_at desc");
-        List<Anchor> anchors = anchorMapper.selectByExample(example);
+        List<Anchor> anchors = anchorMapper.selectByExampleWithBLOBs(example);
         queryUserRooms(anchors);
         List<HashMap<String, Object>> list = anchors.stream().map(e -> {
             HashMap<String, Object> map = new HashMap<>();
@@ -235,7 +234,7 @@ public class AnchorServiceImpl {
                     String anchorUuid = (String) anchorMap.get("anchorUuid");
                     Integer moneySum = giftSendRecords.stream()
                             .filter(giftSendRecord -> giftSendRecord.getAnchorUuid().equals(anchorUuid))
-                            .collect(Collectors.summingInt(GiftSendRecord::getGiftValue));
+                            .mapToInt(GiftSendRecord::getGiftValue).sum();
                     anchorMap.put("moneySum", moneySum);
                     return anchorMap;
                 })
