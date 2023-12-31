@@ -18,11 +18,13 @@ import java.util.List;
 public class FollowsServiceImpl {
     private FollowsMapper followsMapper;
     private AnchorMapper anchorMapper;
+    private AnchorServiceImpl anchorService;
 
     @Autowired
-    public FollowsServiceImpl(FollowsMapper followsMapper, AnchorMapper anchorMapper) {
+    public FollowsServiceImpl(FollowsMapper followsMapper, AnchorMapper anchorMapper, AnchorServiceImpl anchorService) {
         this.followsMapper = followsMapper;
         this.anchorMapper = anchorMapper;
+        this.anchorService = anchorService;
     }
 
     public boolean exist(String clientUserUuid, String anchorUserUuid) {
@@ -87,9 +89,11 @@ public class FollowsServiceImpl {
         example.createCriteria().andClientUserUuidEqualTo(clientUserUuid);
         List<Follows> follows = followsMapper.selectByExample(example);
         List<String> list = follows.stream().map(Follows::getAnchorUserUuid).toList();
-        AnchorExample anchorExample = new AnchorExample();
-        anchorExample.createCriteria().andUserUuidIn(list);
-        return anchorMapper.selectByExampleWithBLOBs(anchorExample);
+
+//        AnchorExample anchorExample = new AnchorExample();
+//        anchorExample.createCriteria().andUserUuidIn(list);
+//        return anchorMapper.selectByExampleWithBLOBs(anchorExample);
+        return anchorService.getAnchorByUserUuids(list);
     }
 
 }

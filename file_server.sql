@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 31/12/2023 19:51:01
+ Date: 31/12/2023 21:08:27
 */
 
 SET NAMES utf8mb4;
@@ -39,7 +39,7 @@ CREATE TABLE `anchor`  (
 -- ----------------------------
 INSERT INTO `anchor` VALUES (34, 'b287203128d14937b1a984860e65d462', 'bfaa09ddbfc048d3b5149dbd6346d0e3', 'adadasdadsa', '{\"covers\": [\"anchor_avatar\\\\1ef86efad35a0e3ddd18e727b53fe7916604f7fbe456d565ad23aecc87c99446.png\", \"anchor_avatar\\\\7786ba2cd5023523f14c4a286078c8d7f17bab55637788c6d9f59aeca3b3ec00.png\", \"anchor_avatar\\\\c0c1a14d537786181f12e4e180b78306f7e9c28a4dadceefb857afd837c56c18.png\", \"anchor_avatar\\\\bf23aeae61bf3bf32b51a594efb2a41912eb078962091f0bed2cc6b5646c8f42.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": 1212, \"anchorWieght\": 12312}', 0, 1, '2023-12-15 16:42:39', 'e094b3807ff246a4b416e5210d7f88c5');
 INSERT INTO `anchor` VALUES (35, '15a107a22d60427e827e4c7af90e369a', '3bafbbde8ab04dfdaf05895eb1e9e609', 'hahah-boobs1', '{\"covers\": [\"anchor_avatar\\\\cccaba5f426738768385e454874e8cbf99817a3ef1ad6115aa062c410b022f90.png\", \"anchor_avatar\\\\fd2ac76e4a82518b5340300abe05e90c4b182d8440c7d591762f58a47c5f8dc4.png\", \"anchor_avatar\\\\5b886484a88b1330243ae3d4493d62aa7589ebbe48a9a1cc0332db88a8debc02.png\", \"anchor_avatar\\\\393cded99c74f6254dcd5bfa81d09053c335fcae0702db81c160e8754465c6f9.png\", \"anchor_avatar\\\\aab465bbcc91e4f54ef5a2fa838db9737595fa87547a08c9c0a39ec3445a4368.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": \"123/234/112\", \"anchorWieght\": 50}', 3300, 1, '2023-12-15 16:42:48', '1efee7cf057540cfb97d4ab42304a7ce');
-INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '小本蛋', '{\"covers\": [\"anchor_avatar\\\\2921e28855e77fd3106bda17cddf73b8cf5b197ca74dc29196aa82e1f2ba5650.png\", \"anchor_avatar\\\\cffb3f43980f5b4ac752c58810212ecb50c164a6d5e827168915fe2613c715db.png\", \"anchor_avatar\\\\c3ea20d79f02ce8829b89a9dae3765fb9da359998fba4506bf564332734dd327.png\", \"anchor_avatar\\\\0cb49868b78116466fd933ef8182d517245db26aefed074e184733ffa35c2398.png\", \"anchor_avatar\\\\91a0385becb1aa3811b86d3199ce021127a5d753e53613642138391bcb4018d6.png\", \"anchor_avatar\\\\64ea3395c236c3c73f8c8cfd7fb6d9b45cddb1f708b2bb43905b6d3b643a3539.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 7500, 1, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
+INSERT INTO `anchor` VALUES (36, 'bf03b2c3fe88412a84a52d18808e58c0', '6cda7ad7dde64894b91f38530514f53d', '小本蛋', '{\"covers\": [\"anchor_avatar\\\\2921e28855e77fd3106bda17cddf73b8cf5b197ca74dc29196aa82e1f2ba5650.png\", \"anchor_avatar\\\\cffb3f43980f5b4ac752c58810212ecb50c164a6d5e827168915fe2613c715db.png\", \"anchor_avatar\\\\c3ea20d79f02ce8829b89a9dae3765fb9da359998fba4506bf564332734dd327.png\", \"anchor_avatar\\\\0cb49868b78116466fd933ef8182d517245db26aefed074e184733ffa35c2398.png\", \"anchor_avatar\\\\91a0385becb1aa3811b86d3199ce021127a5d753e53613642138391bcb4018d6.png\", \"anchor_avatar\\\\64ea3395c236c3c73f8c8cfd7fb6d9b45cddb1f708b2bb43905b6d3b643a3539.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 7500, 0, '2023-12-15 16:42:53', '52360f8449a149fab46739a890d65a6b');
 INSERT INTO `anchor` VALUES (37, 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '63fe49ad01d84fce83f9bde39ea81179', NULL, '{\"covers\": [\"anchor_avatar\\\\f35b46f6d261faf6df6403fa25ffa17734c0a2d0cec96bc9172a064099880aa4.png\", \"anchor_avatar\\\\66d2a56e396a9f9aa20224ddba0d196831260713ec42a1966fc0c403b8e0026b.png\", \"anchor_avatar\\\\f03f7476ccc05abc1ab75b59acf465b0aafd5523384e20ebeb7553541f53134a.png\", \"anchor_avatar\\\\7fc7b67b961ca4f581c5955e855aee7cd61fc9512726d859d1262911676deb57.png\", \"anchor_avatar\\\\75c469704cb9d49137be8af055532b764d1e8aba760b40e142f9c4eb92cc4b01.png\"], \"anchorHeight\": 1231, \"anchorSanwei\": 121, \"anchorWieght\": 1231}', 0, 1, '2023-12-15 16:43:00', '75700f9713f14df09c290f39be48cdf7');
 INSERT INTO `anchor` VALUES (38, 'c224ae4ff27f4e668b68d8f3b537f375', 'fe3dfd9d63ff4bc1b47d2ce041588068', NULL, '{\"covers\": [\"anchor_avatar\\\\f8767bad2e288147bb17c6ee9ff0d47c9c241948b6c28271002170361ac58ccc.png\", \"anchor_avatar\\\\9f5afe9840067f2ee24854fab5c56e78b4e2bce450a960f91853ecefd013d912.png\", \"anchor_avatar\\\\7cafaecec094db26c3817ac4ebd36d29ea7d5639f837afd63d4f2a59a117c6e0.png\", \"anchor_avatar\\\\8e0dc25148e5871d11fbf0f5d8c45b4acb248fb3edcd50d96a65403efd85af7a.png\", \"anchor_avatar\\\\00f113386ca196bdddbde850a8accb0a70592ced666bd2aadfa199e53c1587f7.png\", \"anchor_avatar\\\\a3f2bf9f39785b70786e2e8e14aadf2d67eed7db2c2463ce4341c60eeb57c443.png\"], \"anchorHeight\": 12312, \"anchorSanwei\": \"121211aaa\", \"anchorWieght\": 12312}', 0, 1, '2023-12-15 16:43:11', 'ef3491ce6ebb4e44b50b96395d3769a4');
 
@@ -86,7 +86,7 @@ CREATE TABLE `follows`  (
   `anchor_user_uuid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_at` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of follows
@@ -94,7 +94,6 @@ CREATE TABLE `follows`  (
 INSERT INTO `follows` VALUES (3, '37a56a85f9be4e8e93b72f30cc6ddcca', '15a107a22d60427e827e4c7af90e369a', '2023-12-31 19:35:15');
 INSERT INTO `follows` VALUES (4, '37a56a85f9be4e8e93b72f30cc6ddcca', 'c224ae4ff27f4e668b68d8f3b537f375', '2023-12-31 19:35:28');
 INSERT INTO `follows` VALUES (5, '37a56a85f9be4e8e93b72f30cc6ddcca', 'c10c4d8ec3cf43eaabe1da9d8188aaa4', '2023-12-31 19:35:30');
-INSERT INTO `follows` VALUES (6, '37a56a85f9be4e8e93b72f30cc6ddcca', 'bf03b2c3fe88412a84a52d18808e58c0', '2023-12-31 19:35:32');
 INSERT INTO `follows` VALUES (7, '37a56a85f9be4e8e93b72f30cc6ddcca', 'b287203128d14937b1a984860e65d462', '2023-12-31 19:35:34');
 
 -- ----------------------------

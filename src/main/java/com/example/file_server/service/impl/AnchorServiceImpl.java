@@ -175,6 +175,14 @@ public class AnchorServiceImpl {
         return anchors.get(0);
     }
 
+    public List<Anchor> getAnchorByUserUuids(List<String> uuids) {
+        AnchorExample example = new AnchorExample();
+        example.createCriteria().andUserUuidIn(uuids);
+        List<Anchor> anchors = anchorMapper.selectByExampleWithBLOBs(example);
+        queryUserRooms(anchors);
+        return anchors;
+    }
+
     /**
      * 获取在线主播
      */
