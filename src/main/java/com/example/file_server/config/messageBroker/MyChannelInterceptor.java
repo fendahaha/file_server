@@ -13,7 +13,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -46,26 +45,28 @@ public class MyChannelInterceptor implements ChannelInterceptor {
                 User user = null;
                 if (userUuid != null) {
                     if (!userUuid.equals("undefined") && !userUuid.equals("null")) {
-                        user = userService.getUser(userUuid);
-                        if (user != null) {
-                            User user1 = new User();
-                            user1.setUserUuid(user.getUserUuid());
-                            user1.setUserName(user.getUserName());
-                            user1.setUserType(user.getUserType());
-                            user1.setUserDisplayName(user.getUserDisplayName());
-                            user1.setUserAvatar(user.getUserAvatar());
-                            user1.setUserCountry(user.getUserCountry());
-                            user1.setUserRole(user.getUserRole());
+                        User user1 = userService.getUser(userUuid);
+                        if (user1 != null) {
+                            user = new User();
+                            user.setUserUuid(user1.getUserUuid());
+                            user.setUserName(user1.getUserName());
+                            user.setUserType(user1.getUserType());
+                            user.setUserDisplayName(user1.getUserDisplayName());
+                            user.setUserAvatar(user1.getUserAvatar());
+                            user.setUserCountry(user1.getUserCountry());
+                            user.setUserRole(user1.getUserRole());
                             headerAccessor.setUser(new MyStompPrincipal(user.getUserUuid()));
                         }
                     }
                 }
                 if (PageType.Room.equals(pageType)) {
                     String roomUuid = (String) sessionAttributes.get("roomUuid");
+                    String topic = "/topic/" + roomUuid;
                     onlineUserManager.user_increment(roomUuid, sessionId);
                     if (userUuid != null && user != null) {
                         try {
                             onlineUserManager.put_login_user(roomUuid, userUuid, user);
+                            this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
@@ -93,10 +94,16 @@ public class MyChannelInterceptor implements ChannelInterceptor {
             if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
                 if (PageType.Room.equals(pageType)) {
                     String roomUuid = (String) sessionAttributes.get("roomUuid");
+                    String topic = "/topic/" + roomUuid;
                     onlineUserManager.user_decrement(roomUuid, sessionId);
                     Principal user = headerAccessor.getUser();
                     if (user != null) {
                         onlineUserManager.remove_login_user(roomUuid, userUuid);
+                        try {
+                            this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
+                        } catch (JsonProcessingException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -107,25 +114,25 @@ public class MyChannelInterceptor implements ChannelInterceptor {
 
     @Override
     public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-        StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        if (headerAccessor != null) {
-            try {
-                Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
-                String pageType = (String) sessionAttributes.get("pageType");
-                if (PageType.Room.equals(pageType)) {
-                    String roomUuid = (String) sessionAttributes.get("roomUuid");
-                    String topic = "/topic/" + roomUuid;
-                    if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
-                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
-                    }
-                    if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
-                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
-                    }
-                }
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+//        if (headerAccessor != null) {
+//            try {
+//                Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
+//                String pageType = (String) sessionAttributes.get("pageType");
+//                if (PageType.Room.equals(pageType)) {
+//                    String roomUuid = (String) sessionAttributes.get("roomUuid");
+//                    String topic = "/topic/" + roomUuid;
+//                    if (SimpMessageType.CONNECT.equals(headerAccessor.getMessageType())) {
+//                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserAdd"));
+//                    }
+//                    if (SimpMessageType.DISCONNECT.equals(headerAccessor.getMessageType())) {
+//                        this.template.convertAndSend(topic, MessageType.Room.createMessage("OnlineUserDel"));
+//                    }
+//                }
+//            } catch (JsonProcessingException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
     @Override
