@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-nohup java -jar file_server-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &
+mvn clean package
+nohup java -jar target/file_server-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &
