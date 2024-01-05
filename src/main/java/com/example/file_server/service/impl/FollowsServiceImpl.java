@@ -11,6 +11,7 @@ import com.example.file_server.mapper.FollowsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,10 +90,9 @@ public class FollowsServiceImpl {
         example.createCriteria().andClientUserUuidEqualTo(clientUserUuid);
         List<Follows> follows = followsMapper.selectByExample(example);
         List<String> list = follows.stream().map(Follows::getAnchorUserUuid).toList();
-
-//        AnchorExample anchorExample = new AnchorExample();
-//        anchorExample.createCriteria().andUserUuidIn(list);
-//        return anchorMapper.selectByExampleWithBLOBs(anchorExample);
+        if(list.isEmpty()){
+            return new ArrayList<>();
+        }
         return anchorService.getAnchorByUserUuids(list);
     }
 
