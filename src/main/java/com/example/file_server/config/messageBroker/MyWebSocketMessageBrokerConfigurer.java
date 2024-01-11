@@ -28,7 +28,7 @@ public class MyWebSocketMessageBrokerConfigurer implements WebSocketMessageBroke
         registry.addEndpoint("/chat")
                 .addInterceptors(new HttpSessionHandshakeInterceptor(), new MyHandshakeInterceptor())
                 .setHandshakeHandler(new MyHandshakeHandler())
-                .setAllowedOriginPatterns("http://*:[*]");
+                .setAllowedOriginPatterns("http://*:[*]", "https://*:[*]");
     }
 
     @Override
